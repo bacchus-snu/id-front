@@ -1,4 +1,4 @@
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 import * as z from 'zod';
 
 export function apiUrl(ep: string): URL {
