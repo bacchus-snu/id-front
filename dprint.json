@@ -1,0 +1,18 @@
+{
+  "typescript": {
+    "lineWidth": 100,
+    "useBraces": "always",
+    "quoteStyle": "alwaysSingle",
+    "jsx.quoteStyle": "preferDouble",
+    "arrowFunction.useParentheses": "preferNone"
+  },
+  "includes": [
+    "app/**/*.{ts,tsx,js,jsx,cjs,mjs}",
+    "next.config.js",
+    "postcss.config.js",
+    "tailwind.config.js"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.84.4.wasm"
+  ]
+}
