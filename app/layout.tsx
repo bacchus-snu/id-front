@@ -1,6 +1,8 @@
 import './globals.css';
 import localFont from 'next/font/local';
 
+import Nav from './Nav';
+
 const pretendard = localFont({
   src: './pretendard.woff2',
   display: 'swap',
@@ -18,11 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={'flex flex-col min-h-screen ' + pretendard.className}>
-        <nav className="flex-none flex flex-row p-4 bg-orange-800">
-          <h1 className="text-xl">Bacchus ID</h1>
-        </nav>
-        <main className="md:container md:mx-auto flex-1 flex flex-col items-center p-16">
+      <body className={'dark:bg-black dark:text-white flex flex-col min-h-screen ' + pretendard.className}>
+        <Nav />
+        <main className="max-w-screen-md self-center flex-1 flex flex-col items-stretch p-16">
           {children}
         </main>
       </body>

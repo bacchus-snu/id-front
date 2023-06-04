@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { type ChangeEvent, type FormEvent, useState } from 'react';
+import { mutate } from 'swr';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -39,6 +40,7 @@ export default function LoginForm() {
       return;
     }
 
+    mutate('/api/check-login');
     router.push('/');
   }
 
@@ -61,8 +63,8 @@ export default function LoginForm() {
           onChange={handlePasswordChange}
         />
       </label>
-      <button className="border rounded" type="submit">
-        Login
+      <button className="font-bold border rounded" type="submit">
+        로그인
       </button>
     </form>
   );
