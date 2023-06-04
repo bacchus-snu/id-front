@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 
-import Button from '../Button';
 import type { Group } from '../api';
+import Button from '../Button';
 
 type Props = {
   group: Group;
