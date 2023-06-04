@@ -1,10 +1,16 @@
+import { redirect } from 'next/navigation';
+
 import { checkLogin } from './api';
 
 export default async function Home() {
   const loginInfo = await checkLogin();
+  if (!loginInfo.loggedIn) {
+    redirect('/login');
+  }
+
   return (
     <p>
-      {loginInfo.loggedIn ? loginInfo.username : '로그인되지 않음'}
+      {loginInfo.username}
     </p>
   );
 }
