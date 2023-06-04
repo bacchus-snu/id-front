@@ -31,7 +31,7 @@ export default function ChangePasswordForm(props: Props) {
           </option>
         ))}
       </select>
-      <Button className="w-full max-w-[8rem]" type="submit" color="primary">
+      <Button className="w-full max-w-[8rem] font-bold" type="submit" color="primary">
         변경 신청
       </Button>
     </form>

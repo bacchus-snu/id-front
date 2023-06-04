@@ -19,7 +19,7 @@ export default async function Groups() {
       </p>
       <div className="flex flex-col items-end mt-2">
         <Link className="w-full max-w-[8rem]" href="/group">
-          <Button className="w-full" type="button" color="primary">
+          <Button className="w-full font-bold" type="button" color="primary">
             그룹 관리
           </Button>
         </Link>

@@ -5,7 +5,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: ReactNode;
 };
 export default function Button(props: Props) {
-  let buttonClasses = 'p-1 font-bold transition-colors hover:bg-black/10 dark:hover:bg-white/10 ';
+  let buttonClasses = 'p-1 transition-colors hover:bg-black/10 dark:hover:bg-white/10 ';
   switch (props.color) {
     case 'primary':
       buttonClasses += 'text-sky-700 border-sky-700 dark:text-sky-300 dark:border-sky-300 ';
