@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 import type { Email } from './api';
+import Button from './Button';
 
 type Props = {
   emails: Email[];
@@ -30,9 +31,9 @@ export default function ChangePasswordForm(props: Props) {
           </option>
         ))}
       </select>
-      <button className="w-full max-w-[8rem] font-bold border rounded p-1" type="submit">
+      <Button className="w-full max-w-[8rem]" type="submit" color="primary">
         변경 신청
-      </button>
+      </Button>
     </form>
   );
 }

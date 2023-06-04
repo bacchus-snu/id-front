@@ -20,7 +20,7 @@ export default function Nav() {
   });
 
   return (
-    <nav className="flex-none flex flex-row items-center p-4 bg-orange-800">
+    <nav className="flex-none flex flex-row items-center p-4 bg-sky-300 dark:bg-sky-700">
       <h1 className="text-xl">Bacchus ID</h1>
       <div className="flex-1" />
       {!error && data && (

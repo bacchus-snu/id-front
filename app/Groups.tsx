@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { listGroups } from './api';
+import Button from './Button';
 
 export default async function Groups() {
   const groups = await listGroups();
@@ -18,9 +19,9 @@ export default async function Groups() {
       </p>
       <div className="flex flex-col items-end mt-2">
         <Link className="w-full max-w-[8rem]" href="/group">
-          <button className="w-full font-bold border rounded p-1" type="button">
+          <Button className="w-full" type="button" color="primary">
             그룹 관리
-          </button>
+          </Button>
         </Link>
       </div>
     </section>
