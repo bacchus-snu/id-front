@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent, type ChangeEvent } from 'react';
+import { type ChangeEvent, type FormEvent, useState } from 'react';
 import type { Email } from './api';
 
 type Props = {
