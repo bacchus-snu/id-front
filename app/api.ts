@@ -37,6 +37,7 @@ const listGroupsSchema = z.array(
   }),
 );
 export type Group = {
+  idx: number;
   name: string;
   description: string;
   pending: boolean;
@@ -55,6 +56,7 @@ export async function listGroups(): Promise<Group[]> {
 
   const body = listGroupsSchema.parse(await resp.json());
   return body.map(value => ({
+    idx: value.idx,
     name: value.name.ko ?? '',
     description: value.description.ko ?? '',
     pending: value.isPending,

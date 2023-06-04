@@ -20,9 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={'dark:bg-black dark:text-white flex flex-col min-h-screen ' + pretendard.className}>
+      <body className={'dark:bg-black dark:text-white flex flex-col items-stretch min-h-screen ' + pretendard.className}>
         <Nav />
-        <main className="max-w-screen-md self-center flex-1 flex flex-col items-stretch p-16">
+        <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch p-16">
           {children}
         </main>
       </body>
