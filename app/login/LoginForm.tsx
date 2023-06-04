@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 import { mutate } from 'swr';
+import Button from '../Button';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -45,9 +46,9 @@ export default function LoginForm() {
   }
 
   return (
-    <form className="flex flex-col items-stretch space-y-1 w-80" onSubmit={handleSubmit}>
+    <form className="flex flex-col items-stretch space-y-1 w-full max-w-xs mx-auto" onSubmit={handleSubmit}>
       <label className="flex flex-row">
-        <div className="w-20 flex-none">Username</div>
+        <div className="w-20 flex-none text-right mr-2">Username</div>
         <input
           className="min-w-0 flex-1 bg-transparent border"
           value={username}
@@ -55,7 +56,7 @@ export default function LoginForm() {
         />
       </label>
       <label className="flex flex-row">
-        <div className="w-20 flex-none">Password</div>
+        <div className="w-20 flex-none text-right mr-2">Password</div>
         <input
           className="min-w-0 flex-1 bg-transparent border"
           type="password"
@@ -63,9 +64,9 @@ export default function LoginForm() {
           onChange={handlePasswordChange}
         />
       </label>
-      <button className="font-bold border rounded" type="submit">
+      <Button className="font-bold" type="submit">
         로그인
-      </button>
+      </Button>
     </form>
   );
 }
