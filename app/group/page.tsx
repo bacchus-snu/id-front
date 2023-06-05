@@ -13,7 +13,7 @@ export default async function Group() {
 
   return (
     <section className="space-y-2">
-      <h2 className="text-center text-xl font-bold">그룹 관리</h2>
+      <h2 className="text-h2 text-center">그룹 관리</h2>
       {groups.map(group => <GroupItem key={group.idx} group={group} />)}
     </section>
   );

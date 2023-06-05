@@ -43,7 +43,7 @@ export default function ChangePasswordForm(props: Props) {
         ))}
       </select>
       <Button
-        className="w-32 flex-0 font-bold"
+        className="flex-0 w-32 font-bold"
         color="primary"
         type="submit"
         disabled={requestPending}

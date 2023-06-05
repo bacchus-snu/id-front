@@ -10,4 +10,20 @@ html[lang=ko] {
   *, ::before, ::after {
     @apply border-black/90 dark:border-white/90;
   }
+
+  .text-dimmed {
+    @apply text-black/50 dark:text-white/75;
+  }
+
+  .text-h2 {
+    @apply text-xl font-bold;
+  }
+
+  .text-h3 {
+    @apply text-lg font-bold;
+  }
+
+  .text-important {
+    @apply text-accent-500 dark:text-accent-400;
+  }
 }
