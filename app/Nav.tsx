@@ -1,23 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import useSWR from 'swr';
 
 import fetcher from './fetcher';
 
 export default function Nav() {
   const { data, error } = useSWR('/api/check-login', fetcher, { shouldRetryOnError: false });
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (error && pathname !== '/login') {
-      router.push('/login');
-      router.refresh();
-    }
-  });
 
   return (
     <nav className="flex-none flex flex-row items-center p-4 bg-sky-300 dark:bg-sky-700">

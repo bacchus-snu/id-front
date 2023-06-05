@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { type ChangeEvent, type FormEvent, useState } from 'react';
-import { mutate } from 'swr';
+
 import Button from '../Button';
+import { revalidateSession } from '../login';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function LoginForm() {
       return;
     }
 
-    mutate('/api/check-login');
+    revalidateSession();
     router.push('/');
   }
 

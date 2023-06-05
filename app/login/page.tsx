@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 
 import { checkLogin } from '../api';
-import LoginForm from './LoginForm';
 
 export default async function Login() {
   const loginInfo = await checkLogin();
@@ -9,5 +8,5 @@ export default async function Login() {
     redirect('/');
   }
 
-  return <LoginForm />;
+  return null;
 }
