@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 
 import Button from '../Button';
 import { revalidateSession } from '../login';
 
 export default function LoginForm() {
-  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -43,7 +41,6 @@ export default function LoginForm() {
     }
 
     revalidateSession();
-    router.push('/');
   }
 
   return (
