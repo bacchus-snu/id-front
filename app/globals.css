@@ -5,3 +5,9 @@
 html[lang=ko] {
   word-break: keep-all;
 }
+
+@layer base {
+  *, ::before, ::after {
+    @apply border-black/90 dark:border-white/90;
+  }
+}

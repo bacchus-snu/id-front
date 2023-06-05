@@ -10,7 +10,7 @@ export default async function Groups() {
   return (
     <section className="border rounded p-2">
       <h2 className="text-xl font-bold mb-2">그룹 관리</h2>
-      <p className="text-rose-500 dark:text-rose-400">
+      <p className="text-accent-500 dark:text-accent-400">
         복부전생, 연합전공, 연계전공을 포함한 모든 컴퓨터공학부 구성원은 &lsquo;컴퓨터공학
         전공&rsquo; 그룹에 가입 신청해야 합니다.
       </p>

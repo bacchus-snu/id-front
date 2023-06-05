@@ -27,7 +27,8 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={'dark:bg-black dark:text-white flex flex-col items-stretch min-h-screen '
+        className={'bg-slate-50 text-black dark:bg-slate-900 dark:text-white '
+          + 'flex flex-col items-stretch min-h-screen '
           + pretendard.className}
       >
         <CheckSession />

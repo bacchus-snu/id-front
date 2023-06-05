@@ -29,7 +29,7 @@ export default function GroupItem(props: Props) {
         <h3 className="text-lg font-bold">{group.name}</h3>
         {joinState}
       </div>
-      <p className="text-black/75 dark:text-white/75">
+      <p className="text-black/50 dark:text-white/75">
         {group.description}
       </p>
       <div className="flex flex-row-reverse gap-2 mt-2">
