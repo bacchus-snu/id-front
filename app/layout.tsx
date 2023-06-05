@@ -33,7 +33,7 @@ export default async function RootLayout({
       >
         <CheckSession />
         <Nav />
-        <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch p-16">
+        <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
           {loginResp.loggedIn ? children : login}
         </main>
       </body>

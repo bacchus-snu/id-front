@@ -8,7 +8,8 @@ type Props = {
   emails: Email[];
 };
 export default function ChangePasswordForm(props: Props) {
-  const [selectedEmail, setSelectedEmail] = useState('none');
+  const [selectedEmail, setSelectedEmail] = useState('0');
+  const [requestPending, setRequestPending] = useState(false);
 
   function handleEmailChange(e: ChangeEvent<HTMLSelectElement>) {
     setSelectedEmail(e.target.value);
@@ -16,22 +17,37 @@ export default function ChangePasswordForm(props: Props) {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    const email = props.emails[parseInt(selectedEmail, 10)];
+    if (email == null) {
+      return;
+    }
+
+    setRequestPending(true);
+    window.setTimeout(() => {
+      setRequestPending(false);
+    }, 1000);
+    console.log(email);
   }
 
   return (
-    <form className="flex flex-col items-end space-y-1 mt-2" onSubmit={handleSubmit}>
+    <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
       <select
-        className="self-stretch bg-transparent border rounded p-1"
+        className="w-full flex-none sm:flex-1 bg-transparent border rounded p-1"
         value={selectedEmail}
         onChange={handleEmailChange}
       >
-        {props.emails.map(({ local, domain }) => (
-          <option key={`${local}@${domain}`} value={`${local}@${domain}`}>
+        {props.emails.map(({ local, domain }, idx) => (
+          <option key={`${local}@${domain}`} value={String(idx)}>
             {local}@{domain}
           </option>
         ))}
       </select>
-      <Button className="w-full max-w-[8rem] font-bold" type="submit" color="primary">
+      <Button
+        className="w-32 flex-0 font-bold"
+        color="primary"
+        type="submit"
+        disabled={requestPending}
+      >
         변경 신청
       </Button>
     </form>
