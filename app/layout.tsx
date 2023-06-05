@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import { checkLogin } from './api';
 import CheckSession from './CheckSession';
 import Nav from './Nav';
+import NotificationProvider from './NotificationContext';
 
 const pretendard = localFont({
   src: './pretendard.woff2',
@@ -31,11 +32,13 @@ export default async function RootLayout({
           + 'flex flex-col items-stretch min-h-screen '
           + pretendard.className}
       >
-        <CheckSession />
-        <Nav />
-        <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
-          {loginResp.loggedIn ? children : login}
-        </main>
+        <NotificationProvider>
+          <CheckSession />
+          <Nav />
+          <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
+            {loginResp.loggedIn ? children : login}
+          </main>
+        </NotificationProvider>
       </body>
     </html>
   );

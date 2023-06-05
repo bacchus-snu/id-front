@@ -4,10 +4,13 @@ import { type ChangeEvent, type FormEvent, useState } from 'react';
 
 import Button from '../Button';
 import { revalidateSession } from '../login';
+import { useToast } from '../NotificationContext';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginPending, setLoginPending] = useState(false);
+  const showToast = useToast();
 
   function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
@@ -19,10 +22,14 @@ export default function LoginForm() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (loginPending) {
+      return;
+    }
     if (username === '' || password === '') {
       return;
     }
 
+    setLoginPending(true);
     const resp = await fetch('/api/login', {
       method: 'post',
       body: JSON.stringify({
@@ -36,7 +43,11 @@ export default function LoginForm() {
     });
 
     if (!resp.ok) {
-      console.error(resp);
+      showToast({
+        type: 'error',
+        message: '로그인에 실패했습니다.',
+      });
+      setLoginPending(false);
       return;
     }
 
@@ -53,6 +64,7 @@ export default function LoginForm() {
         <input
           className="min-w-0 flex-1 bg-transparent border"
           value={username}
+          required
           onChange={handleUsernameChange}
         />
       </label>
@@ -62,10 +74,11 @@ export default function LoginForm() {
           className="min-w-0 flex-1 bg-transparent border"
           type="password"
           value={password}
+          required
           onChange={handlePasswordChange}
         />
       </label>
-      <Button className="font-bold" type="submit">
+      <Button className="font-bold" type="submit" disabled={loginPending}>
         로그인
       </Button>
     </form>
