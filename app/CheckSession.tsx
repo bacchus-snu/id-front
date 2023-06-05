@@ -1,19 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
-import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+import useSWR from 'swr';
 
 import fetcher from './fetcher';
 
 export default function CheckSession() {
   const { error } = useSWR('/api/check-login', fetcher, { shouldRetryOnError: false });
   const router = useRouter();
-  const notLoggedIn = Boolean(error)
+
+  const loggedIn = !Boolean(error);
+  const prevLoginState = useRef(loggedIn);
 
   useEffect(() => {
-    router.refresh();
-  }, [notLoggedIn]);
+    if (prevLoginState.current !== loggedIn) {
+      prevLoginState.current = loggedIn;
+      router.refresh();
+    }
+  }, [router, loggedIn]);
 
   return null;
 }
