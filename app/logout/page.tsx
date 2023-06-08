@@ -9,7 +9,7 @@ export default function Logout() {
   const router = useRouter();
   useEffect(() => {
     (async () => {
-      await fetch('/api/logout');
+      await fetch('/api/logout', { method: 'post' });
       revalidateSession();
       router.push('/');
       // https://github.com/vercel/next.js/issues/42991
