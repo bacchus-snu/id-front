@@ -86,3 +86,31 @@ export async function listUserEmails(): Promise<Email[]> {
   const body = listUserEmailsSchema.parse(await resp.json());
   return body.emails;
 }
+
+export class ForbiddenError extends Error {
+  constructor(message?: string) {
+    super(message);
+  }
+}
+
+const groupMemberSchema = z.object({
+  uid: z.number(),
+  name: z.string(),
+  studentNumber: z.string(),
+});
+export type GroupMember = z.infer<typeof groupMemberSchema>;
+export async function listGroupMembers(groupIdx: string): Promise<GroupMember[]> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl(`/api/group/${groupIdx}/members`), {
+    headers: { cookie },
+  });
+  if (resp.status === 401) {
+    throw new ForbiddenError('그룹 관리자가 아닙니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('그룹 멤버 목록을 가져오는 데 실패했습니다.');
+  }
+
+  const body = z.array(groupMemberSchema).parse(await resp.json());
+  return body;
+}

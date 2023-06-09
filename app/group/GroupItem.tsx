@@ -35,7 +35,7 @@ export default function GroupItem(props: Props) {
       <div className="flex flex-row-reverse gap-2 mt-2">
         {joinButton}
         {group.owner && (
-          <Link className="flex-0 w-24" href={`/group/${group.idx}/admin`}>
+          <Link className="flex-0 w-24" href={`/group/${group.idx}/members`}>
             <Button className="w-full">관리</Button>
           </Link>
         )}
