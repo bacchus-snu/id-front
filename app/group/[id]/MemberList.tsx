@@ -99,6 +99,23 @@ export default function MemberList(props: Props) {
       setRemoveInProgress(false);
     }
 
+    if (action === 'accept') {
+      showToast({
+        type: 'info',
+        message: `${selectedCount}명의 신청을 승인했습니다.`,
+      });
+    } else if (kind === 'members') {
+      showToast({
+        type: 'info',
+        message: `${selectedCount}명을 그룹에서 제외했습니다.`,
+      });
+    } else {
+      showToast({
+        type: 'info',
+        message: `${selectedCount}명의 신청을 거절했습니다.`,
+      });
+    }
+
     dispatch({ type: 'reset' });
     router.refresh();
   }
