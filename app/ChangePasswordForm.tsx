@@ -1,23 +1,29 @@
 'use client';
 
-import { type ChangeEvent, type FormEvent, useState } from 'react';
+import { useState } from 'react';
+
 import type { Email } from './api';
 import Button from './Button';
 
 type Props = {
-  emails: Email[];
+  emails?: Email[];
 };
 export default function ChangePasswordForm(props: Props) {
+  const { emails } = props;
   const [selectedEmail, setSelectedEmail] = useState('0');
   const [requestPending, setRequestPending] = useState(false);
 
-  function handleEmailChange(e: ChangeEvent<HTMLSelectElement>) {
+  function handleEmailChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelectedEmail(e.target.value);
   }
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const email = props.emails[parseInt(selectedEmail, 10)];
+    if (emails == null) {
+      return;
+    }
+
+    const email = emails[parseInt(selectedEmail, 10)];
     if (email == null) {
       return;
     }
@@ -29,24 +35,37 @@ export default function ChangePasswordForm(props: Props) {
     console.log(email);
   }
 
+  let emailOptions;
+  if (emails == null) {
+    emailOptions = (
+      <option value="0">불러오는 중...</option>
+    );
+  } else {
+    emailOptions = emails.map(({ local, domain }, idx) => (
+      <option key={`${local}@${domain}`} value={String(idx)}>
+        {local}@{domain}
+      </option>
+    ));
+  }
+
   return (
     <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
       <select
-        className="w-full flex-none sm:flex-1 bg-transparent border rounded p-1"
+        className={
+          'w-full flex-none sm:flex-1 bg-transparent border rounded p-1 '
+            + (emails == null ? 'opacity-50' : '')
+        }
         value={selectedEmail}
+        disabled={emails == null}
         onChange={handleEmailChange}
       >
-        {props.emails.map(({ local, domain }, idx) => (
-          <option key={`${local}@${domain}`} value={String(idx)}>
-            {local}@{domain}
-          </option>
-        ))}
+        {emailOptions}
       </select>
       <Button
         className="flex-0 w-32 font-bold"
         color="primary"
         type="submit"
-        disabled={requestPending}
+        disabled={emails == null || requestPending}
       >
         변경 신청
       </Button>
