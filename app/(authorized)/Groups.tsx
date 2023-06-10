@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-import { Group, listGroups } from './api';
-import Button from './Button';
+import { Group, listGroups } from '@/api';
+import Button from '@/components/Button';
 
 export default function Groups() {
   const groupPromise = listGroups();

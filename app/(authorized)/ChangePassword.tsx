@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
-import { Email, listUserEmails } from './api';
+import { Email, listUserEmails } from '@/api';
+
 import ChangePasswordForm from './ChangePasswordForm';
 
 export default function ChangePassword() {

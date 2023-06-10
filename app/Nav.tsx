@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 
-import fetcher from './fetcher';
+import fetcher from '@/api/fetcher';
 
 export default function Nav() {
   const { data, error } = useSWR('/api/check-login', fetcher, { shouldRetryOnError: false });

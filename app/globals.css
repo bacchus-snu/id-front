@@ -23,6 +23,10 @@ html[lang=ko] {
     @apply text-lg font-bold;
   }
 
+  .text-link {
+    @apply text-primary-500 dark:text-primary-400;
+  }
+
   .text-important {
     @apply text-accent-500 dark:text-accent-400;
   }

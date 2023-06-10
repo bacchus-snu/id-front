@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
-import { listGroups } from '../api';
+import { listGroups } from '@/api';
+
 import GroupItem from './GroupItem';
 
 export default async function Group() {

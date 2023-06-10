@@ -3,10 +3,10 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useDeferredValue, useMemo, useReducer, useState } from 'react';
 
-import { GroupMember } from '@/app/api';
-import Button from '@/app/Button';
-
+import { GroupMember } from '@/api';
 import { useToast } from '@/app/NotificationContext';
+import Button from '@/components/Button';
+
 import MemberItem from './MemberItem';
 
 type CheckedItemsAction =

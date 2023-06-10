@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
 
-import fetcher from './fetcher';
+import fetcher from '@/api/fetcher';
 
 export default function CheckSession() {
   const { error } = useSWR('/api/check-login', fetcher, { shouldRetryOnError: false });

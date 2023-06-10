@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { GroupMember } from '@/app/api';
+import { GroupMember } from '@/api';
 
 type Props = GroupMember & {
   checked?: boolean;

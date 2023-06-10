@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import type { Email } from './api';
-import Button from './Button';
+import type { Email } from '@/api';
+import Button from '@/components/Button';
 
 type Props = {
   emails?: Email[];

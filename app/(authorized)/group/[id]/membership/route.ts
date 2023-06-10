@@ -8,7 +8,7 @@ import {
   ForbiddenError,
   leaveGroup,
   rejectOrRemoveGroupMembers,
-} from '@/app/api';
+} from '@/api';
 
 const bodySchema = z.intersection(
   z.object({ action: z.union([z.literal('add'), z.literal('remove')]) }),

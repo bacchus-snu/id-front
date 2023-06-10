@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 
-import { checkLogin } from './api';
+import { checkLogin } from '@/api';
+
 import ChangePassword from './ChangePassword';
 import Groups from './Groups';
 

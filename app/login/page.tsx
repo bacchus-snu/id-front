@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { checkLogin } from '../api';
+import { checkLogin } from '@/api';
 
 export default async function Login() {
   const loginInfo = await checkLogin();

@@ -1,4 +1,5 @@
-import { ForbiddenError, listPendingGroupMembers } from '@/app/api';
+import { ForbiddenError, listGroupMembers } from '@/api';
+
 import MemberList from '../MemberList';
 
 type Props = {
@@ -6,11 +7,11 @@ type Props = {
     id: string;
   };
 };
-export default async function Pending(props: Props) {
+export default async function Members(props: Props) {
   const { id } = props.params;
   let members;
   try {
-    members = await listPendingGroupMembers(id);
+    members = await listGroupMembers(id);
   } catch (e) {
     if (e instanceof ForbiddenError) {
       return <div className="mt-4">{e.message}</div>;
@@ -20,7 +21,7 @@ export default async function Pending(props: Props) {
 
   return (
     <div className="mt-4">
-      <MemberList kind="pending" members={members} />
+      <MemberList kind="members" members={members} />
     </div>
   );
 }

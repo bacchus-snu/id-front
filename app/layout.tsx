@@ -1,7 +1,6 @@
 import './globals.css';
 import localFont from 'next/font/local';
 
-import { checkLogin } from './api';
 import CheckSession from './CheckSession';
 import Nav from './Nav';
 import NotificationProvider from './NotificationContext';
@@ -18,13 +17,9 @@ export const metadata = {
 
 export default async function RootLayout({
   children,
-  login,
 }: {
   children: React.ReactNode;
-  login: React.ReactNode;
 }) {
-  const loginResp = await checkLogin();
-
   return (
     <html lang="ko">
       <body
@@ -36,7 +31,7 @@ export default async function RootLayout({
           <CheckSession />
           <Nav />
           <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
-            {loginResp.loggedIn ? children : login}
+            {children}
           </main>
         </NotificationProvider>
       </body>

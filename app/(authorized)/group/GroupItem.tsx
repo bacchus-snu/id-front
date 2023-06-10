@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import type { Group } from '../api';
-import Button from '../Button';
-import { useToast } from '../NotificationContext';
+import type { Group } from '@/api';
+import { useToast } from '@/app/NotificationContext';
+import Button from '@/components/Button';
 
 enum MembershipState {
   None = 'none',

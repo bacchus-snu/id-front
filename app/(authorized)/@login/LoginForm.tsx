@@ -2,9 +2,9 @@
 
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 
-import Button from '../Button';
-import { revalidateSession } from '../login';
-import { useToast } from '../NotificationContext';
+import { revalidateSession } from '@/api/login';
+import { useToast } from '@/app/NotificationContext';
+import Button from '@/components/Button';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
