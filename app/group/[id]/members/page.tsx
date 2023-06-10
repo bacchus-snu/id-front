@@ -1,4 +1,5 @@
 import { ForbiddenError, listGroupMembers } from '@/app/api';
+import MemberList from './MemberList';
 
 type Props = {
   params: {
@@ -23,11 +24,7 @@ export default async function Members(props: Props) {
 
   return (
     <section className="mt-4">
-      <ul>
-        {members.map(member => (
-          <li key={member.uid}>{member.studentNumber} {member.name}</li>
-        ))}
-      </ul>
+      <MemberList members={members} />
     </section>
   );
 }
