@@ -30,6 +30,6 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ vars.ECR_URL }}/${{ vars.IMAGE_NAME }}:latest # TODO : apply appropriate tag
+          tags: ${{ vars.ECR_URL }}/${{ vars.IMAGE_NAME }}:next # TODO : apply appropriate tag
           cache-from: type=gha
           cache-to: type=gha,mode=max
