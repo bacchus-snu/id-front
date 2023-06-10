@@ -211,3 +211,63 @@ export async function rejectOrRemoveGroupMembers(groupIdx: string, uid: number[]
 
   revalidateTag(`group/${groupIdx}`);
 }
+
+const signupEmailSchema = z.object({
+  emailLocal: z.string(),
+  emailDomain: z.string(),
+});
+export type SignupEmail = z.infer<typeof signupEmailSchema>;
+export async function signupSendEmail(email: SignupEmail): Promise<void> {
+  const resp = await fetch(apiUrl('/api/email/verify'), {
+    method: 'post',
+    body: JSON.stringify(email),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+  if (!resp.ok) {
+    throw new Error('메일 전송에 실패했습니다.');
+  }
+}
+
+export async function checkEmailToken(token: string): Promise<SignupEmail> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl('/api/email/check-token'), {
+    method: 'post',
+    body: JSON.stringify({ token }),
+    headers: {
+      'content-type': 'application/json',
+      cookie,
+    },
+  });
+  if (!resp.ok) {
+    throw new Error('토큰 확인에 실패했습니다.');
+  }
+
+  const body = signupEmailSchema.parse(await resp.json());
+  return body;
+}
+
+type CreateUserInfo = {
+  username: string;
+  name: string;
+  password: string;
+  preferredLanguage: string;
+};
+export async function createUser(info: CreateUserInfo): Promise<void> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl('/api/user'), {
+    method: 'post',
+    body: JSON.stringify(info),
+    headers: {
+      'content-type': 'application/json',
+      cookie,
+    },
+  });
+  if (resp.status === 401) {
+    throw new ForbiddenError('토큰 확인에 실패했습니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('유저 생성에 실패했습니다.');
+  }
+}
