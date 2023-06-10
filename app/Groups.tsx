@@ -37,7 +37,5 @@ async function JoinedGroupList(props: { groups?: Promise<Group[]> }) {
   }
 
   const joinedGroups = groups.filter(value => value.joined).map(value => value.name);
-  return (
-    <strong>{joinedGroups.join(', ')}</strong>
-  );
+  return <strong>{joinedGroups.join(', ')}</strong>;
 }

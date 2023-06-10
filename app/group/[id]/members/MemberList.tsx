@@ -6,13 +6,12 @@ import { useDeferredValue, useMemo, useReducer, useState } from 'react';
 import { GroupMember } from '@/app/api';
 import Button from '@/app/Button';
 
+import { useToast } from '@/app/NotificationContext';
 import MemberItem from './MemberItem';
-import {useToast} from '@/app/NotificationContext';
 
 type CheckedItemsAction =
   | { type: 'update'; key: number; checked: boolean }
-  | { type: 'reset' }
-;
+  | { type: 'reset' };
 type Props = {
   members: GroupMember[];
 };
@@ -53,7 +52,7 @@ export default function MemberList(props: Props) {
       return members.filter(
         ({ name, studentNumber }) => (
           name.includes(deferredQuery) || studentNumber.includes(deferredQuery)
-        )
+        ),
       );
     },
     [members, deferredQuery],

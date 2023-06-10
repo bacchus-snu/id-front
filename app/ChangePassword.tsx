@@ -20,7 +20,5 @@ export default function ChangePassword() {
 
 async function ChangePasswordFormWrapper(props: { emails?: Promise<Email[]> }) {
   const emails = await props.emails;
-  return (
-    <ChangePasswordForm emails={emails} />
-  );
+  return <ChangePasswordForm emails={emails} />;
 }

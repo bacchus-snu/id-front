@@ -17,7 +17,5 @@ export default function Logout() {
     })();
   });
 
-  return (
-    <p className="text-center">로그아웃 중...</p>
-  );
+  return <p className="text-center">로그아웃 중...</p>;
 }

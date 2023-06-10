@@ -37,9 +37,7 @@ export default function ChangePasswordForm(props: Props) {
 
   let emailOptions;
   if (emails == null) {
-    emailOptions = (
-      <option value="0">불러오는 중...</option>
-    );
+    emailOptions = <option value="0">불러오는 중...</option>;
   } else {
     emailOptions = emails.map(({ local, domain }, idx) => (
       <option key={`${local}@${domain}`} value={String(idx)}>
@@ -51,10 +49,8 @@ export default function ChangePasswordForm(props: Props) {
   return (
     <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
       <select
-        className={
-          'w-full flex-none sm:flex-1 bg-transparent border rounded p-1 '
-            + (emails == null ? 'opacity-50' : '')
-        }
+        className={'w-full flex-none sm:flex-1 bg-transparent border rounded p-1 '
+          + (emails == null ? 'opacity-50' : '')}
         value={selectedEmail}
         disabled={emails == null}
         onChange={handleEmailChange}
