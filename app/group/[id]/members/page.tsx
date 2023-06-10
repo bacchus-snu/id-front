@@ -1,5 +1,5 @@
 import { ForbiddenError, listGroupMembers } from '@/app/api';
-import MemberList from './MemberList';
+import MemberList from '../MemberList';
 
 type Props = {
   params: {
@@ -13,18 +13,14 @@ export default async function Members(props: Props) {
     members = await listGroupMembers(id);
   } catch (e) {
     if (e instanceof ForbiddenError) {
-      return (
-        <section className="mt-4">
-          <div>{e.message}</div>
-        </section>
-      );
+      return <div className="mt-4">{e.message}</div>;
     }
     throw e;
   }
 
   return (
-    <section className="mt-4">
-      <MemberList members={members} />
-    </section>
+    <div className="mt-4">
+      <MemberList kind="members" members={members} />
+    </div>
   );
 }

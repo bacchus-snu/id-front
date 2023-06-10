@@ -119,6 +119,45 @@ export async function listGroupMembers(groupIdx: string): Promise<GroupMember[]>
   return body;
 }
 
+export async function listPendingGroupMembers(groupIdx: string): Promise<GroupMember[]> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl(`/api/group/${groupIdx}/pending`), {
+    next: {
+      tags: [`group/${groupIdx}`],
+    },
+    headers: { cookie },
+  });
+  if (resp.status === 401) {
+    throw new ForbiddenError('그룹 관리자가 아닙니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('그룹 멤버 목록을 가져오는 데 실패했습니다.');
+  }
+
+  const body = z.array(groupMemberSchema).parse(await resp.json());
+  return body;
+}
+
+export async function acceptPendingGroupMembers(groupIdx: string, uid: number[]): Promise<void> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl(`/api/group/${groupIdx}/accept`), {
+    method: 'post',
+    body: JSON.stringify(uid),
+    headers: {
+      'content-type': 'application/json',
+      cookie,
+    },
+  });
+  if (resp.status === 401) {
+    throw new ForbiddenError('그룹 관리자가 아닙니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('그룹 멤버 승인에 실패했습니다.');
+  }
+
+  revalidateTag(`group/${groupIdx}`);
+}
+
 export async function rejectOrRemoveGroupMembers(groupIdx: string, uid: number[]): Promise<void> {
   const cookie = headers().get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/reject`), {

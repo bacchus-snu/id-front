@@ -13,10 +13,11 @@ type CheckedItemsAction =
   | { type: 'update'; key: number; checked: boolean }
   | { type: 'reset' };
 type Props = {
+  kind: 'members' | 'pending';
   members: GroupMember[];
 };
 export default function MemberList(props: Props) {
-  const { members } = props;
+  const { kind, members } = props;
   const { id } = useParams();
   const router = useRouter();
   const showToast = useToast();
@@ -62,19 +63,21 @@ export default function MemberList(props: Props) {
     setQuery(e.target.value);
   }
 
-  async function handleClickRemove() {
+  async function handleMembership(action: 'accept' | 'reject') {
     if (selectedCount <= 0) {
       return;
     }
 
+    const uid = members
+      .map(member => member.uid)
+      .filter(uid => Boolean(checkedItems[uid]));
+
     try {
       setRemoveInProgress(true);
-      const membersToRemove = members
-        .map(member => member.uid)
-        .filter(uid => Boolean(checkedItems[uid]));
-      const resp = await fetch(`/group/${id}/reject`, {
+      const endpoint = action === 'accept' ? `/group/${id}/accept` : `/group/${id}/reject`;
+      const resp = await fetch(endpoint, {
         method: 'post',
-        body: JSON.stringify(membersToRemove),
+        body: JSON.stringify(uid),
         credentials: 'same-origin',
         headers: {
           'content-type': 'application/json',
@@ -100,18 +103,48 @@ export default function MemberList(props: Props) {
     router.refresh();
   }
 
+  let controlButtons;
+  if (kind === 'members') {
+    controlButtons = (
+      <Button
+        className="flex-0 w-32"
+        color="accent"
+        type="button"
+        disabled={selectedCount <= 0 || removeInProgress}
+        onClick={() => handleMembership('reject')}
+      >
+        그룹에서 제외
+      </Button>
+    );
+  } else {
+    controlButtons = (
+      <>
+        <Button
+          className="flex-0 w-24"
+          type="button"
+          disabled={selectedCount <= 0 || removeInProgress}
+          onClick={() => handleMembership('reject')}
+        >
+          거절
+        </Button>
+        <Button
+          className="flex-0 w-24"
+          color="primary"
+          type="button"
+          disabled={selectedCount <= 0 || removeInProgress}
+          onClick={() => handleMembership('accept')}
+        >
+          승인
+        </Button>
+      </>
+    );
+  }
+
   return (
     <section className="flex flex-col items-stretch gap-2">
       <div className="flex flex-row items-center justify-end gap-2 mb-2">
-        <span>{selectedCount}명 선택됨</span>
-        <Button
-          color="accent"
-          type="button"
-          disabled={selectedCount <= 0 || removeInProgress}
-          onClick={handleClickRemove}
-        >
-          그룹에서 제외
-        </Button>
+        <span className="flex-none">{selectedCount}명 선택됨</span>
+        {controlButtons}
       </div>
       <input
         className="min-w-0 bg-transparent border rounded p-1"
@@ -119,11 +152,11 @@ export default function MemberList(props: Props) {
         value={query}
         onChange={handleQueryChange}
       />
-      <table className="border">
+      <table className="table-fixed border">
         <thead>
           <tr className="h-8">
-            <th className="border"></th>
-            <th className="border">학번</th>
+            <th className="border w-8"></th>
+            <th className="border w-1/3">학번</th>
             <th className="border">이름</th>
           </tr>
         </thead>
