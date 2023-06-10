@@ -63,7 +63,7 @@ export default function MemberList(props: Props) {
     setQuery(e.target.value);
   }
 
-  async function handleMembership(action: 'accept' | 'reject') {
+  async function handleMembership(action: 'add' | 'remove') {
     if (selectedCount <= 0) {
       return;
     }
@@ -74,10 +74,9 @@ export default function MemberList(props: Props) {
 
     try {
       setRemoveInProgress(true);
-      const endpoint = action === 'accept' ? `/group/${id}/accept` : `/group/${id}/reject`;
-      const resp = await fetch(endpoint, {
+      const resp = await fetch(`/group/${id}/membership`, {
         method: 'post',
-        body: JSON.stringify(uid),
+        body: JSON.stringify({ action, uid }),
         credentials: 'same-origin',
         headers: {
           'content-type': 'application/json',
@@ -99,7 +98,7 @@ export default function MemberList(props: Props) {
       setRemoveInProgress(false);
     }
 
-    if (action === 'accept') {
+    if (action === 'add') {
       showToast({
         type: 'info',
         message: `${selectedCount}명의 신청을 승인했습니다.`,
@@ -128,7 +127,7 @@ export default function MemberList(props: Props) {
         color="accent"
         type="button"
         disabled={selectedCount <= 0 || removeInProgress}
-        onClick={() => handleMembership('reject')}
+        onClick={() => handleMembership('remove')}
       >
         그룹에서 제외
       </Button>
@@ -140,7 +139,7 @@ export default function MemberList(props: Props) {
           className="flex-0 w-24"
           type="button"
           disabled={selectedCount <= 0 || removeInProgress}
-          onClick={() => handleMembership('reject')}
+          onClick={() => handleMembership('remove')}
         >
           거절
         </Button>
@@ -149,7 +148,7 @@ export default function MemberList(props: Props) {
           color="primary"
           type="button"
           disabled={selectedCount <= 0 || removeInProgress}
-          onClick={() => handleMembership('accept')}
+          onClick={() => handleMembership('add')}
         >
           승인
         </Button>

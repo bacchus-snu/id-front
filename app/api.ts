@@ -88,9 +88,43 @@ export async function listUserEmails(): Promise<Email[]> {
   return body.emails;
 }
 
+export class BadRequestError extends Error {
+  constructor(message?: string) {
+    super(message);
+  }
+}
+
 export class ForbiddenError extends Error {
   constructor(message?: string) {
     super(message);
+  }
+}
+
+export async function applyToGroup(groupIdx: string): Promise<void> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl(`/api/group/${groupIdx}/apply`), {
+    method: 'post',
+    headers: { cookie },
+  });
+  if (resp.status === 400) {
+    throw new BadRequestError('잘못된 요청입니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('그룹 가입 신청에 실패했습니다.');
+  }
+}
+
+export async function leaveGroup(groupIdx: string): Promise<void> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl(`/api/group/${groupIdx}/leave`), {
+    method: 'post',
+    headers: { cookie },
+  });
+  if (resp.status === 400) {
+    throw new BadRequestError('잘못된 요청입니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('그룹 가입 신청에 실패했습니다.');
   }
 }
 

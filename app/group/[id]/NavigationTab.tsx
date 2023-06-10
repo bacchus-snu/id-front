@@ -12,7 +12,7 @@ export default function NavigationTab() {
         멤버 목록
       </Tab>
       <Tab href={`/group/${id}/pending`}>
-        신청 대기 목록
+        승인 대기 목록
       </Tab>
     </div>
   );

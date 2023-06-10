@@ -1,26 +1,134 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 import type { Group } from '../api';
 import Button from '../Button';
+import { useToast } from '../NotificationContext';
+
+enum MembershipState {
+  None = 'none',
+  Pending = 'pending',
+  Joined = 'joined',
+}
+
+function membershipStateFromGroup(group: Group): MembershipState {
+  if (group.joined) {
+    return MembershipState.Joined;
+  } else if (group.pending) {
+    return MembershipState.Pending;
+  } else {
+    return MembershipState.None;
+  }
+}
 
 type Props = {
   group: Group;
 };
 export default function GroupItem(props: Props) {
   const { group } = props;
+  const showToast = useToast();
+  const [membershipState, setMembershipState] = useState(membershipStateFromGroup(group));
+  const [modifyInProgress, setModifyInProgress] = useState(false);
+
+  async function handleClickApply() {
+    try {
+      setModifyInProgress(true);
+      setMembershipState(MembershipState.Pending);
+      const resp = await fetch(`/group/${group.idx}/membership`, {
+        method: 'post',
+        body: JSON.stringify({ action: 'add', self: true }),
+        credentials: 'same-origin',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+
+      if (!resp.ok) {
+        const body = await resp.json();
+        const message = body?.message;
+        if (message) {
+          showToast({
+            type: 'error',
+            message,
+          });
+        }
+        setMembershipState(MembershipState.None);
+        return;
+      }
+    } catch (e) {
+      showToast({
+        type: 'error',
+        message: String(e),
+      });
+    } finally {
+      setModifyInProgress(false);
+    }
+  }
+
+  async function handleClickLeave() {
+    try {
+      setModifyInProgress(true);
+      setMembershipState(MembershipState.None);
+      const resp = await fetch(`/group/${group.idx}/membership`, {
+        method: 'post',
+        body: JSON.stringify({ action: 'remove', self: true }),
+        credentials: 'same-origin',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+
+      if (!resp.ok) {
+        const body = await resp.json();
+        const message = body?.message;
+        if (message) {
+          showToast({
+            type: 'error',
+            message,
+          });
+        }
+        setMembershipState(MembershipState.Joined);
+        return;
+      }
+    } catch (e) {
+      showToast({
+        type: 'error',
+        message: String(e),
+      });
+    } finally {
+      setModifyInProgress(false);
+    }
+  }
 
   let joinState = null;
   let joinButton = null;
-  if (group.joined) {
-    joinState = <div className="text-dimmed">가입됨</div>;
-    joinButton = <Button className="flex-0 w-24" color="accent">탈퇴</Button>;
-  } else if (group.pending) {
-    joinState = <div className="text-dimmed">승인 대기 중</div>;
-    joinButton = <Button className="flex-0 w-24" disabled>대기 중</Button>;
-  } else {
-    joinButton = <Button className="flex-0 w-24">신청</Button>;
+  switch (membershipState) {
+    case MembershipState.None:
+      joinButton = (
+        <Button className="flex-0 w-24" disabled={modifyInProgress} onClick={handleClickApply}>
+          신청
+        </Button>
+      );
+      break;
+    case MembershipState.Pending:
+      joinState = <div className="text-dimmed">승인 대기 중</div>;
+      joinButton = <Button className="flex-0 w-24" disabled>대기 중</Button>;
+      break;
+    case MembershipState.Joined:
+      joinState = <div className="text-dimmed">가입됨</div>;
+      joinButton = (
+        <Button
+          className="flex-0 w-24"
+          color="accent"
+          disabled={modifyInProgress}
+          onClick={handleClickLeave}
+        >
+          탈퇴
+        </Button>
+      );
+      break;
   }
 
   return (
