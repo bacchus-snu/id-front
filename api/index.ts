@@ -225,6 +225,9 @@ export async function signupSendEmail(email: SignupEmail): Promise<void> {
       'content-type': 'application/json',
     },
   });
+  if (resp.status === 400) {
+    throw new BadRequestError('사용할 수 없는 이메일입니다.');
+  }
   if (!resp.ok) {
     throw new Error('메일 전송에 실패했습니다.');
   }
@@ -240,6 +243,9 @@ export async function checkEmailToken(token: string): Promise<SignupEmail> {
       cookie,
     },
   });
+  if (resp.status === 401) {
+    throw new ForbiddenError('토큰 확인에 실패했습니다.');
+  }
   if (!resp.ok) {
     throw new Error('토큰 확인에 실패했습니다.');
   }

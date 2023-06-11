@@ -94,6 +94,13 @@ export default function MemberList(props: Props) {
         }
         return;
       }
+    } catch (e) {
+      console.error(e);
+      showToast({
+        type: 'error',
+        message: '알 수 없는 오류가 발생했습니다.',
+      });
+      return;
     } finally {
       setRemoveInProgress(false);
     }
