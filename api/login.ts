@@ -1,5 +1,5 @@
 import { mutate } from 'swr';
 
 export function revalidateSession() {
-  mutate('/api/check-login');
+  mutate('/session/check');
 }

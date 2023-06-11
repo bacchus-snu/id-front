@@ -30,7 +30,7 @@ export default function LoginForm() {
     }
 
     setLoginPending(true);
-    const resp = await fetch('/api/login', {
+    const resp = await fetch('/session/signin', {
       method: 'post',
       body: JSON.stringify({
         username,

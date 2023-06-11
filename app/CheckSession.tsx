@@ -7,16 +7,19 @@ import useSWR from 'swr';
 import fetcher from '@/api/fetcher';
 
 export default function CheckSession() {
-  const { error } = useSWR('/api/check-login', fetcher, { shouldRetryOnError: false });
+  const { data } = useSWR('/session/check', fetcher);
   const router = useRouter();
 
-  const loggedIn = !Boolean(error);
+  const loggedIn = data?.loggedIn;
   const prevLoginState = useRef(loggedIn);
 
   useEffect(() => {
-    if (prevLoginState.current !== loggedIn) {
+    const prev = prevLoginState.current;
+    if (prev !== loggedIn) {
       prevLoginState.current = loggedIn;
-      router.refresh();
+      if (prev != null) {
+        router.refresh();
+      }
     }
   }, [router, loggedIn]);
 
