@@ -37,5 +37,9 @@ async function JoinedGroupList(props: { groups?: Promise<Group[]> }) {
   }
 
   const joinedGroups = groups.filter(value => value.joined).map(value => value.name);
+  if (joinedGroups.length === 0) {
+    return '없음';
+  }
+
   return <strong>{joinedGroups.join(', ')}</strong>;
 }
