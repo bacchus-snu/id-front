@@ -253,27 +253,3 @@ export async function checkEmailToken(token: string): Promise<SignupEmail> {
   const body = signupEmailSchema.parse(await resp.json());
   return body;
 }
-
-type CreateUserInfo = {
-  username: string;
-  name: string;
-  password: string;
-  preferredLanguage: string;
-};
-export async function createUser(info: CreateUserInfo): Promise<void> {
-  const cookie = headers().get('cookie') || '';
-  const resp = await fetch(apiUrl('/api/user'), {
-    method: 'post',
-    body: JSON.stringify(info),
-    headers: {
-      'content-type': 'application/json',
-      cookie,
-    },
-  });
-  if (resp.status === 401) {
-    throw new ForbiddenError('토큰 확인에 실패했습니다.');
-  }
-  if (!resp.ok) {
-    throw new Error('유저 생성에 실패했습니다.');
-  }
-}

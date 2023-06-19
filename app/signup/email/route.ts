@@ -1,6 +1,7 @@
-import { BadRequestError, signupSendEmail } from '@/api';
 import { NextResponse } from 'next/server';
 import * as z from 'zod';
+
+import { BadRequestError, signupSendEmail } from '@/api';
 
 const bodySchema = z.object({
   email: z.string(),
