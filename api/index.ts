@@ -217,21 +217,6 @@ const signupEmailSchema = z.object({
   emailDomain: z.string(),
 });
 export type SignupEmail = z.infer<typeof signupEmailSchema>;
-export async function signupSendEmail(email: SignupEmail): Promise<void> {
-  const resp = await fetch(apiUrl('/api/email/verify'), {
-    method: 'post',
-    body: JSON.stringify(email),
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
-  if (resp.status === 400) {
-    throw new BadRequestError('사용할 수 없는 이메일입니다.');
-  }
-  if (!resp.ok) {
-    throw new Error('메일 전송에 실패했습니다.');
-  }
-}
 
 export async function checkEmailToken(token: string): Promise<SignupEmail> {
   const cookie = headers().get('cookie') || '';
