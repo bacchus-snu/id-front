@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -5,6 +6,10 @@ import { checkEmailToken, ForbiddenError, SignupEmail } from '@/api';
 
 import EmailForm from './EmailForm';
 import SignupForm from './SignupForm';
+
+export const metadata: Metadata = {
+  title: '가입하기',
+};
 
 type Props = {
   searchParams: {

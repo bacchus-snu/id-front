@@ -1,3 +1,9 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '발송 완료',
+};
+
 export default function EmailSent() {
   return (
     <section className="border rounded p-2">

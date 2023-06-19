@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
+
 import { ForbiddenError, listPendingGroupMembers } from '@/api';
 
 import MemberList from '../MemberList';
+
+export const metadata: Metadata = {
+  title: '승인 대기 목록',
+};
 
 type Props = {
   params: {

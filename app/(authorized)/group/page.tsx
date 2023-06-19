@@ -1,8 +1,13 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 import { listGroups } from '@/api';
 
 import GroupItem from './GroupItem';
+
+export const metadata: Metadata = {
+  title: '그룹 관리',
+};
 
 export default async function Group() {
   let groups;

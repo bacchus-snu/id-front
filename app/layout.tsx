@@ -11,8 +11,14 @@ const pretendard = localFont({
 });
 
 export const metadata = {
-  title: 'Bacchus ID',
-  description: 'Bacchus ID',
+  title: {
+    template: '%s | Bacchus ID',
+    default: 'Bacchus ID',
+  },
+  formatDetection: {
+    address: false,
+    telephone: false,
+  },
 };
 
 export default async function RootLayout({
