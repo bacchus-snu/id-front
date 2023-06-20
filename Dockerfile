@@ -37,11 +37,11 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --chown=nextjs:nodejs \
-  package.json yarn.lock .yarnrc.yml next.config.js .env* \
-  ./
+COPY --chown=nextjs:nodejs package.json yarn.lock .yarnrc.yml ./
 COPY --from=deps --chown=nextjs:nodejs /app/.pnp.* ./
 COPY --from=deps --chown=nextjs:nodejs /app/.yarn ./.yarn
+
+COPY --chown=nextjs:nodejs next.config.js .env* ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 USER nextjs
