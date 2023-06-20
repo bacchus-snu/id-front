@@ -1,19 +1,19 @@
 import { redirect } from 'next/navigation';
 
-import { checkLogin } from '@/api';
+import { checkSession } from '@/api';
 
 import ChangePassword from './ChangePassword';
 import Groups from './Groups';
 
 export default async function Home() {
-  const loginInfo = await checkLogin();
-  if (!loginInfo.loggedIn) {
-    redirect('/login');
+  const sessionInfo = await checkSession();
+  if (!sessionInfo.signedIn) {
+    redirect('/signin');
   }
 
   return (
     <section className="space-y-4">
-      <p className="text-center">{loginInfo.username}님, 환영합니다.</p>
+      <p className="text-center">{sessionInfo.username}님, 환영합니다.</p>
       <Groups />
       <ChangePassword />
     </section>

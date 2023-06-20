@@ -19,7 +19,7 @@ export default function Nav() {
           <div className="flex flex-row items-center space-x-2">
             <span>{data.username}</span>
             <div className="bg-black/50 dark:bg-white/75 w-[1px] h-4" />
-            <Link href="/logout" prefetch={false}>로그아웃</Link>
+            <Link href="/signout" prefetch={false}>로그아웃</Link>
           </div>
         )}
       </nav>

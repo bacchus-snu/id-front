@@ -1,15 +1,15 @@
 import { Metadata } from 'next';
 
-import { checkLogin } from '@/api';
+import { checkSession } from '@/api';
 
 type Props = {
   children: React.ReactNode;
-  login: React.ReactNode;
+  signin: React.ReactNode;
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const loginResp = await checkLogin();
-  if (loginResp.loggedIn) {
+  const sessionInfo = await checkSession();
+  if (sessionInfo.signedIn) {
     return {};
   }
   return {
@@ -22,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AuthorizedLayout({
   children,
-  login,
+  signin,
 }: Props) {
-  const loginResp = await checkLogin();
-  return <>{loginResp.loggedIn ? children : login}</>;
+  const sessionInfo = await checkSession();
+  return <>{sessionInfo.signedIn ? children : signin}</>;
 }

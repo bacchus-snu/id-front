@@ -6,22 +6,22 @@ export function apiUrl(ep: string): URL {
   return new URL(ep, process.env.API_BASE);
 }
 
-const checkLoginSchema = z.object({
+const checkSessionSchema = z.object({
   username: z.string(),
 });
-export type CheckLoginResult = { loggedIn: false } | { loggedIn: true; username: string };
-export async function checkLogin(): Promise<CheckLoginResult> {
+export type CheckSessionResult = { signedIn: false } | { signedIn: true; username: string };
+export async function checkSession(): Promise<CheckSessionResult> {
   const cookie = headers().get('cookie') || '';
   const resp = await fetch(apiUrl('/api/check-login'), {
     headers: { cookie },
   });
   if (!resp.ok) {
-    return { loggedIn: false };
+    return { signedIn: false };
   }
 
-  const body = checkLoginSchema.parse(await resp.json());
+  const body = checkSessionSchema.parse(await resp.json());
   return {
-    loggedIn: true,
+    signedIn: true,
     username: body.username,
   };
 }

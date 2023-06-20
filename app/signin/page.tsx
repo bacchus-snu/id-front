@@ -1,15 +1,15 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { checkLogin } from '@/api';
+import { checkSession } from '@/api';
 
 export const metadata: Metadata = {
   title: '로그인',
 };
 
 export default async function Login() {
-  const loginInfo = await checkLogin();
-  if (loginInfo.loggedIn) {
+  const sessionInfo = await checkSession();
+  if (sessionInfo.signedIn) {
     redirect('/');
   }
 

@@ -14,7 +14,7 @@ export default async function Group() {
   try {
     groups = await listGroups();
   } catch (e) {
-    redirect('/login');
+    redirect('/signin');
   }
 
   return (

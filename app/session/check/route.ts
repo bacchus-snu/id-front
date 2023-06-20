@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { checkLogin } from '@/api';
+import { checkSession } from '@/api';
 
 export async function GET(): Promise<Response> {
-  return NextResponse.json(await checkLogin());
+  return NextResponse.json(await checkSession());
 }

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { revalidateSession } from '@/api/login';
+import { revalidateSession } from '@/api/session';
 
 export default function Logout() {
   const router = useRouter();
