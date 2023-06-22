@@ -15,7 +15,7 @@ export default function Nav() {
           <Link href="/">Bacchus ID</Link>
         </h1>
         <div className="flex-1" />
-        {data?.loggedIn && (
+        {data?.signedIn && (
           <div className="flex flex-row items-center space-x-2">
             <span>{data.username}</span>
             <div className="bg-black/50 dark:bg-white/75 w-[1px] h-4" />

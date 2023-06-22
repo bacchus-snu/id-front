@@ -10,18 +10,18 @@ export default function CheckSession() {
   const { data } = useSWR('/session/check', fetcher);
   const router = useRouter();
 
-  const loggedIn = data?.loggedIn;
-  const prevLoginState = useRef(loggedIn);
+  const signedIn = data?.signedIn;
+  const prevSignInState = useRef(signedIn);
 
   useEffect(() => {
-    const prev = prevLoginState.current;
-    if (prev !== loggedIn) {
-      prevLoginState.current = loggedIn;
+    const prev = prevSignInState.current;
+    if (prev !== signedIn) {
+      prevSignInState.current = signedIn;
       if (prev != null) {
         router.refresh();
       }
     }
-  }, [router, loggedIn]);
+  }, [router, signedIn]);
 
   return null;
 }
