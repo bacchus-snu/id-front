@@ -59,19 +59,20 @@ export default function SignInForm() {
       className="flex flex-col items-stretch space-y-1 w-full max-w-xs mx-auto"
       onSubmit={handleSubmit}
     >
-      <label className="flex flex-row">
-        <div className="w-20 flex-none text-right mr-2">Username</div>
+      <label className="flex flex-row items-baseline">
+        <div className="w-20 flex-none text-right mr-2">유저명</div>
         <input
-          className="min-w-0 flex-1 bg-transparent border"
+          className="min-w-0 flex-1 bg-transparent border rounded p-1"
           value={username}
           required
+          autoFocus
           onChange={handleUsernameChange}
         />
       </label>
-      <label className="flex flex-row">
-        <div className="w-20 flex-none text-right mr-2">Password</div>
+      <label className="flex flex-row items-baseline">
+        <div className="w-20 flex-none text-right mr-2">비밀번호</div>
         <input
-          className="min-w-0 flex-1 bg-transparent border"
+          className="min-w-0 flex-1 bg-transparent border rounded p-1"
           type="password"
           value={password}
           required
