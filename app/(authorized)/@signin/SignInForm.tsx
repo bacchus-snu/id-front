@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, type FormEvent, useState } from 'react';
+import { useState } from 'react';
 
 import { revalidateSession } from '@/api/session';
 import { useToast } from '@/app/NotificationContext';
@@ -12,15 +12,7 @@ export default function SignInForm() {
   const [pendingSignIn, setPendingSignIn] = useState(false);
   const showToast = useToast();
 
-  function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
-    setUsername(e.target.value);
-  }
-
-  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
-    setPassword(e.target.value);
-  }
-
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (pendingSignIn) {
       return;
@@ -63,10 +55,11 @@ export default function SignInForm() {
         <div className="w-20 flex-none text-right mr-2">유저명</div>
         <input
           className="min-w-0 flex-1 bg-transparent border rounded p-1"
-          value={username}
           required
+          pattern="[a-z][a-z0-9]+"
           autoFocus
-          onChange={handleUsernameChange}
+          value={username}
+          onChange={e => setUsername(e.target.value)}
         />
       </label>
       <label className="flex flex-row items-baseline">
@@ -74,9 +67,10 @@ export default function SignInForm() {
         <input
           className="min-w-0 flex-1 bg-transparent border rounded p-1"
           type="password"
-          value={password}
           required
-          onChange={handlePasswordChange}
+          minLength={8}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
         />
       </label>
       <Button className="font-bold" type="submit" disabled={pendingSignIn}>
