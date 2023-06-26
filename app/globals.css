@@ -24,10 +24,10 @@ html[lang=ko] {
   }
 
   .text-link {
-    @apply text-primary-500 dark:text-primary-400;
+    @apply text-primary-500 dark:text-primary-300;
   }
 
   .text-important {
-    @apply text-accent-500 dark:text-accent-400;
+    @apply text-accent-500 dark:text-accent-300;
   }
 }

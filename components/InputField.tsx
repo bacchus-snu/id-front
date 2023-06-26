@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 
 type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
-export default function InputField(props: InputFieldProps) {
+export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(props, ref) {
   const {
     label,
     className,
@@ -13,8 +13,10 @@ export default function InputField(props: InputFieldProps) {
     ...inputProps
   } = props;
   const [isInvalid, setInvalid] = useState(false);
+  const [message, setMessage] = useState('');
   function handleInvalid(e: React.FormEvent<HTMLInputElement>) {
     setInvalid(true);
+    setMessage(e.currentTarget.validationMessage);
     onInvalid?.(e);
   }
 
@@ -27,13 +29,22 @@ export default function InputField(props: InputFieldProps) {
   }
 
   return (
-    <label className="flex flex-row items-baseline gap-2">
-      <span className="w-24 flex-none text-right">{label}</span>
-      <input
-        {...inputProps}
-        className={computedClassName}
-        onInvalid={handleInvalid}
-      />
-    </label>
+    <div className="flex flex-col items-stretch gap-1">
+      <label className="flex flex-row items-baseline gap-2">
+        <span className="w-24 flex-none text-right">{label}</span>
+        <input
+          {...inputProps}
+          ref={ref}
+          className={computedClassName}
+          onInvalid={handleInvalid}
+        />
+      </label>
+      {isInvalid && (
+        <div className="flex flex-row gap-2 text-sm text-important">
+          <div className="w-24 flex-none" />
+          <span className="flex-1">{message}</span>
+        </div>
+      )}
+    </div>
   );
-}
+});

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { type SignupEmail } from '@/api';
 import Button from '@/components/Button';
@@ -20,9 +20,34 @@ export default function SignupForm({ token, email }: Props) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
   const [studentNumber, setStudentNumber] = useState('');
   const [requestPending, setRequestPending] = useState(false);
+
+  const passwordConfirmRef = useRef<HTMLInputElement>(null);
+
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
+    setPassword(newValue);
+
+    if (newValue !== passwordConfirm) {
+      passwordConfirmRef.current?.setCustomValidity('두 비밀번호가 일치하지 않습니다.');
+    } else {
+      passwordConfirmRef.current?.setCustomValidity('');
+    }
+  }
+
+  function handleChangePasswordConfirm(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
+    setPasswordConfirm(newValue);
+
+    if (password !== newValue) {
+      e.target.setCustomValidity('두 비밀번호가 일치하지 않습니다.');
+    } else {
+      e.target.setCustomValidity('');
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -110,7 +135,17 @@ export default function SignupForm({ token, email }: Props) {
             minLength={8}
             autoComplete="new-password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={handleChangePassword}
+          />
+          <InputField
+            ref={passwordConfirmRef}
+            label="비밀번호 확인"
+            type="password"
+            required
+            minLength={8}
+            autoComplete="new-password"
+            value={passwordConfirm}
+            onChange={handleChangePasswordConfirm}
           />
         </div>
         <hr className="mt-4 mb-2" />

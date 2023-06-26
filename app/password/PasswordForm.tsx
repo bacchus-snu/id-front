@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import Button from '@/components/Button';
 import InputField from '@/components/InputField';
@@ -23,6 +23,30 @@ export default function PasswordForm({ token }: Props) {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [requestState, setRequestState] = useState(RequestState.Idle);
+
+  const passwordConfirmRef = useRef<HTMLInputElement>(null);
+
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
+    setPassword(newValue);
+
+    if (newValue !== passwordConfirm) {
+      passwordConfirmRef.current?.setCustomValidity('두 비밀번호가 일치하지 않습니다.');
+    } else {
+      passwordConfirmRef.current?.setCustomValidity('');
+    }
+  }
+
+  function handleChangePasswordConfirm(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
+    setPasswordConfirm(newValue);
+
+    if (password !== newValue) {
+      e.target.setCustomValidity('두 비밀번호가 일치하지 않습니다.');
+    } else {
+      e.target.setCustomValidity('');
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -113,16 +137,17 @@ export default function PasswordForm({ token }: Props) {
             minLength={8}
             autoComplete="new-password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={handleChangePassword}
           />
           <InputField
+            ref={passwordConfirmRef}
             label="비밀번호 확인"
             type="password"
             required
             minLength={8}
             autoComplete="new-password"
             value={passwordConfirm}
-            onChange={e => setPasswordConfirm(e.target.value)}
+            onChange={handleChangePasswordConfirm}
           />
         </div>
         <Button
