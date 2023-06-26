@@ -88,7 +88,6 @@ export default function EmailForm() {
           className="w-full flex-none sm:flex-1 bg-transparent border rounded p-1"
           type="email"
           required
-          autoFocus
           value={email}
           onChange={handleChangeEmail}
         />

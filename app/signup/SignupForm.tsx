@@ -99,6 +99,7 @@ export default function SignupForm({ token, email }: Props) {
             label="유저명"
             required
             pattern="[a-z][a-z0-9]*"
+            autoComplete="username"
             value={username}
             onChange={e => setUsername(e.target.value)}
           />
@@ -107,6 +108,7 @@ export default function SignupForm({ token, email }: Props) {
             type="password"
             required
             minLength={8}
+            autoComplete="new-password"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
@@ -121,6 +123,7 @@ export default function SignupForm({ token, email }: Props) {
             label="이름 (실명)"
             required
             placeholder="홍길동"
+            autoComplete="name"
             value={name}
             onChange={e => setName(e.target.value)}
           />
@@ -129,6 +132,7 @@ export default function SignupForm({ token, email }: Props) {
             required
             pattern="\d{4}-\d{4,5}|\d{5}-\d{3}"
             placeholder="2023-12345"
+            autoComplete="off"
             value={studentNumber}
             onChange={e => setStudentNumber(e.target.value)}
           />

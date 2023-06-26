@@ -57,7 +57,7 @@ export default function SignInForm() {
           className="min-w-0 flex-1 bg-transparent border rounded p-1"
           required
           pattern="[a-z][a-z0-9]+"
-          autoFocus
+          autoComplete="username"
           value={username}
           onChange={e => setUsername(e.target.value)}
         />

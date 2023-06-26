@@ -111,6 +111,7 @@ export default function PasswordForm({ token }: Props) {
             type="password"
             required
             minLength={8}
+            autoComplete="new-password"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
@@ -119,6 +120,7 @@ export default function PasswordForm({ token }: Props) {
             type="password"
             required
             minLength={8}
+            autoComplete="new-password"
             value={passwordConfirm}
             onChange={e => setPasswordConfirm(e.target.value)}
           />
