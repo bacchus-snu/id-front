@@ -69,8 +69,8 @@ export default function EmailForm() {
       <section className="border rounded p-2">
         <h2 className="text-h2 mb-2">이메일 발송 완료</h2>
         <p>
-          <strong>입력한 이메일로 가입된 유저가 존재하는 경우,</strong> 해당 이메일로 안내 메일이
-          발송됩니다.
+          <strong>입력한 이메일로 가입된 유저가 존재하는 경우,</strong>{' '}
+          해당 이메일로 안내 메일이 발송됩니다.
         </p>
         <p>메일이 도착할 때까지 시간이 걸릴 수 있습니다.</p>
       </section>

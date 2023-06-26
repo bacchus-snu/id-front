@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-import { ForbiddenError, checkPasswordToken } from '@/api';
+import { checkPasswordToken, ForbiddenError } from '@/api';
 
 import EmailForm from './EmailForm';
 import PasswordForm from './PasswordForm';
