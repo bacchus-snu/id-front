@@ -238,3 +238,20 @@ export async function checkEmailToken(token: string): Promise<SignupEmail> {
   const body = signupEmailSchema.parse(await resp.json());
   return body;
 }
+
+export async function checkPasswordToken(token: string): Promise<void> {
+  const resp = await fetch(apiUrl('/api/user/check-password-token'), {
+    method: 'post',
+    body: JSON.stringify({ token }),
+    headers: {
+      'content-type': 'application/json',
+    },
+    cache: 'no-store',
+  });
+  if (resp.status === 401) {
+    throw new ForbiddenError('토큰 확인에 실패했습니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('토큰 확인에 실패했습니다.');
+  }
+}
