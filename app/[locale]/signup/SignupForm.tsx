@@ -6,8 +6,7 @@ import { useRef, useState } from 'react';
 import { type SignupEmail } from '@/api';
 import Button from '@/components/Button';
 import InputField from '@/components/InputField';
-
-import { useToast } from '../NotificationContext';
+import { useToast } from '@/components/NotificationContext';
 
 type Props = {
   token?: string;

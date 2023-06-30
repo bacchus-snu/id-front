@@ -4,8 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import Button from '@/components/Button';
-
-import { useToast } from '../NotificationContext';
+import { useToast } from '@/components/NotificationContext';
 
 export default function EmailForm() {
   const showToast = useToast();

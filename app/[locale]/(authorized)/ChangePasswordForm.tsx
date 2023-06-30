@@ -2,30 +2,38 @@
 
 import { useState } from 'react';
 
+import type { Email } from '@/api';
 import Button from '@/components/Button';
-
-import { useToast } from '../NotificationContext';
+import { useToast } from '@/components/NotificationContext';
 
 enum RequestState {
   Idle,
   Pending,
   Done,
 }
-export default function EmailForm() {
+
+type Props = {
+  emails?: Email[];
+};
+export default function ChangePasswordForm(props: Props) {
   const showToast = useToast();
 
-  const [email, setEmail] = useState('');
+  const { emails } = props;
+  const [selectedEmail, setSelectedEmail] = useState('0');
   const [requestState, setRequestState] = useState(RequestState.Idle);
-  const [valid, setValid] = useState(false);
 
-  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(e.target.value);
-    setValid(e.target.checkValidity());
+  function handleEmailChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedEmail(e.target.value);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!valid) {
+    if (emails == null) {
+      return;
+    }
+
+    const email = emails[parseInt(selectedEmail, 10)];
+    if (email == null) {
       return;
     }
 
@@ -33,7 +41,7 @@ export default function EmailForm() {
       setRequestState(RequestState.Pending);
       const resp = await fetch('/password/email', {
         method: 'post',
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: `${email.local}@${email.domain}` }),
         headers: {
           'content-type': 'application/json',
         },
@@ -66,40 +74,48 @@ export default function EmailForm() {
 
   if (requestState === RequestState.Done) {
     return (
-      <section className="border rounded p-2">
-        <h2 className="text-h2 mb-2">이메일 발송 완료</h2>
-        <p>
-          <strong>입력한 이메일로 가입된 유저가 존재하는 경우,</strong>{' '}
-          해당 이메일로 안내 메일이 발송됩니다.
-        </p>
+      <>
+        <p>안내 메일이 전송되었습니다. 메일함을 확인해 주세요.</p>
         <p>메일이 도착할 때까지 시간이 걸릴 수 있습니다.</p>
-      </section>
+      </>
     );
   }
 
+  let emailOptions;
+  if (emails == null) {
+    emailOptions = <option value="0">불러오는 중...</option>;
+  } else {
+    emailOptions = emails.map(({ local, domain }, idx) => (
+      <option key={`${local}@${domain}`} value={String(idx)}>
+        {local}@{domain}
+      </option>
+    ));
+  }
+
   return (
-    <section className="border rounded p-2">
-      <h2 className="text-h2 mb-2">비밀번호 변경</h2>
+    <>
       <p>
-        계정에 연결된 이메일 주소를 입력하세요.
+        비밀번호 변경 안내를 받을 이메일을 선택해 주세요.
       </p>
       <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
-        <input
-          className="w-full flex-none sm:flex-1 bg-transparent border rounded p-1"
-          type="email"
-          required
-          value={email}
-          onChange={handleChangeEmail}
-        />
+        <select
+          className={'w-full flex-none sm:flex-1 bg-transparent border rounded p-1 '
+            + (emails == null ? 'opacity-50' : '')}
+          value={selectedEmail}
+          disabled={emails == null}
+          onChange={handleEmailChange}
+        >
+          {emailOptions}
+        </select>
         <Button
           className="flex-0 w-32 font-bold"
           color="primary"
           type="submit"
-          disabled={!valid || requestState !== RequestState.Idle}
+          disabled={emails == null || requestState !== RequestState.Idle}
         >
-          변경 메일 발송
+          변경 신청
         </Button>
       </form>
-    </section>
+    </>
   );
 }

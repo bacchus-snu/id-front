@@ -3,10 +3,13 @@
 import { useState } from 'react';
 
 import { revalidateSession } from '@/api/session';
-import { useToast } from '@/app/NotificationContext';
 import Button from '@/components/Button';
+import { useToast } from '@/components/NotificationContext';
+import useLocaleDict from '@/components/LocaleDict';
 
 export default function SignInForm() {
+  const { dict } = useLocaleDict();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [pendingSignIn, setPendingSignIn] = useState(false);
@@ -21,26 +24,36 @@ export default function SignInForm() {
       return;
     }
 
-    setPendingSignIn(true);
-    const resp = await fetch('/session/signin', {
-      method: 'post',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      credentials: 'same-origin',
-      headers: {
-        'content-type': 'application/json',
-      },
-    });
+    try {
+      setPendingSignIn(true);
+      const resp = await fetch('/session/signin', {
+        method: 'post',
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+        credentials: 'same-origin',
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
 
-    if (!resp.ok) {
+      if (!resp.ok) {
+        showToast({
+          type: 'error',
+          message: dict.error.signIn,
+        });
+        return;
+      }
+    } catch (e) {
+      console.error(e);
       showToast({
         type: 'error',
-        message: '로그인에 실패했습니다.',
+        message: dict.error.unknown,
       });
-      setPendingSignIn(false);
       return;
+    } finally {
+      setPendingSignIn(false);
     }
 
     revalidateSession();
@@ -52,7 +65,7 @@ export default function SignInForm() {
       onSubmit={handleSubmit}
     >
       <label className="flex flex-row items-baseline">
-        <div className="w-20 flex-none text-right mr-2">유저명</div>
+        <div className="w-20 flex-none text-right mr-2">{dict.signIn.username}</div>
         <input
           className="min-w-0 flex-1 bg-transparent border rounded p-1"
           required
@@ -63,7 +76,7 @@ export default function SignInForm() {
         />
       </label>
       <label className="flex flex-row items-baseline">
-        <div className="w-20 flex-none text-right mr-2">비밀번호</div>
+        <div className="w-20 flex-none text-right mr-2">{dict.signIn.password}</div>
         <input
           className="min-w-0 flex-1 bg-transparent border rounded p-1"
           type="password"
@@ -74,7 +87,7 @@ export default function SignInForm() {
         />
       </label>
       <Button className="font-bold" type="submit" disabled={pendingSignIn}>
-        로그인
+        {dict.signIn.signInButton}
       </Button>
     </form>
   );

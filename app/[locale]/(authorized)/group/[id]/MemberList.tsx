@@ -4,8 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useDeferredValue, useMemo, useReducer, useState } from 'react';
 
 import { GroupMember } from '@/api';
-import { useToast } from '@/app/NotificationContext';
 import Button from '@/components/Button';
+import { useToast } from '@/components/NotificationContext';
 
 import MemberItem from './MemberItem';
 

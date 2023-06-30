@@ -321,6 +321,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/negotiator@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "@types/negotiator@npm:0.6.1"
+  checksum: e39f985874a30bd13186249eaaede0c5eec107178f55f2bd719c2c9d1397de329a5e0869a25dd5e7c702cdd311bd5e4153e25963900b4353545842354a2d1bc4
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^20.3.1":
   version: 20.3.1
   resolution: "@types/node@npm:20.3.1"
@@ -2239,6 +2246,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "id-front@workspace:."
   dependencies:
+    "@types/negotiator": ^0.6.1
     "@types/node": ^20.3.1
     "@types/react": ^18.2.14
     "@types/react-dom": ^18.2.6
@@ -2248,6 +2256,7 @@ __metadata:
     dprint: ^0.37.1
     eslint: ^8.43.0
     eslint-config-next: ^13.4.7
+    negotiator: ^0.6.3
     next: ^13.4.7
     postcss: ^8.4.24
     react: ^18.2.0

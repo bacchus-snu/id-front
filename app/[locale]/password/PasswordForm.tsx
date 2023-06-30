@@ -5,8 +5,7 @@ import { useRef, useState } from 'react';
 
 import Button from '@/components/Button';
 import InputField from '@/components/InputField';
-
-import { useToast } from '../NotificationContext';
+import { useToast } from '@/components/NotificationContext';
 
 enum RequestState {
   Idle,

@@ -1,21 +1,28 @@
 import { Metadata } from 'next';
 
 import { checkSession } from '@/api';
+import { Locale, getDictionary } from '@/locale';
 
 type Props = {
   children: React.ReactNode;
   signin: React.ReactNode;
 };
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: Locale },
+}): Promise<Metadata> {
   const sessionInfo = await checkSession();
   if (sessionInfo.signedIn) {
     return {};
   }
+
+  const dict = await getDictionary(locale);
   return {
     title: {
-      template: '로그인 | Bacchus ID',
-      absolute: '로그인 | Bacchus ID',
+      template: `${dict.title.signIn} | Bacchus ID`,
+      absolute: `${dict.title.signIn} | Bacchus ID`,
     },
   };
 }
