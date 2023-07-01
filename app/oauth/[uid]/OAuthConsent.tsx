@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
 import { ConsentDetails } from '@/api/oauth';
@@ -14,7 +14,6 @@ type Props = {
 
 export default function OAuthConsent({ details }: Props) {
   const { uid } = useParams();
-  const router = useRouter();
   const { dict } = useLocaleDict();
 
   const [requestPending, setRequestPending] = useState(false);
@@ -23,7 +22,7 @@ export default function OAuthConsent({ details }: Props) {
   async function handleClickConfirm() {
     try {
       setRequestPending(true);
-      const resp = await fetch(`/api/interaction/${uid}/consent`, {
+      const resp = await fetch(`/oauth/${uid}/confirm`, {
         method: 'post',
         credentials: 'same-origin',
       });
@@ -39,12 +38,37 @@ export default function OAuthConsent({ details }: Props) {
 
       const redirectTo: string = (await resp.json()).redirectTo;
       const redirectUrl = new URL(redirectTo, window.location.href);
-      if (redirectUrl.host === window.location.host) {
-        router.replace(redirectUrl.pathname + redirectUrl.search);
-        router.refresh();
-      } else {
-        window.location.href = redirectUrl.href;
+      window.location.href = redirectUrl.href;
+    } catch (e) {
+      console.error(e);
+      showToast({
+        type: 'error',
+        message: dict.error.unknown,
+      });
+      setRequestPending(false);
+    }
+  }
+
+  async function handleClickAbort() {
+    try {
+      setRequestPending(true);
+      const resp = await fetch(`/oauth/${uid}/abort`, {
+        method: 'get',
+        credentials: 'same-origin',
+      });
+
+      if (!resp.ok) {
+        showToast({
+          type: 'error',
+          message: '처리에 실패했습니다.',
+        });
+        setRequestPending(false);
+        return;
       }
+
+      const redirectTo: string = (await resp.json()).redirectTo;
+      const redirectUrl = new URL(redirectTo, window.location.href);
+      window.location.href = redirectUrl.href;
     } catch (e) {
       console.error(e);
       showToast({
@@ -95,14 +119,24 @@ export default function OAuthConsent({ details }: Props) {
           </ul>
         </p>
       )}
-      <Button
-        className="font-bold"
-        color="primary"
-        disabled={requestPending}
-        onClick={handleClickConfirm}
-      >
-        승인
-      </Button>
+      <div className="flex flex-row-reverse">
+        <Button
+          className="flex-0 w-24 font-bold"
+          color="primary"
+          disabled={requestPending}
+          onClick={handleClickConfirm}
+        >
+          승인
+        </Button>
+        <Button
+          className="flex-0 w-24 font-bold"
+          color="accent"
+          disabled={requestPending}
+          onClick={handleClickAbort}
+        >
+          거절
+        </Button>
+      </div>
     </section>
   );
 }

@@ -32,6 +32,7 @@ export async function getInteractionDetails(uid: string): Promise<InteractionDet
     headers: { cookie },
   });
   if (!resp.ok) {
+    console.error(await resp.text());
     throw new ForbiddenError('토큰 확인에 실패했습니다.');
   }
 
