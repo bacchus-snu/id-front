@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 import { checkSession } from '@/api';
-import { Locale, getDictionary } from '@/locale';
+import { getDictionary, Locale } from '@/locale';
 
 export async function generateMetadata({
   params: { locale },
 }: {
-  params: { locale: Locale },
+  params: { locale: Locale };
 }): Promise<Metadata> {
   const dict = await getDictionary(locale);
   return {

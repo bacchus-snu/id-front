@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import { checkSession } from '@/api';
-import { Locale, getDictionary } from '@/locale';
+import { getDictionary, Locale } from '@/locale';
 
 type Props = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ type Props = {
 export async function generateMetadata({
   params: { locale },
 }: {
-  params: { locale: Locale },
+  params: { locale: Locale };
 }): Promise<Metadata> {
   const sessionInfo = await checkSession();
   if (sessionInfo.signedIn) {

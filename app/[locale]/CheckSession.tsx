@@ -1,13 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
 
 import fetcher from '@/api/fetcher';
 
 export default function CheckSession() {
-  const { data } = useSWR('/session/check', fetcher);
+  const pathname = usePathname();
+  const isOAuth = pathname.startsWith('/oauth');
+  const { data } = useSWR(isOAuth ? null : '/session/check', fetcher);
   const router = useRouter();
 
   const signedIn = data?.signedIn;

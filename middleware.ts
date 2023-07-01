@@ -8,7 +8,7 @@ const locales = getSupportedLocales();
 function getLocale(request: Request) {
   return new Negotiator({
     headers: Object.fromEntries(request.headers.entries()),
-  }).language(['ko', 'en']) ?? 'ko';
+  }).language(locales) ?? 'ko';
 }
 
 export function middleware(request: NextRequest) {
@@ -28,7 +28,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next).*)',
-    '/favicon.ico',
+    '/((?!_next|api|favicon\.ico).*)',
   ],
 };

@@ -19,6 +19,16 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: '/api/:path*',
+          destination: process.env.API_BASE + '/api/:path*',
+        },
+      ],
+    };
+  },
 };
 
 module.exports = nextConfig;

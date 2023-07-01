@@ -1,12 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import useSWR from 'swr';
 
 import fetcher from '@/api/fetcher';
 
 export default function Nav() {
-  const { data } = useSWR('/session/check', fetcher);
+  const pathname = usePathname();
+  const isOAuth = pathname.startsWith('/oauth');
+  const { data } = useSWR(isOAuth ? null : '/session/check', fetcher);
 
   return (
     <div className="h-16 flex-none bg-primary-300 dark:bg-primary-700">

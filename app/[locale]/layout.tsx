@@ -3,11 +3,11 @@ import '../globals.css';
 import localFont from 'next/font/local';
 
 import NotificationProvider from '@/components/NotificationContext';
-import { Locale, getDictionary } from '@/locale';
+import { getDictionary, Locale } from '@/locale';
 
+import { LocaleDictProvider } from '@/components/LocaleDict';
 import CheckSession from './CheckSession';
 import Nav from './Nav';
-import {LocaleDictProvider} from '@/components/LocaleDict';
 
 const pretendard = localFont({
   src: '../pretendard.woff2',
@@ -29,7 +29,7 @@ export default async function RootLayout({
   params: { locale },
   children,
 }: {
-  params: { locale: Locale },
+  params: { locale: Locale };
   children: React.ReactNode;
 }) {
   const dict = await getDictionary(locale);
