@@ -27,7 +27,7 @@ export type InteractionDetails = z.infer<typeof interactionDetailsSchema>;
 
 export async function getInteractionDetails(uid: string): Promise<InteractionDetails> {
   const cookie = headers().get('cookie') || '';
-  const resp = await fetch(apiUrl(`/api/interaction/${uid}`), {
+  const resp = await fetch(apiUrl(`/oauth/${uid}/details`), {
     method: 'get',
     headers: { cookie },
   });

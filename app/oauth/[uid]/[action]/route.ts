@@ -7,7 +7,7 @@ export function GET(
   { params }: { params: { uid: string; action: string } },
 ): Promise<Response> {
   const cookie = request.headers.get('cookie');
-  return fetch(apiUrl(`/api/interaction/${params.uid}/${params.action}`), {
+  return fetch(apiUrl(`/oauth/${params.uid}/action/${params.action}`), {
     method: 'get',
     headers: {
       cookie: cookie ?? '',
@@ -21,7 +21,7 @@ export async function POST(
 ): Promise<Response> {
   const cookie = request.headers.get('cookie');
   const body = await request.arrayBuffer();
-  return fetch(apiUrl(`/api/interaction/${params.uid}/${params.action}`), {
+  return fetch(apiUrl(`/oauth/${params.uid}/action/${params.action}`), {
     method: 'post',
     body,
     headers: {

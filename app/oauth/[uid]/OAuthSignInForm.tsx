@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import Button from '@/components/Button';
@@ -9,6 +9,7 @@ import { useToast } from '@/components/NotificationContext';
 
 export default function OAuthSignInForm() {
   const { uid } = useParams();
+  const router = useRouter();
   const { dict } = useLocaleDict();
 
   const [username, setUsername] = useState('');
@@ -27,7 +28,7 @@ export default function OAuthSignInForm() {
 
     try {
       setPendingSignIn(true);
-      const resp = await fetch(`/oauth/${uid}/login`, {
+      const resp = await fetch(`/oauth/${uid}/action/login`, {
         method: 'post',
         body: JSON.stringify({
           username,
@@ -50,7 +51,11 @@ export default function OAuthSignInForm() {
 
       const redirectTo: string = (await resp.json()).redirectTo;
       const redirectUrl = new URL(redirectTo, window.location.href);
-      window.location.href = redirectUrl.href;
+      if (redirectUrl.host === window.location.host && redirectUrl.pathname.startsWith('/oauth/')) {
+        router.replace(redirectUrl.href);
+      } else {
+        window.location.href = redirectUrl.href;
+      }
     } catch (e) {
       console.error(e);
       showToast({

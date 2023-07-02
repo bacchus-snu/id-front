@@ -13,11 +13,15 @@ function getLocale(request: Request) {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  if (/^\/oauth\/[^\/]+\/[^\/]+$/.test(pathname)) {
-    return;
+  if (/^\/oauth\/[^\/]+\/action\//.test(pathname)) {
+    // /oauth/:uid/action/:rest*
+    // 백엔드로 그대로 전달
+    const url = new URL(request.nextUrl.pathname + request.nextUrl.search, process.env.API_BASE);
+    return NextResponse.rewrite(url);
   }
 
-  if (pathname.startsWith('/oauth')) {
+  if (/^\/oauth\/[^\/]+$/.test(pathname)) {
+    // /oauth/:uid
     if (request.nextUrl.searchParams.get('locale')) {
       return;
     }
@@ -36,7 +40,7 @@ export function middleware(request: NextRequest) {
     const locale = getLocale(request);
 
     return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, request.url)
+      new URL(`/${locale}${pathname}`, request.url)
     );
   }
 }

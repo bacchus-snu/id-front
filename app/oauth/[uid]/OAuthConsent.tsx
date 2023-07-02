@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { ConsentDetails } from '@/api/oauth';
@@ -14,6 +14,7 @@ type Props = {
 
 export default function OAuthConsent({ details }: Props) {
   const { uid } = useParams();
+  const router = useRouter();
   const { dict } = useLocaleDict();
 
   const [requestPending, setRequestPending] = useState(false);
@@ -22,7 +23,7 @@ export default function OAuthConsent({ details }: Props) {
   async function handleClickConfirm() {
     try {
       setRequestPending(true);
-      const resp = await fetch(`/oauth/${uid}/confirm`, {
+      const resp = await fetch(`/oauth/${uid}/action/confirm`, {
         method: 'post',
         credentials: 'same-origin',
       });
@@ -38,7 +39,11 @@ export default function OAuthConsent({ details }: Props) {
 
       const redirectTo: string = (await resp.json()).redirectTo;
       const redirectUrl = new URL(redirectTo, window.location.href);
-      window.location.href = redirectUrl.href;
+      if (redirectUrl.host === window.location.host && redirectUrl.pathname.startsWith('/oauth/')) {
+        router.replace(redirectUrl.href);
+      } else {
+        window.location.href = redirectUrl.href;
+      }
     } catch (e) {
       console.error(e);
       showToast({
@@ -52,7 +57,7 @@ export default function OAuthConsent({ details }: Props) {
   async function handleClickAbort() {
     try {
       setRequestPending(true);
-      const resp = await fetch(`/oauth/${uid}/abort`, {
+      const resp = await fetch(`/oauth/${uid}/action/abort`, {
         method: 'get',
         credentials: 'same-origin',
       });
@@ -68,7 +73,11 @@ export default function OAuthConsent({ details }: Props) {
 
       const redirectTo: string = (await resp.json()).redirectTo;
       const redirectUrl = new URL(redirectTo, window.location.href);
-      window.location.href = redirectUrl.href;
+      if (redirectUrl.host === window.location.host && redirectUrl.pathname.startsWith('/oauth/')) {
+        router.replace(redirectUrl.href);
+      } else {
+        window.location.href = redirectUrl.href;
+      }
     } catch (e) {
       console.error(e);
       showToast({
