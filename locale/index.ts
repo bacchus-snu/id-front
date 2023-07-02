@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers';
+
 const dict = {
   ko: () => import('./ko.json').then(module => module.default),
 };
@@ -12,4 +14,8 @@ export function getSupportedLocales(): string[] {
 
 export function getDictionary(locale: Locale) {
   return dict[locale]();
+}
+
+export function getLocaleFromCookie(): Locale {
+  return (cookies().get('locale') ?? 'ko') as Locale;
 }

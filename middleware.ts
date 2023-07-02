@@ -20,29 +20,43 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  if (/^\/oauth\/[^\/]+$/.test(pathname)) {
-    // /oauth/:uid
-    if (request.nextUrl.searchParams.get('locale')) {
-      return;
-    }
-
-    const url = new URL(request.url);
-    const locale = getLocale(request);
-    url.searchParams.set('locale', locale);
-    return NextResponse.redirect(url);
+  let cookieLocale = request.cookies.get('locale')?.value;
+  if (!locales.includes(cookieLocale ?? '')) {
+    cookieLocale = undefined;
   }
 
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
-
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-
-    return NextResponse.redirect(
-      new URL(`/${locale}${pathname}`, request.url)
+  let resp;
+  let matchingLocale;
+  if (
+    ['/signup/email', '/signup/create', '/password/email', '/password/change'].includes(pathname) ||
+    /^\/session\/[^\/]+$/.test(pathname) ||
+    /^\/oauth\/[^\/]+$/.test(pathname)
+  ) {
+    matchingLocale = cookieLocale ?? getLocale(request);
+    request.cookies.set('locale', matchingLocale);
+    resp = NextResponse.next();
+  } else {
+    matchingLocale = locales.find(
+      locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     );
+
+    if (matchingLocale == null) {
+      matchingLocale = cookieLocale ?? getLocale(request);
+
+      resp = NextResponse.redirect(
+        new URL(`/${matchingLocale}${pathname}`, request.url)
+      );
+    } else {
+      request.cookies.set('locale', matchingLocale);
+      resp = NextResponse.next();
+    }
   }
+
+  if (matchingLocale !== cookieLocale) {
+    resp.cookies.set('locale', matchingLocale, { path: '/' });
+  }
+
+  return resp;
 }
 
 export const config = {

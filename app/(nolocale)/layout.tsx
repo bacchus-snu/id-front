@@ -3,6 +3,8 @@ import '../globals.css';
 import localFont from 'next/font/local';
 
 import NotificationProvider from '@/components/NotificationContext';
+import { LocaleDictProvider } from '@/components/LocaleDict';
+import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 import CheckSession from '../CheckSession';
 import Nav from '../Nav';
@@ -28,6 +30,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const locale = getLocaleFromCookie();
+  const dict = await getDictionary(locale);
   return (
     <html>
       <body
@@ -36,11 +40,13 @@ export default async function RootLayout({
           + pretendard.className}
       >
         <NotificationProvider>
-          <CheckSession />
-          <Nav />
-          <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
-            {children}
-          </main>
+          <LocaleDictProvider locale={locale} dict={dict}>
+            <CheckSession />
+            <Nav />
+            <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
+              {children}
+            </main>
+          </LocaleDictProvider>
         </NotificationProvider>
       </body>
     </html>
