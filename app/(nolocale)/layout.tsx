@@ -2,8 +2,8 @@ import '../globals.css';
 
 import localFont from 'next/font/local';
 
-import NotificationProvider from '@/components/NotificationContext';
 import { LocaleDictProvider } from '@/components/LocaleDict';
+import NotificationProvider from '@/components/NotificationContext';
 import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 import CheckSession from '../CheckSession';
@@ -33,7 +33,7 @@ export default async function RootLayout({
   const locale = getLocaleFromCookie();
   const dict = await getDictionary(locale);
   return (
-    <html>
+    <html lang={locale}>
       <body
         className={'bg-slate-50 text-black dark:bg-slate-900 dark:text-white '
           + 'flex flex-col items-stretch min-h-screen '

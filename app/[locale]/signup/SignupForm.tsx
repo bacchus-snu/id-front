@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import { type SignupEmail } from '@/api';
 import Button from '@/components/Button';
 import InputField from '@/components/InputField';
+import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
 type Props = {
@@ -16,6 +17,8 @@ type Props = {
 export default function SignupForm({ token, email }: Props) {
   const showToast = useToast();
   const router = useRouter();
+  const { dict } = useLocaleDict();
+  const { signUp: { form: formDict } } = dict;
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +34,7 @@ export default function SignupForm({ token, email }: Props) {
     setPassword(newValue);
 
     if (newValue !== passwordConfirm) {
-      passwordConfirmRef.current?.setCustomValidity('두 비밀번호가 일치하지 않습니다.');
+      passwordConfirmRef.current?.setCustomValidity(dict.validity.passwordConfirmMismatch);
     } else {
       passwordConfirmRef.current?.setCustomValidity('');
     }
@@ -42,7 +45,7 @@ export default function SignupForm({ token, email }: Props) {
     setPasswordConfirm(newValue);
 
     if (password !== newValue) {
-      e.target.setCustomValidity('두 비밀번호가 일치하지 않습니다.');
+      e.target.setCustomValidity(dict.validity.passwordConfirmMismatch);
     } else {
       e.target.setCustomValidity('');
     }
@@ -88,7 +91,7 @@ export default function SignupForm({ token, email }: Props) {
       console.error(e);
       showToast({
         type: 'error',
-        message: '알 수 없는 오류가 발생했습니다.',
+        message: dict.error.unknown,
       });
       return;
     } finally {
@@ -101,26 +104,26 @@ export default function SignupForm({ token, email }: Props) {
   if (email == null) {
     return (
       <section className="border rounded p-2">
-        <h2 className="text-h2 mb-2">가입하기</h2>
-        <p>이메일 주소를 확인하고 있습니다.</p>
+        <h2 className="text-h2 mb-2">{dict.title.signUp}</h2>
+        <p>{dict.signUp.checkingEmail}</p>
       </section>
     );
   }
 
   return (
     <section className="border rounded p-2">
-      <h2 className="text-h2 mb-2">가입하기</h2>
+      <h2 className="text-h2 mb-2">{dict.title.signUp}</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-2">
           <InputField
-            label="이메일"
+            label={formDict.fields.email}
             readOnly
             disabled
             value={`${email.emailLocal}@${email.emailDomain}`}
             className="opacity-75"
           />
           <InputField
-            label="유저명"
+            label={formDict.fields.username}
             required
             pattern="[a-z][a-z0-9]*"
             autoComplete="username"
@@ -128,7 +131,7 @@ export default function SignupForm({ token, email }: Props) {
             onChange={e => setUsername(e.target.value)}
           />
           <InputField
-            label="비밀번호"
+            label={formDict.fields.password}
             type="password"
             required
             minLength={8}
@@ -138,7 +141,7 @@ export default function SignupForm({ token, email }: Props) {
           />
           <InputField
             ref={passwordConfirmRef}
-            label="비밀번호 확인"
+            label={formDict.fields.passwordConfirm}
             type="password"
             required
             minLength={8}
@@ -151,18 +154,18 @@ export default function SignupForm({ token, email }: Props) {
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-2">
             <div className="w-24 flex-none" />
-            <p className="flex-1 pl-1">아래 정보는 행정실에서 학적 확인을 위해 사용합니다.</p>
+            <p className="flex-1 pl-1">{formDict.administrativeInfo}</p>
           </div>
           <InputField
-            label="이름 (실명)"
+            label={formDict.fields.name}
             required
-            placeholder="홍길동"
+            placeholder={formDict.fields.namePlaceholder}
             autoComplete="name"
             value={name}
             onChange={e => setName(e.target.value)}
           />
           <InputField
-            label="학번"
+            label={formDict.fields.studentNumber}
             required
             pattern="\d{4}-\d{4,5}|\d{5}-\d{3}"
             placeholder="2023-12345"
@@ -177,7 +180,7 @@ export default function SignupForm({ token, email }: Props) {
           disabled={requestPending}
           className="w-full font-bold mt-4"
         >
-          가입하기
+          {formDict.signUpButton}
         </Button>
       </form>
     </section>

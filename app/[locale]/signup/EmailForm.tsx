@@ -4,11 +4,13 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import Button from '@/components/Button';
+import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
 export default function EmailForm() {
   const showToast = useToast();
   const router = useRouter();
+  const { dict } = useLocaleDict();
 
   const [email, setEmail] = useState('');
   const [requestPending, setRequestPending] = useState(false);
@@ -29,7 +31,7 @@ export default function EmailForm() {
     if (domain.toLowerCase() !== 'snu.ac.kr') {
       showToast({
         type: 'error',
-        message: '스누메일만 사용 가능합니다.',
+        message: dict.error.emailSnuOnly,
       });
       return;
     }
@@ -59,7 +61,7 @@ export default function EmailForm() {
       console.error(e);
       showToast({
         type: 'error',
-        message: '알 수 없는 오류가 발생했습니다.',
+        message: dict.error.unknown,
       });
       return;
     } finally {
@@ -84,7 +86,7 @@ export default function EmailForm() {
         type="submit"
         disabled={!valid || requestPending}
       >
-        인증 메일 발송
+        {dict.signUp.form.sendEmailButton}
       </Button>
     </form>
   );

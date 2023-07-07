@@ -1,19 +1,33 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: '가입 완료',
+import { getDictionary, Locale } from '@/locale';
+
+type Props = {
+  params: { locale: Locale };
 };
 
-export default function SignupDone() {
+export async function generateMetadata({
+  params: { locale },
+}: Props): Promise<Metadata> {
+  const dict = await getDictionary(locale);
+  return {
+    title: dict.title.signUp,
+  };
+}
+
+export default async function SignupDone({
+  params: { locale },
+}: Props) {
+  const dict = await getDictionary(locale);
   return (
     <>
       <section className="border rounded p-2 mb-2">
-        <h2 className="text-h2 mb-2">가입 완료</h2>
-        <p>가입이 완료되었습니다. 로그인해 주세요.</p>
+        <h2 className="text-h2 mb-2">{dict.title.signUpDone}</h2>
+        <p>{dict.signUp.signUpDone}</p>
       </section>
       <div className="flex flex-row-reverse">
-        <Link className="text-link" href="/">홈으로 돌아가기</Link>
+        <Link className="text-link" href="/">{dict.links.returnToHome}</Link>
       </div>
     </>
   );
