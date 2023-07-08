@@ -19,5 +19,5 @@ export function getDictionary(locale: Locale): Promise<Dict> {
 }
 
 export function getLocaleFromCookie(): Locale {
-  return (cookies().get('locale') ?? 'ko') as Locale;
+  return (cookies().get('locale')?.value ?? 'ko') as Locale;
 }
