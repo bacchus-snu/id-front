@@ -10,20 +10,20 @@
     "signInButton": "Sign in"
   },
   "signUp": {
-    "description": "Enter the email address to use for your account. Only SNU email addresses (@snu.ac.kr) are acceptable.",
+    "description": "Enter your email address to sign up. Only SNU email addresses (@snu.ac.kr) are acceptable.",
     "tokenFailure": {
       "smallTitle": "Token verification failed",
-      "description": "Token is invalid or expired. Please check the following if you're accessing from the sign-up email we've sent:",
+      "description": "Token is invalid or expired. Please check the following if you've accessed the website by sign-up email we've sent:",
       "details": [
-        "Token expires in 24 hours after the email is sent.",
-        "Only the token in the most recently sent email is valid. 메일 발송 후 받은메일함에 도착하기까지 시간이 걸릴 수 있으므로, 가입 신청을 하신 후 메일이 도착할 때까지 기다려 주시기 바랍니다.",
-        "You won't be able to receive email anymore if you have tried sending the email repetedly. 이 경우, 가입 신청에 사용한 이메일 주소를 사용해 contact@bacchus.snucse.org 로 문의 부탁드립니다."
+        "Token will expire in 24 hours after the email is sent.",
+        "Only the most recent token sent to your email is valid. It may take some time for the email to arrive in your inbox, so please wait.",
+        "You won't be able to receive email anymore if you request it repeatedly. In that case, please contact us at contact@bacchus.snucse.org using your SNU email address (@snu.ac.kr)."
       ]
     },
     "checkingEmail": "Checking your email address...",
     "signUpDone": "You've successfully signed up! Please sign in.",
     "form": {
-      "administrativeInfo": "아래 정보는 행정실에서 학적 확인을 위해 사용합니다.",
+      "administrativeInfo": "The information below is used by the administrative office for verification.",
       "sendEmailButton": "Send verification email",
       "signUpButton": "Sign up",
       "fields": {
@@ -42,14 +42,14 @@
     "signOut": "Sign out"
   },
   "validity": {
-    "passwordConfirmMismatch": "Passwords don't match."
+    "passwordConfirmMismatch": "Passwords do not match."
   },
   "error": {
     "signIn": "Signing in failed.",
     "emailSnuOnly": "Only SNU email addresses are acceptable.",
-    "emailNotAvailable": "The email address is not available.",
-    "emailLimitExceeded": "더 이상 메일을 전송할 수 없습니다.",
-    "emailFailed": "메일 전송에 실패했습니다.",
+    "emailNotAvailable": "This email address is not available.",
+    "emailLimitExceeded": "Cannot send email anymore.",
+    "emailFailed": "Failed to send email.",
     "unknown": "Unknown error occured."
   }
 }
