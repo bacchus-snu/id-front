@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 
 const dict = {
   ko: () => import('./ko.json').then(module => module.default),
+  en: () => import('./en.json').then(module => module.default),
 };
 
 export type Locale = keyof typeof dict;
