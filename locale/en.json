@@ -10,7 +10,9 @@
   "signIn": {
     "username": "Username",
     "password": "Password",
-    "signInButton": "Sign in"
+    "signInButton": "Sign in",
+    "signUpLabel": "계정이 없으신가요? {}",
+    "changePasswordLabel": "비밀번호를 잊으셨나요? {}"
   },
   "signOut": {
     "message": "Signing out..."
@@ -98,7 +100,9 @@
   },
   "links": {
     "returnToHome": "Return to home",
-    "signOut": "Sign out"
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "changePassword": "Change password"
   },
   "validity": {
     "tokenRequired": "Token is required.",
