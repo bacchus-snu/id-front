@@ -11,7 +11,7 @@
     "username": "Username",
     "password": "Password",
     "signInButton": "Sign in",
-    "signUpLabel": "Don't you have an account? {}",
+    "signUpLabel": "Don't have an account? {}",
     "changePasswordLabel": "Forgot your password? {}"
   },
   "signOut": {
