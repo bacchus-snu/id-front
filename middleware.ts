@@ -33,8 +33,12 @@ export function middleware(request: NextRequest) {
     /^\/oauth\/[^\/]+$/.test(pathname)
   ) {
     matchingLocale = cookieLocale ?? getLocale(request);
-    request.cookies.set('locale', matchingLocale);
-    resp = NextResponse.next();
+
+    const headers = new Headers(request.headers);
+    headers.set('x-new-locale', matchingLocale);
+    resp = NextResponse.next({
+      request: { headers },
+    });
   } else {
     matchingLocale = locales.find(
       locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -47,8 +51,11 @@ export function middleware(request: NextRequest) {
         new URL(`/${matchingLocale}${pathname}`, request.url)
       );
     } else {
-      request.cookies.set('locale', matchingLocale);
-      resp = NextResponse.next();
+      const headers = new Headers(request.headers);
+      headers.set('x-new-locale', matchingLocale);
+      resp = NextResponse.next({
+        request: { headers },
+      });
     }
   }
 

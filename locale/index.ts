@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 const dict = {
   ko: () => import('./ko.json').then(module => module.default),
@@ -19,5 +19,6 @@ export function getDictionary(locale: Locale): Promise<Dict> {
 }
 
 export function getLocaleFromCookie(): Locale {
-  return (cookies().get('locale')?.value ?? 'ko') as Locale;
+  const locale = headers().get('x-new-locale') ?? cookies().get('locale')?.value;
+  return (locale ?? 'ko') as Locale;
 }
