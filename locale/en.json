@@ -12,7 +12,7 @@
     "password": "Password",
     "signInButton": "Sign in",
     "signUpLabel": "Don't you have an account? {}",
-    "changePasswordLabel": "Do you forget your password? {}"
+    "changePasswordLabel": "Forgot your password? {}"
   },
   "signOut": {
     "message": "Signing out..."
