@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import type { Group } from '@/api';
 import Button from '@/components/Button';
+import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
 enum MembershipState {
@@ -28,7 +29,10 @@ type Props = {
 };
 export default function GroupItem(props: Props) {
   const { group } = props;
+  const { dict } = useLocaleDict();
+  const groupsDict = dict.groups;
   const showToast = useToast();
+
   const [membershipState, setMembershipState] = useState(membershipStateFromGroup(group));
   const [modifyInProgress, setModifyInProgress] = useState(false);
 
@@ -108,16 +112,17 @@ export default function GroupItem(props: Props) {
     case MembershipState.None:
       joinButton = (
         <Button className="flex-0 w-24" disabled={modifyInProgress} onClick={handleClickApply}>
-          신청
+          {groupsDict.buttonApply}
         </Button>
       );
       break;
     case MembershipState.Pending:
-      joinState = <div className="text-dimmed">승인 대기 중</div>;
-      joinButton = <Button className="flex-0 w-24" disabled>대기 중</Button>;
+      joinState = <div className="text-dimmed">{groupsDict.statePending}</div>;
+      joinButton = <Button className="flex-0 w-24" disabled>{groupsDict.buttonApplyPending}
+      </Button>;
       break;
     case MembershipState.Joined:
-      joinState = <div className="text-dimmed">가입됨</div>;
+      joinState = <div className="text-dimmed">{groupsDict.stateJoined}</div>;
       joinButton = (
         <Button
           className="flex-0 w-24"
@@ -125,7 +130,7 @@ export default function GroupItem(props: Props) {
           disabled={modifyInProgress}
           onClick={handleClickLeave}
         >
-          탈퇴
+          {groupsDict.buttonLeave}
         </Button>
       );
       break;
@@ -144,7 +149,7 @@ export default function GroupItem(props: Props) {
         {joinButton}
         {group.owner && (
           <Link className="flex-0 w-24" href={`/group/${group.idx}/members`}>
-            <Button className="w-full">관리</Button>
+            <Button className="w-full">{groupsDict.buttonManage}</Button>
           </Link>
         )}
       </div>

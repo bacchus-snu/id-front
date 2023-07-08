@@ -7,13 +7,14 @@ const dict = {
 
 export type Locale = keyof typeof dict;
 export type Dict =
-  & Awaited<ReturnType<typeof dict['ko']>>;
+  & Awaited<ReturnType<typeof dict['ko']>>
+  & { validity: Record<string, string> };
 
 export function getSupportedLocales(): string[] {
   return Object.keys(dict);
 }
 
-export function getDictionary(locale: Locale) {
+export function getDictionary(locale: Locale): Promise<Dict> {
   return dict[locale]();
 }
 

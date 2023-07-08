@@ -2,15 +2,31 @@
   "title": {
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "signUpDone": "Sign up finished"
+    "signUpDone": "Sign up finished",
+    "changePassword": "비밀번호 변경",
+    "groups": "그룹 관리"
   },
+  "welcome": "{}님, 환영합니다.",
   "signIn": {
     "username": "Username",
     "password": "Password",
     "signInButton": "Sign in"
   },
+  "signOut": {
+    "message": "로그아웃 중..."
+  },
   "signUp": {
-    "description": "Enter your email address to sign up. Only SNU email addresses (@snu.ac.kr) are acceptable.",
+    "email": {
+      "description": "Enter your email address to sign up. Only SNU email addresses (@snu.ac.kr) are acceptable.",
+      "buttonSendEmail": "Send verification email",
+      "emailSent": {
+        "smallTitle": "발송 완료",
+        "descriptions": [
+          "메일 주소 확인을 위한 이메일이 발송되었습니다. 메일함을 확인해 주세요.",
+          "메일이 도착할 때까지 시간이 걸릴 수 있습니다."
+        ]
+      }
+    },
     "tokenFailure": {
       "smallTitle": "Token verification failed",
       "description": "Token is invalid or expired. Please check the following if you've accessed the website by sign-up email we've sent:",
@@ -24,7 +40,6 @@
     "signUpDone": "You've successfully signed up! Please sign in.",
     "form": {
       "administrativeInfo": "The information below is used by the administrative office for verification.",
-      "sendEmailButton": "Send verification email",
       "signUpButton": "Sign up",
       "fields": {
         "email": "Email",
@@ -37,11 +52,61 @@
       }
     }
   },
+  "changePassword": {
+    "signedInForm": {
+      "description": "비밀번호 변경 안내를 받을 이메일을 선택해 주세요.",
+      "buttonSendEmail": "변경 신청",
+      "emailLoading": "불러오는 중...",
+      "emailSentDescription": [
+        "안내 메일이 전송되었습니다. 메일함을 확인해 주세요.",
+        "메일이 도착할 때까지 시간이 걸릴 수 있습니다."
+      ]
+    },
+    "email": {
+      "description": "계정에 연결된 이메일 주소를 입력하세요.",
+      "buttonSendEmail": "변경 메일 발송",
+      "emailSent": {
+        "smallTitle": "이메일 발송 완료",
+        "descriptions": [
+          "<strong>입력한 이메일로 가입된 유저가 존재하는 경우,</strong> 해당 이메일로 안내 메일이 발송됩니다.",
+          "메일이 도착할 때까지 시간이 걸릴 수 있습니다."
+        ]
+      }
+    },
+    "tokenFailure": {
+      "smallTitle": "토큰 확인 실패",
+      "description": "토큰이 유효하지 않거나 만료되었습니다. 비밀번호 재설정 메일을 통해 접속하신 경우, 아래 내용을 확인해 주세요.",
+      "details": [
+        "토큰은 메일 발송 24시간 후에 만료됩니다.",
+        "가장 마지막에 발송된 메일의 토큰만 유효합니다. 메일 발송 후 받은메일함에 도착하기까지 시간이 걸릴 수 있으므로, 가입 신청을 하신 후 메일이 도착할 때까지 기다려 주시기 바랍니다.",
+        "비밀번호 재설정 메일 발송을 여러 번 시도하신 경우, 토큰을 더 이상 받을 수 없게 됩니다. 이 경우, 가입 신청에 사용한 이메일 주소를 사용해 contact@bacchus.snucse.org 로 문의 부탁드립니다."
+      ]
+    }
+  },
+  "groups": {
+    "snucseNote": "복부전생, 연합전공, 연계전공을 포함한 모든 컴퓨터공학부 구성원은 \u2018컴퓨터공학 전공\u2019 그룹에 가입 신청해야 합니다.",
+    "joinedGroups": "현재 가입되어 있는 그룹: ",
+    "groupLoading": "(불러오는 중)",
+    "groupNone": "없음",
+    "buttonGroupList": "그룹 관리",
+    "buttonApply": "신청",
+    "buttonApplyPending": "대기 중",
+    "buttonLeave": "탈퇴",
+    "buttonManage": "관리",
+    "statePending": "승인 대기 중",
+    "stateJoined": "가입됨"
+  },
   "links": {
     "returnToHome": "Return to home",
     "signOut": "Sign out"
   },
   "validity": {
+    "tokenRequired": "토큰이 필요합니다.",
+    "usernameInvalid": "유저명 형식이 잘못되었습니다.",
+    "passwordTooShort": "비밀번호는 8자 이상이어야 합니다.",
+    "nameRequired": "이름은 비워둘 수 없습니다.",
+    "studentNumberInvalid": "잘못된 학번입니다.",
+    "studentNumberRequired": "학번은 비워둘 수 없습니다.",
     "passwordConfirmMismatch": "Passwords do not match."
   },
   "error": {
@@ -50,6 +115,10 @@
     "emailNotAvailable": "This email address is not available.",
     "emailLimitExceeded": "Cannot send email anymore.",
     "emailFailed": "Failed to send email.",
+    "tokenVerificationFailed": "토큰 확인에 실패했습니다.",
+    "userExists": "유저가 이미 존재합니다.",
+    "userCreationFailed": "유저 생성에 실패했습니다.",
+    "changePasswordFailed": "비밀번호 변경에 실패했습니다.",
     "unknown": "Unknown error occured."
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import Button from '@/components/Button';
+import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
 enum RequestState {
@@ -11,6 +12,8 @@ enum RequestState {
   Done,
 }
 export default function EmailForm() {
+  const { dict } = useLocaleDict();
+  const passwordEmailDict = dict.changePassword.email;
   const showToast = useToast();
 
   const [email, setEmail] = useState('');
@@ -53,7 +56,7 @@ export default function EmailForm() {
       console.error(e);
       showToast({
         type: 'error',
-        message: '알 수 없는 오류가 발생했습니다.',
+        message: dict.error.unknown,
       });
       return;
     } finally {
@@ -66,22 +69,19 @@ export default function EmailForm() {
   if (requestState === RequestState.Done) {
     return (
       <section className="border rounded p-2">
-        <h2 className="text-h2 mb-2">이메일 발송 완료</h2>
-        <p>
-          <strong>입력한 이메일로 가입된 유저가 존재하는 경우,</strong>{' '}
-          해당 이메일로 안내 메일이 발송됩니다.
-        </p>
-        <p>메일이 도착할 때까지 시간이 걸릴 수 있습니다.</p>
+        <h2 className="text-h2 mb-2">{passwordEmailDict.emailSent.smallTitle}</h2>
+        {passwordEmailDict.emailSent.descriptions.map((desc, index) => (
+          // FIXME: 좀 더 제대로 된 i18n 라이브러리 써서 교체하기
+          <p key={index} dangerouslySetInnerHTML={{ __html: desc }} />
+        ))}
       </section>
     );
   }
 
   return (
     <section className="border rounded p-2">
-      <h2 className="text-h2 mb-2">비밀번호 변경</h2>
-      <p>
-        계정에 연결된 이메일 주소를 입력하세요.
-      </p>
+      <h2 className="text-h2 mb-2">{dict.title.changePassword}</h2>
+      <p>{passwordEmailDict.description}</p>
       <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
         <input
           className="w-full flex-none sm:flex-1 bg-transparent border rounded p-1"
@@ -96,7 +96,7 @@ export default function EmailForm() {
           type="submit"
           disabled={!valid || requestState !== RequestState.Idle}
         >
-          변경 메일 발송
+          {passwordEmailDict.buttonSendEmail}
         </Button>
       </form>
     </section>

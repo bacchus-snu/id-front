@@ -4,8 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { revalidateSession } from '@/api/session';
+import useLocaleDict from '@/components/LocaleDict';
 
 export default function Logout() {
+  const { dict } = useLocaleDict();
   const router = useRouter();
   useEffect(() => {
     (async () => {
@@ -17,5 +19,5 @@ export default function Logout() {
     })();
   });
 
-  return <p className="text-center">로그아웃 중...</p>;
+  return <p className="text-center">{dict.signOut.message}</p>;
 }

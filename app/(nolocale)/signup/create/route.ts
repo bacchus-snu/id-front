@@ -1,23 +1,36 @@
-import { apiUrl } from '@/api';
 import { NextResponse } from 'next/server';
 import * as z from 'zod';
 
+import { apiUrl } from '@/api';
+import mapError from '@/api/mapError';
+import { getDictionary, getLocaleFromCookie } from '@/locale';
+
 const bodySchema = z.object({
-  token: z.string().nonempty('토큰이 필요합니다.'),
-  username: z.string().regex(/^[a-z][a-z0-9]+$/, '유저명 형식이 잘못되었습니다.'),
-  password: z.string().min(8, '비밀번호는 8자 이상이어야 합니다.'),
-  name: z.string().nonempty('이름은 비워둘 수 없습니다.'),
+  token: z.string().nonempty('tokenRequired'),
+  username: z.string().regex(/^[a-z][a-z0-9]+$/, 'usernameInvalid'),
+  password: z.string().min(8, 'passwordTooShort'),
+  name: z.string().nonempty('nameRequired'),
   studentNumbers: z.array(
-    z.string().regex(/^\d{4}-\d{4,5}|\d{5}-\d{3}$/, '잘못된 학번입니다.'),
-  ).nonempty('학번은 비워둘 수 없습니다.'),
+    z.string().regex(/^\d{4}-\d{4,5}|\d{5}-\d{3}$/, 'studentNumberInvalid'),
+  ).nonempty('studentNumberRequired'),
   preferredLanguage: z.union([z.literal('ko'), z.literal('en')]),
 });
 
 export async function POST(req: Request): Promise<Response> {
+  const locale = getLocaleFromCookie();
+  const dict = await getDictionary(locale);
+
   let body;
   try {
     body = bodySchema.parse(await req.json());
   } catch (e) {
+    if (e instanceof z.ZodError) {
+      const errors = e.errors.map(error => mapError(error, dict));
+      return NextResponse.json(
+        { message: e.message, errors },
+        { status: 400 },
+      );
+    }
     if (e instanceof Error) {
       return NextResponse.json(
         { message: e.message },

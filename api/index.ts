@@ -2,6 +2,8 @@ import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import * as z from 'zod';
 
+import { getLocaleFromCookie } from '@/locale';
+
 export function apiUrl(ep: string): URL {
   return new URL(ep, process.env.API_BASE);
 }
@@ -48,6 +50,11 @@ export type Group = {
 };
 export async function listGroups(): Promise<Group[]> {
   const cookie = headers().get('cookie') || '';
+  let locale = getLocaleFromCookie();
+  if (locale !== 'ko' && locale !== 'en') {
+    locale = 'en';
+  }
+
   const resp = await fetch(apiUrl('/api/group'), {
     headers: { cookie },
   });
@@ -58,8 +65,8 @@ export async function listGroups(): Promise<Group[]> {
   const body = listGroupsSchema.parse(await resp.json());
   return body.map(value => ({
     idx: value.idx,
-    name: value.name.ko ?? '',
-    description: value.description.ko ?? '',
+    name: value.name[locale] ?? '',
+    description: value.description[locale] ?? '',
     pending: value.isPending,
     joined: value.isDirectMember,
     implied: value.isMember,

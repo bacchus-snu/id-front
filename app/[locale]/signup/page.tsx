@@ -34,7 +34,7 @@ export default async function Signup({
     return (
       <section className="border rounded p-2">
         <h2 className="text-h2 mb-2">{dict.title.signUp}</h2>
-        <p>{dict.signUp.description}</p>
+        <p>{dict.signUp.email.description}</p>
         <EmailForm />
       </section>
     );

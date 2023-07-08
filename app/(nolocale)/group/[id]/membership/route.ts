@@ -9,6 +9,7 @@ import {
   leaveGroup,
   rejectOrRemoveGroupMembers,
 } from '@/api';
+import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 const bodySchema = z.intersection(
   z.object({ action: z.union([z.literal('add'), z.literal('remove')]) }),
@@ -56,6 +57,9 @@ export async function POST(
       }
     }
   } catch (e) {
+    const locale = getLocaleFromCookie();
+    const dict = await getDictionary(locale);
+
     if (e instanceof BadRequestError) {
       return NextResponse.json(
         { message: e.toString() },
@@ -70,7 +74,7 @@ export async function POST(
     }
     console.error(e);
     return NextResponse.json(
-      { message: '알 수 없는 오류가 발생했습니다.' },
+      { message: dict.error.unknown },
       { status: 500 },
     );
   }

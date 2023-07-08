@@ -86,7 +86,7 @@ export default function EmailForm() {
         type="submit"
         disabled={!valid || requestPending}
       >
-        {dict.signUp.form.sendEmailButton}
+        {dict.signUp.email.buttonSendEmail}
       </Button>
     </form>
   );

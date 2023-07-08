@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import type { Email } from '@/api';
 import Button from '@/components/Button';
+import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
 enum RequestState {
@@ -16,6 +17,8 @@ type Props = {
   emails?: Email[];
 };
 export default function ChangePasswordForm(props: Props) {
+  const { dict } = useLocaleDict();
+  const formDict = dict.changePassword.signedInForm;
   const showToast = useToast();
 
   const { emails } = props;
@@ -62,7 +65,7 @@ export default function ChangePasswordForm(props: Props) {
       console.error(e);
       showToast({
         type: 'error',
-        message: '알 수 없는 오류가 발생했습니다.',
+        message: dict.error.unknown,
       });
       return;
     } finally {
@@ -75,15 +78,17 @@ export default function ChangePasswordForm(props: Props) {
   if (requestState === RequestState.Done) {
     return (
       <>
-        <p>안내 메일이 전송되었습니다. 메일함을 확인해 주세요.</p>
-        <p>메일이 도착할 때까지 시간이 걸릴 수 있습니다.</p>
+        {dict.changePassword.signedInForm.emailSentDescription.map((desc, index) => (
+          // FIXME: 좀 더 제대로 된 i18n 라이브러리 써서 교체하기
+          <p key={index} dangerouslySetInnerHTML={{ __html: desc }} />
+        ))}
       </>
     );
   }
 
   let emailOptions;
   if (emails == null) {
-    emailOptions = <option value="0">불러오는 중...</option>;
+    emailOptions = <option value="0">{formDict.emailLoading}</option>;
   } else {
     emailOptions = emails.map(({ local, domain }, idx) => (
       <option key={`${local}@${domain}`} value={String(idx)}>
@@ -94,9 +99,7 @@ export default function ChangePasswordForm(props: Props) {
 
   return (
     <>
-      <p>
-        비밀번호 변경 안내를 받을 이메일을 선택해 주세요.
-      </p>
+      <p>{formDict.description}</p>
       <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
         <select
           className={'w-full flex-none sm:flex-1 bg-transparent border rounded p-1 '
@@ -113,7 +116,7 @@ export default function ChangePasswordForm(props: Props) {
           type="submit"
           disabled={emails == null || requestState !== RequestState.Idle}
         >
-          변경 신청
+          {formDict.buttonSendEmail}
         </Button>
       </form>
     </>
