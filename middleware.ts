@@ -13,6 +13,7 @@ function getLocale(request: Request) {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const search = request.nextUrl.search;
   if (/^\/oauth\/[^\/]+\/action\//.test(pathname)) {
     // /oauth/:uid/action/:rest*
     // 백엔드로 그대로 전달
@@ -48,7 +49,7 @@ export function middleware(request: NextRequest) {
       matchingLocale = cookieLocale ?? getLocale(request);
 
       resp = NextResponse.redirect(
-        new URL(`/${matchingLocale}${pathname}`, request.url)
+        new URL(`/${matchingLocale}${pathname}${search}`, request.url)
       );
     } else {
       const headers = new Headers(request.headers);
