@@ -6,7 +6,13 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": "plugin:@typescript-eslint/recommended"
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/stylistic"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+      }
     }
   ]
 }
