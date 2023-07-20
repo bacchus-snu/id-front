@@ -30,6 +30,7 @@ export function middleware(request: NextRequest) {
   let matchingLocale;
   if (
     ['/signup/email', '/signup/create', '/password/email', '/password/change'].includes(pathname) ||
+    /^\/group\/[^\/]+\/membership$/.test(pathname) ||
     /^\/session\/[^\/]+$/.test(pathname) ||
     /^\/oauth\/[^\/]+$/.test(pathname)
   ) {
