@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
 import { type SignupEmail } from '@/api';
@@ -17,6 +17,7 @@ type Props = {
 export default function SignupForm({ token, email }: Props) {
   const showToast = useToast();
   const router = useRouter();
+  const params = useParams();
   const { dict } = useLocaleDict();
   const { signUp: { form: formDict } } = dict;
 
@@ -63,7 +64,7 @@ export default function SignupForm({ token, email }: Props) {
       password,
       name,
       studentNumbers: [studentNumber],
-      preferredLanguage: 'ko',
+      preferredLanguage: params.locale,
     };
 
     try {
