@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import type { Group } from '@/api';
@@ -28,6 +29,8 @@ type Props = {
   group: Group;
 };
 export default function GroupItem(props: Props) {
+  const router = useRouter();
+
   const { group } = props;
   const { dict } = useLocaleDict();
   const groupsDict = dict.groups;
@@ -69,6 +72,8 @@ export default function GroupItem(props: Props) {
     } finally {
       setModifyInProgress(false);
     }
+
+    router.refresh();
   }
 
   async function handleClickLeave() {
