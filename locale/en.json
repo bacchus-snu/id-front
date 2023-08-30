@@ -86,7 +86,6 @@
     }
   },
   "groups": {
-    "snucseNote": "All members of the Department of Computer Science and Engineering, including double major, minor, and interdisciplinary major, must apply to join the \u2018CSE major\u2019 group.",
     "joinedGroups": "Current groups joined: ",
     "groupLoading": "(loading)",
     "groupNone": "None",

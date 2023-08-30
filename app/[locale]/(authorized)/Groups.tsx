@@ -10,7 +10,6 @@ export default function Groups({ dict }: { dict: Dict }) {
   return (
     <section className="border rounded p-2">
       <h2 className="text-h2 mb-2">{dict.title.groups}</h2>
-      <p className="text-important">{dict.groups.snucseNote}</p>
       <p>
         {dict.groups.joinedGroups}
         <Suspense fallback={<JoinedGroupList dict={dict} />}>
