@@ -31,8 +31,7 @@ export function middleware(request: NextRequest) {
   if (
     ['/signup/email', '/signup/create', '/password/email', '/password/change'].includes(pathname) ||
     /^\/group\/[^\/]+\/membership$/.test(pathname) ||
-    /^\/session\/[^\/]+$/.test(pathname) ||
-    /^\/oauth\/[^\/]+$/.test(pathname)
+    /^\/session\/[^\/]+$/.test(pathname)
   ) {
     matchingLocale = cookieLocale ?? getLocale(request);
 
