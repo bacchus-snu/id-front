@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { revalidateSession } from '@/api/session';
@@ -7,7 +8,12 @@ import Button from '@/components/Button';
 import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
-export default function SignInForm() {
+type Props = {
+  oauthUid?: string;
+};
+
+export default function SignInForm({ oauthUid }: Props) {
+  const router = useRouter();
   const { dict } = useLocaleDict();
 
   const [username, setUsername] = useState('');
@@ -26,7 +32,8 @@ export default function SignInForm() {
 
     try {
       setPendingSignIn(true);
-      const resp = await fetch('/session/signin', {
+      const path = oauthUid ? `/oauth/${oauthUid}/action/login` : '/session/signin';
+      const resp = await fetch(path, {
         method: 'post',
         body: JSON.stringify({
           username,
@@ -43,7 +50,20 @@ export default function SignInForm() {
           type: 'error',
           message: dict.error.signIn,
         });
+        setPendingSignIn(false);
         return;
+      }
+
+      if (oauthUid) {
+        const redirectTo: string = (await resp.json()).redirectTo;
+        const redirectUrl = new URL(redirectTo, window.location.href);
+        if (redirectUrl.host === window.location.host && redirectUrl.pathname.startsWith('/oauth/')) {
+          router.replace(redirectUrl.href);
+        } else {
+          window.location.href = redirectUrl.href;
+        }
+      } else {
+        revalidateSession();
       }
     } catch (e) {
       console.error(e);
@@ -51,12 +71,9 @@ export default function SignInForm() {
         type: 'error',
         message: dict.error.unknown,
       });
-      return;
-    } finally {
       setPendingSignIn(false);
+      return;
     }
-
-    revalidateSession();
   }
 
   return (

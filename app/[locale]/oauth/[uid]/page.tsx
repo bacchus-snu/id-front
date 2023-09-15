@@ -1,21 +1,23 @@
 import { getInteractionDetails } from '@/api/oauth';
+import SignIn from '@/components/SignIn';
 import { Locale } from '@/locale';
 
 import OAuthConsent from './OAuthConsent';
-import OAuthSignInForm from './OAuthSignInForm';
 
 type Props = {
-  params: { uid: string };
-  searchParams: { locale?: Locale };
+  params: {
+    locale: Locale;
+    uid: string;
+  };
 };
 
 export default async function OAuthPage({
-  params: { uid },
+  params: { uid, locale },
 }: Props) {
   const interactionDetails = await getInteractionDetails(uid);
 
   if (interactionDetails.prompt.name === 'login') {
-    return <OAuthSignInForm />;
+    return <SignIn locale={locale} oauthUid={uid} />;
   }
 
   if (interactionDetails.prompt.name === 'consent') {
