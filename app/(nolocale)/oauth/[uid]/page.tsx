@@ -1,23 +1,23 @@
+import { RedirectType } from 'next/dist/client/components/redirect';
+import { redirect } from 'next/navigation';
+
 import { getInteractionDetails } from '@/api/oauth';
-import SignIn from '@/components/SignIn';
-import { Locale } from '@/locale';
 
 import OAuthConsent from './OAuthConsent';
 
 type Props = {
   params: {
-    locale: Locale;
     uid: string;
   };
 };
 
 export default async function OAuthPage({
-  params: { uid, locale },
+  params: { uid },
 }: Props) {
   const interactionDetails = await getInteractionDetails(uid);
 
   if (interactionDetails.prompt.name === 'login') {
-    return <SignIn locale={locale} oauthUid={uid} />;
+    redirect(`/signin?uid=${encodeURIComponent(uid)}`, RedirectType.replace);
   }
 
   if (interactionDetails.prompt.name === 'consent') {
