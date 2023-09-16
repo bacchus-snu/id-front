@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 import { checkSession } from '@/api';
+import SignIn from '@/components/SignIn';
 import { getDictionary, Locale } from '@/locale';
 
 export async function generateMetadata({
@@ -15,11 +16,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function Login() {
+export default async function Login({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}) {
   const sessionInfo = await checkSession();
   if (sessionInfo.signedIn) {
     redirect('/');
   }
 
-  return null;
+  return <SignIn locale={locale} />;
 }
