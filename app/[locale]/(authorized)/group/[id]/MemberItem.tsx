@@ -31,7 +31,12 @@ export default function MemberItem(props: Props) {
           />
         </label>
       </td>
-      <td className="text-right tabular-nums px-2 border-r">{props.studentNumber}</td>
+      <td className="px-2 border-r">{props.username}</td>
+      <td className="text-right tabular-nums px-2 border-r">
+        <ul>
+          {props.studentNumbers.map(sn => <li key={sn}>{sn}</li>)}
+        </ul>
+      </td>
       <td className="px-2 border-r">{props.name}</td>
     </tr>
   );
