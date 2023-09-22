@@ -137,8 +137,9 @@ export async function leaveGroup(groupIdx: string): Promise<void> {
 
 const groupMemberSchema = z.object({
   uid: z.number(),
+  username: z.string(),
   name: z.string(),
-  studentNumber: z.string(),
+  studentNumbers: z.string().array(),
 });
 export type GroupMember = z.infer<typeof groupMemberSchema>;
 export async function listGroupMembers(groupIdx: string): Promise<GroupMember[]> {

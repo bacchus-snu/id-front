@@ -51,8 +51,9 @@ export default function MemberList(props: Props) {
       }
 
       return members.filter(
-        ({ name, studentNumber }) => (
-          name.includes(deferredQuery) || studentNumber.includes(deferredQuery)
+        ({ username, name, studentNumbers }) => (
+          username.includes(deferredQuery) || name.includes(deferredQuery)
+          || studentNumbers.some(sn => sn.includes(deferredQuery))
         ),
       );
     },
@@ -179,7 +180,8 @@ export default function MemberList(props: Props) {
         <thead>
           <tr className="h-8">
             <th className="border w-8"></th>
-            <th className="border w-1/3">학번</th>
+            <th className="border w-1/4">유저명</th>
+            <th className="border w-1/4">학번</th>
             <th className="border">이름</th>
           </tr>
         </thead>
