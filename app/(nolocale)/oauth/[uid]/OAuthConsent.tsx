@@ -3,16 +3,20 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { ConsentDetails } from '@/api/oauth';
+import { ConsentDetails, OAuthClient } from '@/api/oauth';
 import Button from '@/components/Button';
 import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 
+const hiddenClaims = new Set(['sub', 'sid', 'auth_time', 'acr', 'amr', 'iss']);
+
 type Props = {
   details: ConsentDetails;
+  client?: OAuthClient;
+  grantedScope?: string[];
 };
 
-export default function OAuthConsent({ details }: Props) {
+export default function OAuthConsent({ details, client, grantedScope }: Props) {
   const { uid } = useParams();
   const router = useRouter();
   const { dict } = useLocaleDict();
@@ -31,7 +35,7 @@ export default function OAuthConsent({ details }: Props) {
       if (!resp.ok) {
         showToast({
           type: 'error',
-          message: '승인에 실패했습니다.',
+          message: dict.error.consentConfirmFailed,
         });
         setRequestPending(false);
         return;
@@ -65,7 +69,7 @@ export default function OAuthConsent({ details }: Props) {
       if (!resp.ok) {
         showToast({
           type: 'error',
-          message: '처리에 실패했습니다.',
+          message: dict.error.consentAbortFailed,
         });
         setRequestPending(false);
         return;
@@ -88,31 +92,38 @@ export default function OAuthConsent({ details }: Props) {
     }
   }
 
+  const isEmptyConsent = !details.missingOIDCScope && !details.missingOIDCClaims
+    && !details.missingResourceScopes;
+  const titleTemplate: React.ReactNode[] =
+    (isEmptyConsent ? dict.oidc.consentEmpty : dict.oidc.consent).split('{}');
+  if (client?.name) {
+    titleTemplate.splice(
+      1,
+      0,
+      <strong key="title" className="font-bold">{client.name}</strong>,
+    );
+  }
+
   return (
     <section className="border rounded p-2">
-      <h2 className="text-h2 mb-2">권한 요청</h2>
-      {details.missingOIDCScope && (
-        <p>
-          <strong className="font-bold">
-            <code>missingOIDCScope</code>
-          </strong>
-          <ul>
-            {details.missingOIDCScope.map(v => <li key={v}>{v}</li>)}
-          </ul>
-        </p>
-      )}
-      {details.missingOIDCClaims && (
-        <p>
-          <strong className="font-bold">
-            <code>missingOIDCClaims</code>
-          </strong>
-          <ul>
-            {details.missingOIDCClaims.map(v => <li key={v}>{v}</li>)}
-          </ul>
-        </p>
+      <h2 className="text-h2 mb-2">{dict.title.consent}</h2>
+      <p>{titleTemplate}</p>
+      {!isEmptyConsent && (
+        <ul>
+          {details.missingOIDCScope?.map(v => (
+            <li key={v}>
+              {(dict.oidc.scopes as Record<string, string>)[v] ?? v}
+            </li>
+          ))}
+          {details.missingOIDCClaims?.filter(v => !hiddenClaims.has(v)).map(v => (
+            <li key={v}>
+              {(dict.oidc.claims as Record<string, string>)[v] ?? v}
+            </li>
+          ))}
+        </ul>
       )}
       {details.missingResourceScopes && (
-        <p>
+        <>
           <strong className="font-bold">
             <code>missingResourceScopes</code>
           </strong>
@@ -126,16 +137,28 @@ export default function OAuthConsent({ details }: Props) {
               </li>
             ))}
           </ul>
-        </p>
+        </>
       )}
-      <div className="flex flex-row-reverse">
+      {grantedScope && grantedScope.length > 0 && (
+        <>
+          <p>{dict.oidc.grantedList}</p>
+          <ul>
+            {grantedScope.map(v => (
+              <li key={v}>
+                {(dict.oidc.claims as Record<string, string>)[v] ?? v}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      <div className="flex flex-row-reverse gap-2">
         <Button
           className="flex-0 w-24 font-bold"
           color="primary"
           disabled={requestPending}
           onClick={handleClickConfirm}
         >
-          승인
+          {dict.oidc.buttonConfirm}
         </Button>
         <Button
           className="flex-0 w-24 font-bold"
@@ -143,7 +166,7 @@ export default function OAuthConsent({ details }: Props) {
           disabled={requestPending}
           onClick={handleClickAbort}
         >
-          거절
+          {dict.oidc.buttonAbort}
         </Button>
       </div>
     </section>

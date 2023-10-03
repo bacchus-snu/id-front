@@ -9,6 +9,14 @@ const consentDetailsSchema = z.object({
 });
 export type ConsentDetails = z.infer<typeof consentDetailsSchema>;
 
+const oauthClientSchema = z.object({
+  name: z.string().optional(),
+  uri: z.string().optional(),
+  logoUri: z.string().optional(),
+  contacts: z.string().array().optional(),
+});
+export type OAuthClient = z.infer<typeof oauthClientSchema>;
+
 const interactionDetailsSchema = z.object({
   prompt: z.union([
     z.object({
@@ -20,8 +28,10 @@ const interactionDetailsSchema = z.object({
     }),
   ]),
   params: z.object({
-    client_id: z.optional(z.string()),
+    client_id: z.string().optional(),
+    scope: z.string().array().optional(),
   }),
+  client: oauthClientSchema.optional(),
 });
 export type InteractionDetails = z.infer<typeof interactionDetailsSchema>;
 
