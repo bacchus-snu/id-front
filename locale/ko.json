@@ -4,7 +4,8 @@
     "signUp": "가입하기",
     "signUpDone": "가입 완료",
     "changePassword": "비밀번호 변경",
-    "groups": "그룹 관리"
+    "groups": "그룹 관리",
+    "consent": "권한 요청"
   },
   "welcome": "{}님, 환영합니다.",
   "signIn": {
@@ -97,6 +98,26 @@
     "statePending": "승인 대기 중",
     "stateJoined": "가입됨"
   },
+  "oidc": {
+    "consent": "{} 앱이 아래 정보에 접근하려고 합니다.",
+    "consentEmpty": "{} 앱이 이전에 접근 허가를 받은 정보에 다시 접근하려고 합니다.",
+    "grantedList": "이전에 아래 정보에 접근을 허가했습니다.",
+    "buttonConfirm": "승인",
+    "buttonAbort": "거절",
+    "scopes": {
+      "openid": "계정 및 가입한 그룹 정보",
+      "profile": "이름 및 학번",
+      "email": "이메일",
+      "offline_access": "유저와의 상호작용 없이 유저 정보에 접근"
+    },
+    "claims": {
+      "username": "유저명",
+      "groups": "가입한 그룹",
+      "name": "이름",
+      "student_id": "학번",
+      "email": "이메일"
+    }
+  },
   "links": {
     "returnToHome": "홈으로 돌아가기",
     "signUp": "가입하기",
@@ -122,6 +143,8 @@
     "userExists": "유저가 이미 존재합니다.",
     "userCreationFailed": "유저 생성에 실패했습니다.",
     "changePasswordFailed": "비밀번호 변경에 실패했습니다.",
+    "consentConfirmFailed": "승인에 실패했습니다.",
+    "consentAbortFailed": "처리에 실패했습니다.",
     "unknown": "알 수 없는 오류가 발생했습니다."
   }
 }

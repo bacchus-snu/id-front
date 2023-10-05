@@ -22,7 +22,9 @@ export default async function OAuthPage({
 
   if (interactionDetails.prompt.name === 'consent') {
     const details = interactionDetails.prompt.details;
-    return <OAuthConsent details={details} />;
+    const client = interactionDetails.client;
+    const grantedScope = interactionDetails.params.scope;
+    return <OAuthConsent details={details} client={client} grantedScope={grantedScope} />;
   }
 
   return null;
