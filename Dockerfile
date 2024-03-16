@@ -1,6 +1,8 @@
 # From https://github.com/vercel/next.js/blob/18d112fb5ca62bdb7b1361a65c7e33615d16bdd1/examples/with-docker/Dockerfile
 
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
+# Use /app/.yarn/cache instead of global cache
+ENV YARN_ENABLE_GLOBAL_CACHE=false
 
 # Install dependencies only when needed
 FROM base AS deps
