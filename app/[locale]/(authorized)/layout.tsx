@@ -12,6 +12,7 @@ export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: Locale };
+  signin: React.ReactNode;
 }): Promise<Metadata> {
   const sessionInfo = await checkSession();
   if (sessionInfo.signedIn) {
