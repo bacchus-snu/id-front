@@ -29,7 +29,7 @@ const interactionDetailsSchema = z.object({
   ]),
   params: z.object({
     client_id: z.string().optional(),
-    scope: z.string().array().optional(),
+    scope: z.string().or(z.string().array()).optional(),
   }),
   client: oauthClientSchema.optional(),
 });
