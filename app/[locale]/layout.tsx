@@ -16,8 +16,8 @@ const pretendard = localFont({
 
 export const metadata = {
   title: {
-    template: '%s | Bacchus ID',
-    default: 'Bacchus ID',
+    template: '%s | SNUCSE ID',
+    default: 'SNUCSE ID',
   },
   formatDetection: {
     address: false,

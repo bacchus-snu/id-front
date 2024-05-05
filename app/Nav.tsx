@@ -17,7 +17,7 @@ export default function Nav() {
     <div className="h-16 flex-none bg-primary-300 dark:bg-primary-700">
       <nav className="h-full max-w-screen-lg flex flex-row items-center mx-auto px-4">
         <h1 className="text-xl">
-          <Link href="/">Bacchus ID</Link>
+          <Link href="/">SNUCSE ID</Link>
         </h1>
         <div className="flex-1" />
         {data?.signedIn && (

@@ -27,8 +27,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: {
-      template: `%s - ${group.name} | Bacchus ID`,
-      default: `${group.name} | Bacchus ID`,
+      template: `%s - ${group.name} | SNUCSE ID`,
+      default: `${group.name} | SNUCSE ID`,
     },
   };
 }

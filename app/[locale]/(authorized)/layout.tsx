@@ -22,8 +22,8 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
   return {
     title: {
-      template: `${dict.title.signIn} | Bacchus ID`,
-      absolute: `${dict.title.signIn} | Bacchus ID`,
+      template: `${dict.title.signIn} | SNUCSE ID`,
+      absolute: `${dict.title.signIn} | SNUCSE ID`,
     },
   };
 }
