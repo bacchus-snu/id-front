@@ -21,8 +21,8 @@ function Tab(props: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
   const isActive = pathname.endsWith(href);
 
-  let className = 'flex-1 rounded-t p-2 transition' +
-    ' hover:bg-black/10 dark:hover:bg-white/10 active:bg-black/15 dark:active:bg-white/15';
+  let className = 'flex-1 rounded-t p-2 transition'
+    + ' hover:bg-black/10 dark:hover:bg-white/10 active:bg-black/15 dark:active:bg-white/15';
   if (isActive) {
     className += ' font-bold border-b-2 border-primary-300 dark:border-primary-600';
   } else {
