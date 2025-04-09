@@ -3,6 +3,7 @@
     "signIn": "로그인",
     "signUp": "가입하기",
     "signUpDone": "가입 완료",
+    "findUsername": "유저명 찾기",
     "changePassword": "비밀번호 변경",
     "groups": "그룹 관리",
     "consent": "권한 요청"
@@ -13,6 +14,7 @@
     "password": "비밀번호",
     "signInButton": "로그인",
     "signUpLabel": "계정이 없으신가요? {}",
+    "findUsernameLabel": "유저명을 잊으셨나요? {}",
     "changePasswordLabel": "비밀번호를 잊으셨나요? {}"
   },
   "signOut": {
@@ -52,6 +54,21 @@
         "name": "이름 (실명)",
         "studentNumber": "학번",
         "namePlaceholder": "홍길동"
+      }
+    }
+  },
+  "findUsername": {
+    "description": "가입에 사용한 이메일 주소를 입력하세요.",
+    "buttonSendEmail": "유저명 찾기",
+    "email": {
+      "description": "가입에 사용한 이메일 주소를 입력하세요.",
+      "buttonSendEmail": "유저명 발송",
+      "emailSent": {
+        "smallTitle": "이메일 발송 완료",
+        "descriptions": [
+          "<strong>입력한 이메일로 가입된 유저가 존재하는 경우,</strong> 해당 이메일로 유저명이 발송됩니다.",
+          "메일이 도착할 때까지 시간이 걸릴 수 있습니다."
+        ]
       }
     }
   },
@@ -122,6 +139,7 @@
     "returnToHome": "홈으로 돌아가기",
     "signUp": "가입하기",
     "signOut": "로그아웃",
+    "findUsername": "유저명 찾기",
     "changePassword": "비밀번호 변경"
   },
   "validity": {
