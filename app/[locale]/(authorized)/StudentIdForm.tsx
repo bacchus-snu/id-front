@@ -85,9 +85,19 @@ export default function StudentIdForm({ studentNumbers }: { studentNumbers: stri
     return <p>{formDict.successMessage}</p>;
   }
 
+  const contactEmail = 'contact@bacchus.snucse.org';
+  const contactNoteParts = formDict.contactNote.split('{email}');
+
   return (
     <>
       <p>{formDict.description}</p>
+      <p>
+        {contactNoteParts[0]}
+        <a href={`mailto:${contactEmail}`} className="text-sky-600 hover:underline">
+          {contactEmail}
+        </a>
+        {contactNoteParts[1]}
+      </p>
       <p className="mt-2">
         {formDict.currentStudentId}
         {studentNumbers.length > 0 ? studentNumbers.join(', ') : '-'}

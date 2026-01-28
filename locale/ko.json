@@ -136,6 +136,7 @@
   },
   "studentId": {
     "description": "새 학번을 추가합니다. 학부생에서 대학원생이 되어 새 학번을 받은 경우 등에 사용합니다.",
+    "contactNote": "잘못된 학번을 추가한 경우, {email}로 문의해 주세요.",
     "currentStudentId": "현재 학번: ",
     "add": "추가",
     "studentNumberConfirm": "확인",

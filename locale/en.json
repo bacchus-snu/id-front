@@ -136,6 +136,7 @@
   },
   "studentId": {
     "description": "Add a new student ID to your profile. Use this when you receive a new student ID, such as when transitioning from undergraduate to graduate studies.",
+    "contactNote": "If you mistakenly added the wrong student ID, contact us at {email}.",
     "currentStudentId": "Current Student ID: ",
     "add": "Add",
     "studentNumberConfirm": "Confirm",
