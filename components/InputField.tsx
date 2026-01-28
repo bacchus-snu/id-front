@@ -4,10 +4,12 @@ import { forwardRef, useState } from 'react';
 
 type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
+  labelClassName?: string;
 };
 export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField(props, ref) {
   const {
     label,
+    labelClassName,
     className,
     onInvalid,
     ...inputProps
@@ -28,10 +30,12 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
     computedClassName += className;
   }
 
+  const labelWidthClass = labelClassName ?? 'w-24';
+
   return (
     <div className="flex flex-col items-stretch gap-1">
       <label className="flex flex-row items-baseline gap-2">
-        <span className="w-24 flex-none text-right">{label}</span>
+        <span className={`${labelWidthClass} flex-none text-right`}>{label}</span>
         <input
           {...inputProps}
           ref={ref}
@@ -41,7 +45,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
       </label>
       {isInvalid && (
         <div className="flex flex-row gap-2 text-sm text-important">
-          <div className="w-24 flex-none" />
+          <div className={`${labelWidthClass} flex-none`} />
           <span className="flex-1">{message}</span>
         </div>
       )}

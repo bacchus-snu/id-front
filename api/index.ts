@@ -263,3 +263,48 @@ export async function checkPasswordToken(token: string): Promise<void> {
     throw new Error('토큰 확인에 실패했습니다.');
   }
 }
+
+export class DuplicateError extends Error {
+  constructor(message?: string) {
+    super(message);
+  }
+}
+
+export async function addStudentNumber(studentNumber: string): Promise<void> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl('/api/user/student-numbers'), {
+    method: 'post',
+    body: JSON.stringify({ studentNumber }),
+    headers: {
+      'content-type': 'application/json',
+      cookie,
+    },
+  });
+  if (resp.status === 401) {
+    throw new ForbiddenError('Not authenticated');
+  }
+  if (resp.status === 409) {
+    throw new DuplicateError('이미 등록된 학번입니다.');
+  }
+  if (resp.status === 400) {
+    throw new BadRequestError('잘못된 학번 형식입니다.');
+  }
+  if (!resp.ok) {
+    throw new Error('학번 추가에 실패했습니다.');
+  }
+}
+
+const userInfoSchema = z.object({
+  studentNumbers: z.array(z.string()),
+});
+export async function listStudentNumbers(): Promise<string[]> {
+  const cookie = headers().get('cookie') || '';
+  const resp = await fetch(apiUrl('/api/user/info'), {
+    headers: { cookie },
+  });
+  if (!resp.ok) {
+    throw new Error('Failed to fetch student numbers');
+  }
+  const body = userInfoSchema.parse(await resp.json());
+  return body.studentNumbers;
+}

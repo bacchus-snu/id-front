@@ -5,6 +5,7 @@ import { getDictionary, Locale } from '@/locale';
 
 import ChangePassword from './ChangePassword';
 import Groups from './Groups';
+import StudentId from './StudentId';
 
 type Props = {
   params: { locale: Locale };
@@ -25,6 +26,7 @@ export default async function Home({
       <p className="text-center">{dict.welcome.replaceAll('{}', sessionInfo.username)}</p>
       <Groups dict={dict} />
       <ChangePassword dict={dict} />
+      <StudentId dict={dict} />
     </section>
   );
 }

@@ -5,7 +5,8 @@
     "signUpDone": "Sign up finished",
     "changePassword": "Change password",
     "groups": "Manage groups",
-    "consent": "권한 요청"
+    "consent": "Authorization Request",
+    "studentId": "Add Student ID"
   },
   "welcome": "Welcome, {}.",
   "signIn": {
@@ -99,23 +100,23 @@
     "stateJoined": "Joined"
   },
   "oidc": {
-    "consent": "{} 앱이 아래 정보에 접근하려고 합니다.",
-    "consentEmpty": "{} 앱이 이전에 접근 허가를 받은 정보에 다시 접근하려고 합니다.",
-    "grantedList": "이전에 아래 정보에 접근을 허가했습니다.",
-    "buttonConfirm": "승인",
-    "buttonAbort": "거절",
+    "consent": "{} is requesting access to the following information.",
+    "consentEmpty": "{} is requesting access to previously granted information.",
+    "grantedList": "You have previously granted access to the following information.",
+    "buttonConfirm": "Approve",
+    "buttonAbort": "Deny",
     "scopes": {
-      "openid": "계정 및 가입한 그룹 정보",
-      "profile": "이름 및 학번",
-      "email": "이메일",
-      "offline_access": "유저와의 상호작용 없이 유저 정보에 접근"
+      "openid": "Account and group membership information",
+      "profile": "Name and student ID",
+      "email": "Email address",
+      "offline_access": "Access user information without user interaction"
     },
     "claims": {
-      "username": "유저명",
-      "groups": "가입한 그룹",
-      "name": "이름",
-      "student_id": "학번",
-      "email": "이메일"
+      "username": "Username",
+      "groups": "Group memberships",
+      "name": "Name",
+      "student_id": "Student ID",
+      "email": "Email"
     }
   },
   "links": {
@@ -133,6 +134,17 @@
     "studentNumberRequired": "Student number is required.",
     "passwordConfirmMismatch": "Passwords do not match."
   },
+  "studentId": {
+    "description": "Add a new student ID to your profile. Use this when you receive a new student ID, such as when transitioning from undergraduate to graduate studies.",
+    "currentStudentId": "Current Student ID: ",
+    "add": "Add",
+    "studentNumberConfirm": "Confirm",
+    "buttonAdd": "Add",
+    "successMessage": "Student ID has been added.",
+    "errorDuplicate": "This student ID is already registered.",
+    "errorMismatch": "Student IDs do not match.",
+    "errorInvalidFormat": "Invalid student ID format."
+  },
   "error": {
     "signIn": "Signing in failed.",
     "emailSnuOnly": "Only SNU email addresses are acceptable.",
@@ -143,8 +155,8 @@
     "userExists": "User already exists.",
     "userCreationFailed": "Failed to create user.",
     "changePasswordFailed": "Failed to change password.",
-    "consentConfirmFailed": "승인에 실패했습니다.",
-    "consentAbortFailed": "처리에 실패했습니다.",
+    "consentConfirmFailed": "Failed to approve authorization.",
+    "consentAbortFailed": "Failed to process request.",
     "unknown": "Unknown error occured."
   }
 }

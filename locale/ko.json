@@ -5,7 +5,8 @@
     "signUpDone": "가입 완료",
     "changePassword": "비밀번호 변경",
     "groups": "그룹 관리",
-    "consent": "권한 요청"
+    "consent": "권한 요청",
+    "studentId": "학번 추가"
   },
   "welcome": "{}님, 환영합니다.",
   "signIn": {
@@ -132,6 +133,17 @@
     "studentNumberInvalid": "잘못된 학번입니다.",
     "studentNumberRequired": "학번은 비워둘 수 없습니다.",
     "passwordConfirmMismatch": "두 비밀번호가 일치하지 않습니다."
+  },
+  "studentId": {
+    "description": "새 학번을 추가합니다. 학부생에서 대학원생이 되어 새 학번을 받은 경우 등에 사용합니다.",
+    "currentStudentId": "현재 학번: ",
+    "add": "추가",
+    "studentNumberConfirm": "확인",
+    "buttonAdd": "추가",
+    "successMessage": "학번이 추가되었습니다.",
+    "errorDuplicate": "이미 등록된 학번입니다.",
+    "errorMismatch": "두 학번이 일치하지 않습니다.",
+    "errorInvalidFormat": "잘못된 학번 형식입니다."
   },
   "error": {
     "signIn": "로그인에 실패했습니다.",
