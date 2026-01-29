@@ -22,7 +22,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
     onInvalid?.(e);
   }
 
-  let computedClassName = 'flex-1 bg-transparent border rounded p-1 ';
+  let computedClassName = 'flex-1 min-w-0 bg-transparent border rounded p-1 ';
   if (isInvalid) {
     computedClassName += 'invalid:border-accent-600 dark:invalid:border-accent-300 ';
   }
@@ -30,12 +30,12 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
     computedClassName += className;
   }
 
-  const labelWidthClass = labelClassName ?? 'w-24';
+  const labelWidthClass = labelClassName ?? 'w-full max-w-24';
 
   return (
-    <div className="flex flex-col items-stretch gap-1">
+    <div className="flex-1 min-w-0 flex flex-col items-stretch gap-1">
       <label className="flex flex-row items-baseline gap-2">
-        <span className={`${labelWidthClass} flex-none text-right`}>{label}</span>
+        <span className={`${labelWidthClass} text-right`}>{label}</span>
         <input
           {...inputProps}
           ref={ref}
@@ -45,7 +45,7 @@ export default forwardRef<HTMLInputElement, InputFieldProps>(function InputField
       </label>
       {isInvalid && (
         <div className="flex flex-row gap-2 text-sm text-important">
-          <div className={`${labelWidthClass} flex-none`} />
+          <div className={`${labelWidthClass}`} />
           <span className="flex-1">{message}</span>
         </div>
       )}

@@ -102,37 +102,39 @@ export default function StudentIdForm({ studentNumbers }: { studentNumbers: stri
         {formDict.currentStudentId}
         {studentNumbers.length > 0 ? studentNumbers.join(', ') : '-'}
       </p>
-      <form className="flex flex-col gap-2 mt-2" onSubmit={handleSubmit}>
-        <InputField
-          label={formDict.add}
-          labelClassName="w-14"
-          type="text"
-          required
-          pattern="(\d{5}-\d{3}|\d{4}-\d{4,5})"
-          placeholder="2026-12345"
-          value={studentNumber}
-          onChange={handleStudentNumberChange}
-        />
-        <InputField
-          label={formDict.studentNumberConfirm}
-          labelClassName="w-14"
-          type="text"
-          required
-          pattern="(\d{5}-\d{3}|\d{4}-\d{4,5})"
-          placeholder="2026-12345"
-          value={studentNumberConfirm}
-          onChange={handleStudentNumberConfirmChange}
-        />
-        <div className="flex justify-end">
-          <Button
-            className="w-32 font-bold"
-            color="primary"
-            type="submit"
-            disabled={requestState !== RequestState.Idle}
-          >
-            {formDict.buttonAdd}
-          </Button>
+      <form className="flex flex-row flex-wrap justify-end items-end gap-2 mt-2" onSubmit={handleSubmit}>
+        <div className="w-full flex-none md:flex-1">
+          <InputField
+            label={formDict.add}
+            labelClassName=""
+            type="text"
+            required
+            pattern="(\d{5}-\d{3}|\d{4}-\d{4,5})"
+            placeholder="2026-12345"
+            value={studentNumber}
+            onChange={handleStudentNumberChange}
+          />
         </div>
+        <div className="w-full flex-none md:flex-1">
+          <InputField
+            label={formDict.studentNumberConfirm}
+            labelClassName=""
+            type="text"
+            required
+            pattern="(\d{5}-\d{3}|\d{4}-\d{4,5})"
+            placeholder="2026-12345"
+            value={studentNumberConfirm}
+            onChange={handleStudentNumberConfirmChange}
+          />
+        </div>
+        <Button
+          className="flex-none w-full max-w-32 font-bold"
+          color="primary"
+          type="submit"
+          disabled={requestState !== RequestState.Idle}
+        >
+          {formDict.buttonAdd}
+        </Button>
       </form>
     </>
   );

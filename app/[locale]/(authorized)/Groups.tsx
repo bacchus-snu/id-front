@@ -17,7 +17,7 @@ export default function Groups({ dict }: { dict: Dict }) {
         </Suspense>
       </p>
       <div className="flex flex-col items-end mt-2">
-        <Link className="flex-0 w-32" href="/group">
+        <Link className="w-full max-w-32" href="/group">
           <Button className="w-full font-bold" type="button" color="primary">
             {dict.groups.buttonGroupList}
           </Button>

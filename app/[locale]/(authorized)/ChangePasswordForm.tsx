@@ -102,7 +102,7 @@ export default function ChangePasswordForm(props: Props) {
       <p>{formDict.description}</p>
       <form className="flex flex-row flex-wrap justify-end gap-2 mt-2" onSubmit={handleSubmit}>
         <select
-          className={'w-full flex-none sm:flex-1 bg-transparent border rounded p-1 '
+          className={'w-full flex-none md:flex-1 bg-transparent border rounded p-1 '
             + (emails == null ? 'opacity-50' : '')}
           value={selectedEmail}
           disabled={emails == null}
