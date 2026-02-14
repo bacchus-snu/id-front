@@ -3,6 +3,7 @@
     "signIn": "Sign in",
     "signUp": "Sign up",
     "signUpDone": "Sign up finished",
+    "findUsername": "Find username",
     "changePassword": "Change password",
     "groups": "Manage groups",
     "consent": "Authorization Request",
@@ -14,6 +15,7 @@
     "password": "Password",
     "signInButton": "Sign in",
     "signUpLabel": "Don't have an account? {}",
+    "findUsernameLabel": "Forgot your username? {}",
     "changePasswordLabel": "Forgot your password? {}"
   },
   "signOut": {
@@ -53,6 +55,21 @@
         "name": "Real name",
         "studentNumber": "Student number",
         "namePlaceholder": "John Doe"
+      }
+    }
+  },
+  "findUsername": {
+    "description": "Enter the email address associated with your account.",
+    "buttonSendEmail": "Find username",
+    "email": {
+      "description": "Enter the email address associated with your account.",
+      "buttonSendEmail": "Send username",
+      "emailSent": {
+        "smallTitle": "Email is sent.",
+        "descriptions": [
+          "<strong>If there is a user registered with the entered email,</strong> the username will be sent to that email.",
+          "It may take some time for the mail to arrive."
+        ]
       }
     }
   },
@@ -123,6 +140,7 @@
     "returnToHome": "Return to home",
     "signUp": "Sign up",
     "signOut": "Sign out",
+    "findUsername": "Find username",
     "changePassword": "Change password"
   },
   "validity": {
