@@ -6,7 +6,7 @@
     "changePassword": "비밀번호 변경",
     "groups": "그룹 관리",
     "consent": "권한 요청",
-    "studentId": "학번 추가"
+    "studentId": "학번 관리"
   },
   "welcome": "{}님, 환영합니다.",
   "signIn": {
@@ -135,16 +135,56 @@
     "passwordConfirmMismatch": "두 비밀번호가 일치하지 않습니다."
   },
   "studentId": {
-    "description": "새 학번을 추가합니다. 학부생에서 대학원생이 되어 새 학번을 받은 경우 등에 사용합니다.",
+    "description": "학번 목록입니다. 학번 추가는 Canvas 연동을 통해 이루어집니다.",
     "contactNote": "잘못된 학번을 추가한 경우, {email}로 문의해 주세요.",
     "currentStudentId": "현재 학번: ",
     "add": "추가",
     "studentNumberConfirm": "확인",
     "buttonAdd": "추가",
+    "buttonDelete": "삭제",
     "successMessage": "학번이 추가되었습니다.",
     "errorDuplicate": "이미 등록된 학번입니다.",
     "errorMismatch": "두 학번이 일치하지 않습니다.",
     "errorInvalidFormat": "잘못된 학번 형식입니다."
+  },
+  "canvas": {
+    "title": "Canvas 연동",
+    "description": "Canvas({link})의 Access Token을 입력하면 학번, 이메일, 수업 정보를 기반으로 계정 정보를 동기화합니다.",
+    "howToGetToken": "토큰 발급 방법",
+    "howToGetTokenSteps": [
+      "Canvas({link})에 로그인",
+      "좌측 메뉴 '계정' → '설정'",
+      "'승인된 연동' 또는 'Approved Integrations' 섹션",
+      "'+ 새 액세스 토큰' 클릭하여 발급"
+    ],
+    "tokenLabel": "Canvas Access Token",
+    "tokenPlaceholder": "Access Token 입력",
+    "buttonSync": "동기화 확인",
+    "buttonApply": "선택 항목 적용",
+    "syncing": "Canvas에서 정보를 불러오는 중...",
+    "applying": "변경 사항 적용 중...",
+    "noChanges": "Canvas 정보와 현재 계정 정보가 동일합니다.",
+    "applySuccess": "변경 사항이 적용되었습니다.",
+    "errorInvalidToken": "토큰이 유효하지 않습니다. Canvas에서 새 토큰을 발급해 주세요.",
+    "sectionStudentNumbers": "학번",
+    "sectionEmails": "이메일",
+    "sectionGroups": "그룹",
+    "actionAdd": "추가",
+    "statusMember": "가입됨",
+    "statusPending": "승인 대기 중",
+    "canvasLinkedBadge": "Canvas 연동",
+    "reasonStudentIdCse": "학번 및 주전공 컴퓨터공학부 감지",
+    "signupPreviewMajors": "주전공",
+    "reasonCourse": "과목 등록",
+    "reasonCourseWithTerm": "{} 과목 등록",
+    "signupPreview": "Canvas 인증 완료",
+    "signupPreviewName": "이름",
+    "signupPreviewEmail": "이메일",
+    "signupPreviewStudentNumbers": "학번",
+    "signupPreviewGroups": "자동 가입 그룹",
+    "signupNoGroups": "해당하는 자동 가입 그룹이 없습니다.",
+    "dashboardDescription": "Canvas Access Token으로 학번, 이메일, 그룹을 동기화합니다.",
+    "dashboardButton": "Canvas 연동하기"
   },
   "error": {
     "signIn": "로그인에 실패했습니다.",

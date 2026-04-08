@@ -1,7 +1,8 @@
+import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import * as z from 'zod';
 
-import { addStudentNumber, BadRequestError, DuplicateError, ForbiddenError } from '@/api';
+import { addStudentNumber, apiUrl, BadRequestError, DuplicateError, ForbiddenError } from '@/api';
 import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 const bodySchema = z.object({
@@ -57,4 +58,24 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   return new Response(null, { status: 201 });
+}
+
+export async function DELETE(request: Request): Promise<Response> {
+  const cookie = headers().get('cookie') || '';
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ message: 'Invalid body' }, { status: 400 });
+  }
+  const resp = await fetch(apiUrl('/api/user/student-numbers'), {
+    method: 'DELETE',
+    headers: { 'content-type': 'application/json', cookie },
+    body: JSON.stringify(body),
+  });
+  if (!resp.ok) {
+    const data = await resp.json().catch(() => ({}));
+    return NextResponse.json(data, { status: resp.status });
+  }
+  return new Response(null, { status: 200 });
 }

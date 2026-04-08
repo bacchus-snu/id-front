@@ -144,7 +144,14 @@ export default function GroupItem(props: Props) {
   return (
     <div className="border rounded p-2">
       <div className="flex flex-row items-baseline justify-between">
-        <h3 className="text-h3">{group.name}</h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-h3">{group.name}</h3>
+          {(group.identifier === 'undergraduate' || group.identifier === 'graduate' || group.identifier.startsWith('course-')) && (
+            <span className="text-xs bg-blue-100 text-blue-700 rounded px-1 py-0.5">
+              {dict.canvas.canvasLinkedBadge}
+            </span>
+          )}
+        </div>
         {joinState}
       </div>
       <p className="text-dimmed">

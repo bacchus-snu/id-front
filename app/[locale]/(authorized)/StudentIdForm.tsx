@@ -1,3 +1,4 @@
+/* === ARCHIVED: replaced by Canvas-based student ID management ===
 'use client';
 
 import { useState } from 'react';
@@ -136,6 +137,71 @@ export default function StudentIdForm({ studentNumbers }: { studentNumbers: stri
           {formDict.buttonAdd}
         </Button>
       </form>
+    </>
+  );
+}
+=== END ARCHIVED === */
+
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import Button from '@/components/Button';
+import useLocaleDict from '@/components/LocaleDict';
+import { useToast } from '@/components/NotificationContext';
+
+export default function StudentIdForm({ studentNumbers }: { studentNumbers: string[] }) {
+  const { dict } = useLocaleDict();
+  const d = dict.studentId;
+  const showToast = useToast();
+  const router = useRouter();
+  const [deleting, setDeleting] = useState<string | null>(null);
+
+  async function handleDelete(sn: string) {
+    setDeleting(sn);
+    try {
+      const resp = await fetch('/user/student-numbers', {
+        method: 'DELETE',
+        body: JSON.stringify({ studentNumber: sn }),
+        headers: { 'content-type': 'application/json' },
+      });
+      if (!resp.ok) {
+        showToast({ type: 'error', message: dict.error.unknown });
+        return;
+      }
+      showToast({ type: 'info', message: '학번이 삭제되었습니다.' });
+      router.refresh();
+    } catch {
+      showToast({ type: 'error', message: dict.error.unknown });
+    } finally {
+      setDeleting(null);
+    }
+  }
+
+  return (
+    <>
+      <p>{d.description}</p>
+      <p className="mt-2">{d.currentStudentId}</p>
+      {studentNumbers.length === 0 ? (
+        <p className="text-dimmed">-</p>
+      ) : (
+        <ul className="mt-1 space-y-1">
+          {[...studentNumbers].sort().map(sn => (
+            <li key={sn} className="flex items-center gap-2">
+              <span className="font-mono">{sn}</span>
+              <Button
+                color="accent"
+                className="text-xs px-2 py-0.5"
+                disabled={deleting === sn}
+                onClick={() => handleDelete(sn)}
+              >
+                {d.buttonDelete}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

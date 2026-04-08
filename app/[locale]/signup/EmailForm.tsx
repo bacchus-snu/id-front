@@ -1,3 +1,4 @@
+/* === ARCHIVED: replaced by Canvas-based signup ===
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -91,3 +92,5 @@ export default function EmailForm() {
     </form>
   );
 }
+=== END ARCHIVED === */
+export default function ArchivedComponent() { return null; }
