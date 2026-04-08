@@ -149,7 +149,7 @@
   },
   "canvas": {
     "title": "Canvas Integration",
-    "description": "Enter your Canvas ({link}) Access Token to sync your student IDs, emails, and course enrollments.",
+    "description": "Enter your Canvas ({link}) Access Token to verify your email and sync your student IDs and course enrollments.",
     "howToGetToken": "How to get a token",
     "howToGetTokenSteps": [
       "Log in to Canvas ({link})",
@@ -172,7 +172,7 @@
     "actionAdd": "Add",
     "statusMember": "Joined",
     "statusPending": "Pending approval",
-    "canvasLinkedBadge": "Canvas Linked",
+    "canvasLinkedBadge": "Also joinable via Canvas token",
     "reasonStudentIdCse": "Student ID & CSE major detected",
     "signupPreviewMajors": "Major",
     "reasonCourse": "Course enrollment",
@@ -183,7 +183,12 @@
     "signupPreviewStudentNumbers": "Student Numbers",
     "signupPreviewGroups": "Auto-join groups",
     "signupNoGroups": "No matching auto-join groups.",
-    "dashboardDescription": "Sync your student IDs, emails, and groups via Canvas Access Token.",
+    "conflictTitle": "Cannot create account",
+    "conflictEmail": "Email already registered",
+    "conflictStudentNumber": "Student number already registered",
+    "conflictDescription": "The information above is already registered to another account. Please sign in with your existing account or contact an administrator.",
+    "syncIdentityMismatch": "Canvas account name or email does not match your current account.",
+    "dashboardDescription": "Sync your student IDs and groups via Canvas Access Token.",
     "dashboardButton": "Connect Canvas"
   },
   "error": {

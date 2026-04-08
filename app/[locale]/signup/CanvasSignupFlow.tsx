@@ -171,43 +171,58 @@ export default function CanvasSignupFlow() {
           )}
         </div>
 
-        <hr />
+        {preview.conflicts ? (
+          <div className="border border-red-400 rounded p-2 space-y-1">
+            <p className="text-sm font-bold text-red-500">{d.conflictTitle}</p>
+            {preview.conflicts.emails.length > 0 && (
+              <p className="text-sm">{d.conflictEmail}: {preview.conflicts.emails.join(', ')}</p>
+            )}
+            {preview.conflicts.studentNumbers.length > 0 && (
+              <p className="text-sm">{d.conflictStudentNumber}: {preview.conflicts.studentNumbers.join(', ')}</p>
+            )}
+            <p className="text-sm text-dimmed">{d.conflictDescription}</p>
+          </div>
+        ) : (
+          <>
+            <hr />
 
-        <InputField
-          label={dict.signUp.form.fields.username}
-          required
-          pattern="[a-z][a-z0-9]*"
-          autoComplete="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-        <InputField
-          label={dict.signUp.form.fields.password}
-          type="password"
-          required
-          minLength={8}
-          autoComplete="new-password"
-          value={password}
-          onChange={handleChangePassword}
-        />
-        <InputField
-          ref={passwordConfirmRef}
-          label={dict.signUp.form.fields.passwordConfirm}
-          type="password"
-          required
-          minLength={8}
-          autoComplete="new-password"
-          value={passwordConfirm}
-          onChange={handleChangePasswordConfirm}
-        />
-        <Button
-          type="submit"
-          color="primary"
-          disabled={submitting}
-          className="w-full font-bold"
-        >
-          {dict.signUp.form.signUpButton}
-        </Button>
+            <InputField
+              label={dict.signUp.form.fields.username}
+              required
+              pattern="[a-z][a-z0-9]*"
+              autoComplete="username"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
+            <InputField
+              label={dict.signUp.form.fields.password}
+              type="password"
+              required
+              minLength={8}
+              autoComplete="new-password"
+              value={password}
+              onChange={handleChangePassword}
+            />
+            <InputField
+              ref={passwordConfirmRef}
+              label={dict.signUp.form.fields.passwordConfirm}
+              type="password"
+              required
+              minLength={8}
+              autoComplete="new-password"
+              value={passwordConfirm}
+              onChange={handleChangePasswordConfirm}
+            />
+            <Button
+              type="submit"
+              color="primary"
+              disabled={submitting}
+              className="w-full font-bold"
+            >
+              {dict.signUp.form.signUpButton}
+            </Button>
+          </>
+        )}
       </form>
     </section>
   );

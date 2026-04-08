@@ -21,7 +21,6 @@ export default function CanvasDiffView({ diff, onApplied }: Props) {
 
   const selectableItems = [
     ...(diff.profiles?.toAdd ?? []).map(p => `sn_${p.studentNumber}`),
-    ...diff.emails.toAdd.map(e => `em_${e.local}@${e.domain}`),
     ...diff.groups.items.filter(g => g.status === 'new' || g.status === 'pending').map(g => `g_${g.groupIdx}`),
   ];
 
@@ -40,9 +39,6 @@ export default function CanvasDiffView({ diff, onApplied }: Props) {
     const actions: CanvasAction[] = [];
     (diff.profiles?.toAdd ?? []).forEach(p => {
       if (selected.has(`sn_${p.studentNumber}`)) actions.push({ type: 'add_student_number', studentNumber: p.studentNumber });
-    });
-    diff.emails.toAdd.forEach(e => {
-      if (selected.has(`em_${e.local}@${e.domain}`)) actions.push({ type: 'add_email', emailLocal: e.local, emailDomain: e.domain });
     });
     diff.groups.items.filter(g => g.status === 'new' || g.status === 'pending').forEach(g => {
       if (selected.has(`g_${g.groupIdx}`)) actions.push({ type: 'add_group', groupIdx: g.groupIdx });
@@ -105,19 +101,6 @@ export default function CanvasDiffView({ diff, onApplied }: Props) {
           ))}
           {(diff.profiles?.toAdd ?? []).map(p => (
             <AddRow key={p.studentNumber} id={`sn_${p.studentNumber}`} label={`${p.studentNumber}${p.major ? ` — ${p.major}` : ''}`} />
-          ))}
-        </section>
-      )}
-
-      {/* 이메일 */}
-      {(diff.emails.existing.length > 0 || diff.emails.toAdd.length > 0) && (
-        <section>
-          <h3 className="text-h3 mb-1">{d.sectionEmails}</h3>
-          {diff.emails.existing.map(e => (
-            <ExistingRow key={`${e.local}@${e.domain}`} label={`${e.local}@${e.domain}`} />
-          ))}
-          {diff.emails.toAdd.map(e => (
-            <AddRow key={`${e.local}@${e.domain}`} id={`em_${e.local}@${e.domain}`} label={`${e.local}@${e.domain}`} />
           ))}
         </section>
       )}

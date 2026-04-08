@@ -3,6 +3,11 @@ export type CanvasProfilePair = {
   major: string;
 };
 
+export type CanvasConflicts = {
+  emails: string[];
+  studentNumbers: string[];
+};
+
 export type CanvasPreviewResult = {
   name: string;
   emails: string[];
@@ -13,6 +18,7 @@ export type CanvasPreviewResult = {
     reasonKey: 'student_id_cse' | 'course';
     reasonDetail?: string;
   }>;
+  conflicts: CanvasConflicts | null;
 };
 
 export type CanvasDiff = {
@@ -34,7 +40,6 @@ export type CanvasDiff = {
 
 export type CanvasAction =
   | { type: 'add_student_number'; studentNumber: string }
-  | { type: 'add_email'; emailLocal: string; emailDomain: string }
   | { type: 'add_group'; groupIdx: number };
 
 export async function previewCanvas(canvasToken: string): Promise<CanvasPreviewResult> {
