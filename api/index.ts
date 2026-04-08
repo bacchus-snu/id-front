@@ -33,6 +33,7 @@ const listGroupsSchema = z.array(
     idx: z.number(),
     name: z.record(z.string()),
     description: z.record(z.string()),
+    identifier: z.string(),
     isPending: z.boolean(),
     isMember: z.boolean(),
     isDirectMember: z.boolean(),
@@ -47,6 +48,7 @@ export type Group = {
   joined: boolean;
   implied: boolean;
   owner: boolean;
+  identifier: string;
 };
 export async function listGroups(): Promise<Group[]> {
   const cookie = headers().get('cookie') || '';
@@ -71,6 +73,7 @@ export async function listGroups(): Promise<Group[]> {
     joined: value.isDirectMember,
     implied: value.isMember,
     owner: value.isOwner,
+    identifier: value.identifier,
   }));
 }
 

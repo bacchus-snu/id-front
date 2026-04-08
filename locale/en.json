@@ -6,7 +6,7 @@
     "changePassword": "Change password",
     "groups": "Manage groups",
     "consent": "Authorization Request",
-    "studentId": "Add Student ID"
+    "studentId": "Student IDs"
   },
   "welcome": "Welcome, {}.",
   "signIn": {
@@ -135,16 +135,56 @@
     "passwordConfirmMismatch": "Passwords do not match."
   },
   "studentId": {
-    "description": "Add a new student ID to your profile. Use this when you receive a new student ID, such as when transitioning from undergraduate to graduate studies.",
+    "description": "Your student IDs. New student IDs can be added via Canvas integration.",
     "contactNote": "If you mistakenly added the wrong student ID, contact us at {email}.",
     "currentStudentId": "Current Student ID: ",
     "add": "Add",
     "studentNumberConfirm": "Confirm",
     "buttonAdd": "Add",
+    "buttonDelete": "Delete",
     "successMessage": "Student ID has been added.",
     "errorDuplicate": "This student ID is already registered.",
     "errorMismatch": "Student IDs do not match.",
     "errorInvalidFormat": "Invalid student ID format."
+  },
+  "canvas": {
+    "title": "Canvas Integration",
+    "description": "Enter your Canvas ({link}) Access Token to sync your student IDs, emails, and course enrollments.",
+    "howToGetToken": "How to get a token",
+    "howToGetTokenSteps": [
+      "Log in to Canvas ({link})",
+      "Left menu 'Account' → 'Settings'",
+      "'Approved Integrations' section",
+      "Click '+ New Access Token' to generate"
+    ],
+    "tokenLabel": "Canvas Access Token",
+    "tokenPlaceholder": "Enter Access Token",
+    "buttonSync": "Check Sync",
+    "buttonApply": "Apply Selected",
+    "syncing": "Fetching data from Canvas...",
+    "applying": "Applying changes...",
+    "noChanges": "Your account is already in sync with Canvas.",
+    "applySuccess": "Changes applied successfully.",
+    "errorInvalidToken": "Invalid token. Please generate a new one from Canvas.",
+    "sectionStudentNumbers": "Student Numbers",
+    "sectionEmails": "Emails",
+    "sectionGroups": "Groups",
+    "actionAdd": "Add",
+    "statusMember": "Joined",
+    "statusPending": "Pending approval",
+    "canvasLinkedBadge": "Canvas Linked",
+    "reasonStudentIdCse": "Student ID & CSE major detected",
+    "signupPreviewMajors": "Major",
+    "reasonCourse": "Course enrollment",
+    "reasonCourseWithTerm": "{} course enrollment",
+    "signupPreview": "Canvas verification complete",
+    "signupPreviewName": "Name",
+    "signupPreviewEmail": "Email",
+    "signupPreviewStudentNumbers": "Student Numbers",
+    "signupPreviewGroups": "Auto-join groups",
+    "signupNoGroups": "No matching auto-join groups.",
+    "dashboardDescription": "Sync your student IDs, emails, and groups via Canvas Access Token.",
+    "dashboardButton": "Connect Canvas"
   },
   "error": {
     "signIn": "Signing in failed.",
