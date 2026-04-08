@@ -31,7 +31,7 @@ export default async function Home({
       <StudentId dict={dict} />
       <section className="border rounded p-2">
         <h2 className="text-h2 mb-2">{dict.canvas.title}</h2>
-        <p className="text-dimmed">{dict.canvas.dashboardDescription}</p>
+        <p>{dict.canvas.dashboardDescription}</p>
         <div className="flex flex-col items-end mt-2">
           <Link className="w-full max-w-32" href={`/${locale}/canvas`}>
             <Button className="w-full font-bold" type="button" color="primary">
