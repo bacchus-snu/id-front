@@ -40,7 +40,7 @@ export async function POST(request: Request): Promise<Response> {
   if (resp.status === 429) {
     return NextResponse.json(
       { message: dict.error.emailLimitExceeded },
-      { status: 409 },
+      { status: 429 },
     );
   }
   if (!resp.ok) {
