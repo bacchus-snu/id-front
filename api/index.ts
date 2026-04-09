@@ -10,8 +10,13 @@ export function apiUrl(ep: string): URL {
 
 const checkSessionSchema = z.object({
   username: z.string(),
+  name: z.string(),
 });
-export type CheckSessionResult = { signedIn: false } | { signedIn: true; username: string };
+export type CheckSessionResult = { signedIn: false } | {
+  signedIn: true;
+  username: string;
+  name: string;
+};
 export async function checkSession(): Promise<CheckSessionResult> {
   const cookie = headers().get('cookie') || '';
   const resp = await fetch(apiUrl('/api/check-login'), {
@@ -25,6 +30,7 @@ export async function checkSession(): Promise<CheckSessionResult> {
   return {
     signedIn: true,
     username: body.username,
+    name: body.name,
   };
 }
 

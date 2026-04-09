@@ -23,10 +23,6 @@ export type CanvasPreviewResult = {
 
 export type CanvasDiff = {
   profiles: { toAdd: CanvasProfilePair[]; existing: CanvasProfilePair[] };
-  emails: {
-    toAdd: Array<{ local: string; domain: string }>;
-    existing: Array<{ local: string; domain: string }>;
-  };
   groups: {
     items: Array<{
       groupIdx: number;
@@ -50,7 +46,7 @@ export async function previewCanvas(canvasToken: string): Promise<CanvasPreviewR
   });
   if (!resp.ok) {
     const body = await resp.json().catch(() => ({}));
-    throw new Error(body?.message ?? 'Canvas 토큰이 유효하지 않습니다.');
+    throw new Error(body?.message ?? '');
   }
   return resp.json();
 }
@@ -64,7 +60,7 @@ export async function syncCanvas(canvasToken: string): Promise<CanvasDiff> {
   });
   if (!resp.ok) {
     const body = await resp.json().catch(() => ({}));
-    throw new Error(body?.message ?? 'Canvas 동기화 실패');
+    throw new Error(body?.message ?? '');
   }
   return resp.json();
 }
@@ -76,7 +72,10 @@ export async function applyCanvas(actions: CanvasAction[]): Promise<void> {
     body: JSON.stringify({ actions }),
     credentials: 'same-origin',
   });
-  if (!resp.ok) { throw new Error('적용 실패'); }
+  if (!resp.ok) {
+    const body = await resp.json().catch(() => ({}));
+    throw new Error(body?.message ?? '');
+  }
 }
 
 export async function canvasSignup(
@@ -92,6 +91,6 @@ export async function canvasSignup(
   });
   if (!resp.ok) {
     const body = await resp.json().catch(() => ({}));
-    throw new Error(body?.message ?? '계정 생성 실패');
+    throw new Error(body?.message ?? '');
   }
 }

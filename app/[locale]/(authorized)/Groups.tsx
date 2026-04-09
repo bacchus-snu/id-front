@@ -10,12 +10,12 @@ export default function Groups({ dict }: { dict: Dict }) {
   return (
     <section className="border rounded p-2">
       <h2 className="text-h2 mb-2">{dict.title.groups}</h2>
-      <p>
-        {dict.groups.joinedGroups}
+      <p>{dict.groups.joinedGroups}</p>
+      <div className="mt-1">
         <Suspense fallback={<JoinedGroupList dict={dict} />}>
           <JoinedGroupList dict={dict} groups={groupPromise} />
         </Suspense>
-      </p>
+      </div>
       <div className="flex flex-col items-end mt-2">
         <Link className="w-full max-w-32" href="/group">
           <Button className="w-full font-bold" type="button" color="primary">
@@ -38,5 +38,11 @@ async function JoinedGroupList(props: { dict: Dict; groups?: Promise<Group[]> })
     return props.dict.groups.groupNone;
   }
 
-  return <strong>{joinedGroups.join(', ')}</strong>;
+  return (
+    <ul className="list-disc pl-6">
+      {joinedGroups.map(name => (
+        <li key={name}>{name}</li>
+      ))}
+    </ul>
+  );
 }

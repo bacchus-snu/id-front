@@ -1,29 +1,14 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { type ReactNode, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { previewCanvas, canvasSignup, type CanvasPreviewResult } from '@/api/canvas';
 import Button from '@/components/Button';
+import { renderWithCanvasLink } from '@/components/CanvasLink';
 import InputField from '@/components/InputField';
 import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
-
-const CANVAS_URL = 'https://myetl.snu.ac.kr';
-
-function renderWithLink(text: string): ReactNode {
-  if (!text.includes('{link}')) return text;
-  const [before, after] = text.split('{link}');
-  return (
-    <>
-      {before}
-      <a href={CANVAS_URL} target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:underline">
-        myetl.snu.ac.kr
-      </a>
-      {after}
-    </>
-  );
-}
 
 export default function CanvasSignupFlow() {
   const { dict } = useLocaleDict();
@@ -90,14 +75,14 @@ export default function CanvasSignupFlow() {
   if (!preview) {
     return (
       <section className="border rounded p-2 space-y-3">
-        <p>{renderWithLink(d.description)}</p>
+        <p>{renderWithCanvasLink(d.description)}</p>
         <details>
           <summary className="cursor-pointer text-sky-600 hover:underline text-sm">
             {d.howToGetToken}
           </summary>
           <ol className="text-sm text-dimmed mt-1 list-decimal pl-4 space-y-1">
             {d.howToGetTokenSteps.map((step: string, i: number) => (
-              <li key={i}>{renderWithLink(step)}</li>
+              <li key={i}>{renderWithCanvasLink(step)}</li>
             ))}
           </ol>
         </details>
@@ -114,7 +99,7 @@ export default function CanvasSignupFlow() {
           onClick={handlePreview}
           className="w-full"
         >
-          {loading ? d.syncing : dict.signUp.form.signUpButton}
+          {loading ? d.syncing : d.buttonSync}
         </Button>
       </section>
     );
@@ -147,27 +132,29 @@ export default function CanvasSignupFlow() {
           ) : (
             <p className="text-sm pl-6 text-dimmed">-</p>
           )}
-          {preview.matchedGroups.length > 0 ? (
-            <div className="text-sm">
-              <span className="text-dimmed">{d.signupPreviewGroups}:</span>
-              <ul className="list-disc pl-4 mt-1">
-                {preview.matchedGroups.map(g => {
-                  const name = groupName(g);
-                  const reason = g.reasonKey === 'student_id_cse'
-                    ? d.reasonStudentIdCse
-                    : g.reasonDetail
-                      ? d.reasonCourseWithTerm.replace('{}', g.reasonDetail)
-                      : d.reasonCourse;
-                  return (
-                    <li key={g.groupIdx}>
-                      {name} <span className="text-dimmed">({reason})</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : (
-            <p className="text-sm text-dimmed">{d.signupNoGroups}</p>
+          {!preview.conflicts && (
+            preview.matchedGroups.length > 0 ? (
+              <div className="text-sm">
+                <span className="text-dimmed">{d.signupPreviewGroups}:</span>
+                <ul className="list-disc pl-4 mt-1">
+                  {preview.matchedGroups.map(g => {
+                    const name = groupName(g);
+                    const reason = g.reasonKey === 'student_id_cse'
+                      ? d.reasonStudentIdCse
+                      : g.reasonDetail
+                        ? d.reasonCourseWithTerm.replace('{}', g.reasonDetail)
+                        : d.reasonCourse;
+                    return (
+                      <li key={g.groupIdx}>
+                        {name} <span className="text-dimmed">({reason})</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <p className="text-sm text-dimmed">{d.signupNoGroups}</p>
+            )
           )}
         </div>
 
