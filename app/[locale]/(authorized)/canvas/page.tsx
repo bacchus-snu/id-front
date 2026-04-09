@@ -6,9 +6,9 @@ type Props = { params: { locale: Locale } };
 export default async function CanvasPage({ params: { locale } }: Props) {
   const dict = await getDictionary(locale);
   return (
-    <main className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-h1 mb-4">{dict.canvas.title}</h1>
+    <section className="border rounded p-2">
+      <h2 className="text-h2 mb-2">{dict.canvas.title}</h2>
       <CanvasSync />
-    </main>
+    </section>
   );
 }

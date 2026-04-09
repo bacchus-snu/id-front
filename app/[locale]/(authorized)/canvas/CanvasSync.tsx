@@ -1,29 +1,14 @@
 'use client';
 
-import { type ReactNode, useState } from 'react';
+import { useState } from 'react';
 import type { CanvasDiff } from '@/api/canvas';
 import { syncCanvas } from '@/api/canvas';
 import Button from '@/components/Button';
+import { renderWithCanvasLink } from '@/components/CanvasLink';
 import InputField from '@/components/InputField';
 import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
 import CanvasDiffView from './CanvasDiff';
-
-const CANVAS_URL = 'https://myetl.snu.ac.kr';
-
-function renderWithLink(text: string): ReactNode {
-  if (!text.includes('{link}')) return text;
-  const [before, after] = text.split('{link}');
-  return (
-    <>
-      {before}
-      <a href={CANVAS_URL} target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:underline">
-        myetl.snu.ac.kr
-      </a>
-      {after}
-    </>
-  );
-}
 
 export default function CanvasSync() {
   const { dict } = useLocaleDict();
@@ -54,14 +39,14 @@ export default function CanvasSync() {
 
   return (
     <div className="space-y-4">
-      <p>{renderWithLink(d.description)}</p>
+      <p>{renderWithCanvasLink(d.description)}</p>
       <details>
         <summary className="cursor-pointer text-sky-600 hover:underline text-sm">
           {d.howToGetToken}
         </summary>
         <ol className="text-sm text-dimmed mt-1 list-decimal pl-4 space-y-1">
           {d.howToGetTokenSteps.map((step: string, i: number) => (
-            <li key={i}>{renderWithLink(step)}</li>
+            <li key={i}>{renderWithCanvasLink(step)}</li>
           ))}
         </ol>
       </details>
