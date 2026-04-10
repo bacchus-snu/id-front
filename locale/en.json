@@ -174,6 +174,7 @@
     "description": "Sign in with your SNU G Suite account (snu.ac.kr) to verify your department from Google profile and auto-join the major group. Only CSE is eligible for auto-verification. For interdisciplinary programs, please apply to join the group and request approval from the department office.",
     "verifyButton": "Verify",
     "successMessage": "Major verification complete. You have been added to the major group.",
+    "errorEmailNotSnu": "Please sign in with an snu.ac.kr email.",
     "errorEmailMismatch": "Google account email does not match your current account.",
     "errorDepartmentNotFound": "Could not determine your department from Google profile. Your name may not be in the 'Name / Status / Department' format.",
     "errorDepartmentMismatch": "You are not a CSE member. For interdisciplinary programs, please apply to join the group and request approval from the department office.",

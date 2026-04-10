@@ -8,7 +8,7 @@ import { useToast } from '@/components/NotificationContext';
 
 const REASON_MAP: Record<string, string> = {
   email_mismatch: 'errorEmailMismatch',
-  email_not_snu: 'errorEmailMismatch',
+  email_not_snu: 'errorEmailNotSnu',
   department_not_found: 'errorDepartmentNotFound',
   department_mismatch: 'errorDepartmentMismatch',
   already_member: 'errorAlreadyMember',

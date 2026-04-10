@@ -174,6 +174,7 @@
     "description": "SNU G Suite 계정(snu.ac.kr)으로 로그인하면 Google 프로필의 학과 정보를 확인하여 주전공 그룹에 자동 가입합니다. 컴퓨터공학부만 자동 인증 대상이며, 협동과정 등 기타 소속은 그룹 가입 신청 후 행정실에 승인을 요청해 주세요.",
     "verifyButton": "Google로 인증",
     "successMessage": "전공 인증이 완료되었습니다. 전공 그룹에 가입되었습니다.",
+    "errorEmailNotSnu": "snu.ac.kr 이메일로 로그인해야 합니다.",
     "errorEmailMismatch": "Google 계정의 이메일이 현재 계정과 일치하지 않습니다.",
     "errorDepartmentNotFound": "Google 프로필에서 학과 정보를 확인할 수 없습니다. 이름이 '이름 / 신분 / 학과' 형식이 아닐 수 있습니다.",
     "errorDepartmentMismatch": "컴퓨터공학부 소속이 아닙니다. 협동과정 등 기타 소속은 그룹 가입 신청 후 행정실에 승인을 요청해 주세요.",

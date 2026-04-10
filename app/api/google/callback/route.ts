@@ -17,7 +17,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     return new Response(null, { status: resp.status });
   }
 
-  const response = NextResponse.redirect(location);
+  const response = NextResponse.redirect(location, 302);
 
   // Forward Set-Cookie headers from backend (clear state cookie)
   const setCookies = resp.headers.getSetCookie();

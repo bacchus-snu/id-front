@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 
 import { checkSession } from '@/api';
-import Button from '@/components/Button';
 import { getDictionary, Locale } from '@/locale';
 
 import ChangePassword from './ChangePassword';
@@ -34,10 +33,11 @@ export default async function Home({
         <h2 className="text-h2 mb-2">{dict.google.title}</h2>
         <p>{dict.google.description}</p>
         <div className="flex flex-col items-end mt-2">
-          <a className="w-full max-w-32" href="/api/google/auth">
-            <Button className="w-full font-bold" type="button" color="primary">
-              {dict.google.verifyButton}
-            </Button>
+          <a
+            className="w-full max-w-32 p-1 text-center font-bold border rounded transition hover:bg-black/10 dark:hover:bg-white/10 text-primary-600 border-primary-600 dark:text-primary-300 dark:border-primary-300"
+            href="/api/google/auth"
+          >
+            {dict.google.verifyButton}
           </a>
         </div>
       </section>
