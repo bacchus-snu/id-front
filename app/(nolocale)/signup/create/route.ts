@@ -53,19 +53,19 @@ export async function POST(req: Request): Promise<Response> {
 
   if (resp.status === 401) {
     return NextResponse.json(
-      { message: '토큰 확인에 실패했습니다.' },
+      { message: dict.error.tokenVerificationFailed },
       { status: 401 },
     );
   }
   if (resp.status === 409) {
     return NextResponse.json(
-      { message: '유저가 이미 존재합니다.' },
+      { message: dict.error.userExists },
       { status: 409 },
     );
   }
   if (!resp.ok) {
     return NextResponse.json(
-      { message: '유저 생성에 실패했습니다.' },
+      { message: dict.error.userCreationFailed },
       { status: 500 },
     );
   }

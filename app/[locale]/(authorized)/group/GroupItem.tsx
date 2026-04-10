@@ -149,11 +149,6 @@ export default function GroupItem(props: Props) {
       </div>
       <p className="text-dimmed">
         {group.description}
-        {(group.identifier === 'undergraduate' || group.identifier === 'graduate' || group.identifier.startsWith('course-')) && (
-          <span className="text-xs bg-blue-100 text-blue-700 rounded px-1 py-0.5 ml-2">
-            eTL
-          </span>
-        )}
       </p>
       <div className="flex flex-row-reverse gap-2 mt-2">
         {joinButton}

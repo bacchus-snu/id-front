@@ -29,7 +29,7 @@ export function middleware(request: NextRequest) {
   let resp;
   let matchingLocale;
   if (
-    ['/signup/email', '/signup/create', '/signup/canvas', '/password/email', '/password/change', '/user/student-numbers', '/user/email', '/canvas/preview', '/canvas/sync', '/canvas/apply', '/username/email'].includes(pathname) ||
+    ['/signup/email', '/signup/create', '/password/email', '/password/change', '/user/student-numbers', '/user/email', '/username/email'].includes(pathname) ||
     /^\/group\/[^\/]+\/membership$/.test(pathname) ||
     /^\/session\/[^\/]+$/.test(pathname) ||
     /^\/oauth\/[^\/]+$/.test(pathname)
