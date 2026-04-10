@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 
 import { checkSession } from '@/api';
@@ -6,6 +6,7 @@ import Button from '@/components/Button';
 import { getDictionary, Locale } from '@/locale';
 
 import ChangePassword from './ChangePassword';
+import GoogleResult from './GoogleResult';
 import Groups from './Groups';
 import StudentId from './StudentId';
 
@@ -25,16 +26,19 @@ export default async function Home({
 
   return (
     <section className="space-y-4">
+      <Suspense>
+        <GoogleResult />
+      </Suspense>
       <p className="text-center">{dict.welcome.replaceAll('{}', sessionInfo.name)}</p>
       <section className="border rounded p-2">
-        <h2 className="text-h2 mb-2">{dict.canvas.title}</h2>
-        <p>{dict.canvas.dashboardDescription}</p>
+        <h2 className="text-h2 mb-2">{dict.google.title}</h2>
+        <p>{dict.google.description}</p>
         <div className="flex flex-col items-end mt-2">
-          <Link className="w-full max-w-32" href={`/${locale}/canvas`}>
+          <a className="w-full max-w-32" href="/api/google/auth">
             <Button className="w-full font-bold" type="button" color="primary">
-              {dict.canvas.dashboardButton}
+              {dict.google.verifyButton}
             </Button>
-          </Link>
+          </a>
         </div>
       </section>
       <Groups dict={dict} />

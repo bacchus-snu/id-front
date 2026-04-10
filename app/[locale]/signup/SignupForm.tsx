@@ -1,4 +1,3 @@
-/* === ARCHIVED: replaced by Canvas-based signup ===
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -188,5 +187,3 @@ export default function SignupForm({ token, email }: Props) {
     </section>
   );
 }
-=== END ARCHIVED === */
-export default function ArchivedComponent() { return null; }
