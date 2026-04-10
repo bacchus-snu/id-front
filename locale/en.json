@@ -171,7 +171,7 @@
   },
   "google": {
     "title": "Major Verification",
-    "description": "Sign in with your SNU G Suite account (snu.ac.kr) to verify your department from Google profile and auto-join the major group. Only CSE is eligible for auto-verification. For interdisciplinary programs, please apply to join the group and request approval from the department office.",
+    "description": "Sign in with your SNU Google Workspace account (snu.ac.kr) to verify your department from Google profile and auto-join the major group. Only CSE is eligible for auto-verification. For interdisciplinary programs, please apply to join the group and request approval from the department office.",
     "verifyButton": "Verify",
     "successMessage": "Major verification complete. You have been added to the major group.",
     "errorEmailNotSnu": "Please sign in with an snu.ac.kr email.",
