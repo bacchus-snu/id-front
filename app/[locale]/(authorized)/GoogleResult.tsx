@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
@@ -28,7 +28,7 @@ export default function GoogleResult() {
 
   useEffect(() => {
     const google = searchParams.get('google');
-    if (!google || shown.current) return;
+    if (!google || shown.current) { return; }
     shown.current = true;
 
     if (google === 'success') {

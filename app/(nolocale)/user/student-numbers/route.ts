@@ -29,7 +29,7 @@ export async function POST(request: Request): Promise<Response> {
   try {
     await addStudentNumber(body.studentNumber);
   } catch (e) {
-    const locale = getLocaleFromCookie();
+    const locale = await getLocaleFromCookie();
     const dict = await getDictionary(locale);
 
     if (e instanceof ForbiddenError) {
@@ -61,7 +61,7 @@ export async function POST(request: Request): Promise<Response> {
 }
 
 export async function DELETE(request: Request): Promise<Response> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   let body;
   try {
     body = await request.json();

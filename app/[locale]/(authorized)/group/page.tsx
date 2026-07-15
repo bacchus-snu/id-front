@@ -7,25 +7,33 @@ import { getDictionary, Locale } from '@/locale';
 import GroupItem from './GroupItem';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+  } = params;
+
   const dict = await getDictionary(locale);
   return {
     title: dict.title.groups,
   };
 }
 
-export default async function Group({
-  params: { locale },
-}: Props) {
+export default async function Group(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale,
+  } = params;
+
   let groups;
   try {
     groups = await listGroups();
-  } catch (e) {
+  } catch {
     redirect('/signin');
   }
 

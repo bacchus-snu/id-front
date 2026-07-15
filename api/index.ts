@@ -18,7 +18,7 @@ export type CheckSessionResult = { signedIn: false } | {
   name: string;
 };
 export async function checkSession(): Promise<CheckSessionResult> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl('/api/check-login'), {
     headers: { cookie },
   });
@@ -57,8 +57,8 @@ export type Group = {
   identifier: string;
 };
 export async function listGroups(): Promise<Group[]> {
-  const cookie = headers().get('cookie') || '';
-  let locale = getLocaleFromCookie();
+  const cookie = (await headers()).get('cookie') || '';
+  let locale = await getLocaleFromCookie();
   if (locale !== 'ko' && locale !== 'en') {
     locale = 'en';
   }
@@ -92,7 +92,7 @@ const listUserEmailsSchema = z.object({
 });
 export type Email = z.infer<typeof emailSchema>;
 export async function listUserEmails(): Promise<Email[]> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl('/api/user/emails'), {
     headers: { cookie },
   });
@@ -117,7 +117,7 @@ export class ForbiddenError extends Error {
 }
 
 export async function applyToGroup(groupIdx: string): Promise<void> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/apply`), {
     method: 'post',
     headers: { cookie },
@@ -131,7 +131,7 @@ export async function applyToGroup(groupIdx: string): Promise<void> {
 }
 
 export async function leaveGroup(groupIdx: string): Promise<void> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/leave`), {
     method: 'post',
     headers: { cookie },
@@ -152,7 +152,7 @@ const groupMemberSchema = z.object({
 });
 export type GroupMember = z.infer<typeof groupMemberSchema>;
 export async function listGroupMembers(groupIdx: string): Promise<GroupMember[]> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/members`), {
     next: {
       tags: [`group/${groupIdx}`],
@@ -171,7 +171,7 @@ export async function listGroupMembers(groupIdx: string): Promise<GroupMember[]>
 }
 
 export async function listPendingGroupMembers(groupIdx: string): Promise<GroupMember[]> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/pending`), {
     next: {
       tags: [`group/${groupIdx}`],
@@ -190,7 +190,7 @@ export async function listPendingGroupMembers(groupIdx: string): Promise<GroupMe
 }
 
 export async function acceptPendingGroupMembers(groupIdx: string, uid: number[]): Promise<void> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/accept`), {
     method: 'post',
     body: JSON.stringify(uid),
@@ -206,11 +206,11 @@ export async function acceptPendingGroupMembers(groupIdx: string, uid: number[])
     throw new Error('그룹 멤버 승인에 실패했습니다.');
   }
 
-  revalidateTag(`group/${groupIdx}`);
+  revalidateTag(`group/${groupIdx}`, 'max');
 }
 
 export async function rejectOrRemoveGroupMembers(groupIdx: string, uid: number[]): Promise<void> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/api/group/${groupIdx}/reject`), {
     method: 'post',
     body: JSON.stringify(uid),
@@ -226,7 +226,7 @@ export async function rejectOrRemoveGroupMembers(groupIdx: string, uid: number[]
     throw new Error('그룹 멤버 제외에 실패했습니다.');
   }
 
-  revalidateTag(`group/${groupIdx}`);
+  revalidateTag(`group/${groupIdx}`, 'max');
 }
 
 const signupEmailSchema = z.object({
@@ -236,7 +236,7 @@ const signupEmailSchema = z.object({
 export type SignupEmail = z.infer<typeof signupEmailSchema>;
 
 export async function checkEmailToken(token: string): Promise<SignupEmail> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl('/api/email/check-token'), {
     method: 'post',
     body: JSON.stringify({ token }),
@@ -280,7 +280,7 @@ export class DuplicateError extends Error {
 }
 
 export async function addStudentNumber(studentNumber: string): Promise<void> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl('/api/user/student-numbers'), {
     method: 'post',
     body: JSON.stringify({ studentNumber }),
@@ -307,7 +307,7 @@ const userInfoSchema = z.object({
   studentNumbers: z.array(z.string()),
 });
 export async function listStudentNumbers(): Promise<string[]> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl('/api/user/info'), {
     headers: { cookie },
   });

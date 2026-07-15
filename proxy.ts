@@ -11,7 +11,7 @@ function getLocale(request: Request) {
   }).language(locales) ?? 'ko';
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.search;
   if (/^\/oauth\/[^\/]+\/action\//.test(pathname)) {

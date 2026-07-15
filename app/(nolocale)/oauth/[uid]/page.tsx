@@ -1,19 +1,22 @@
-import { RedirectType } from 'next/dist/client/components/redirect';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 
 import { getInteractionDetails } from '@/api/oauth';
 
 import OAuthConsent from './OAuthConsent';
 
 type Props = {
-  params: {
+  params: Promise<{
     uid: string;
-  };
+  }>;
 };
 
-export default async function OAuthPage({
-  params: { uid },
-}: Props) {
+export default async function OAuthPage(props: Props) {
+  const params = await props.params;
+
+  const {
+    uid,
+  } = params;
+
   const interactionDetails = await getInteractionDetails(uid);
 
   if (interactionDetails.prompt.name === 'login') {

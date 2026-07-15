@@ -22,8 +22,9 @@ type Params = { id: string };
 
 export async function POST(
   request: Request,
-  { params }: { params: Params },
+  props: { params: Promise<Params> },
 ): Promise<Response> {
+  const params = await props.params;
   let body;
   try {
     body = bodySchema.parse(await request.json());
@@ -57,7 +58,7 @@ export async function POST(
       }
     }
   } catch (e) {
-    const locale = getLocaleFromCookie();
+    const locale = await getLocaleFromCookie();
     const dict = await getDictionary(locale);
 
     if (e instanceof BadRequestError) {

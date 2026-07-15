@@ -9,25 +9,33 @@ import EmailForm from './EmailForm';
 import SignupForm from './SignupForm';
 
 type Props = {
-  params: { locale: Locale };
-  searchParams: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{
     token?: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+  } = params;
+
   const dict = await getDictionary(locale);
   return {
     title: dict.title.signUp,
   };
 }
 
-export default async function Signup({
-  params: { locale },
-  searchParams,
-}: Props) {
+export default async function Signup(props: Props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const {
+    locale,
+  } = params;
+
   const dict = await getDictionary(locale);
   const { token } = searchParams;
   if (token == null) {

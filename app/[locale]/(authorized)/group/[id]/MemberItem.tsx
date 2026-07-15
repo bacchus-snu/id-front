@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { GroupMember } from '@/api';
 
 type Props = GroupMember & {
@@ -9,11 +7,6 @@ type Props = GroupMember & {
   onChange?(checked: boolean): void;
 };
 export default function MemberItem(props: Props) {
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     props.onChange?.(e.target.checked);
   }
@@ -26,7 +19,6 @@ export default function MemberItem(props: Props) {
             className="cursor-pointer"
             type="checkbox"
             checked={props.checked}
-            disabled={!hydrated}
             onChange={handleChange}
           />
         </label>
