@@ -40,9 +40,7 @@ async function JoinedGroupList(props: { dict: Dict; groups?: Promise<Group[]> })
 
   return (
     <ul className="list-disc pl-6">
-      {joinedGroups.map(name => (
-        <li key={name}>{name}</li>
-      ))}
+      {joinedGroups.map(name => <li key={name}>{name}</li>)}
     </ul>
   );
 }

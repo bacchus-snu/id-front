@@ -30,7 +30,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = getLocaleFromCookie();
+  const locale = await getLocaleFromCookie();
   const dict = await getDictionary(locale);
   return (
     <html lang={locale}>

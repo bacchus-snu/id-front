@@ -6,32 +6,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "fmt": "dprint fmt",
     "fmt:check": "dprint check"
   },
   "dependencies": {
     "negotiator": "^0.6.3",
-    "next": "^14.1.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "swr": "^2.2.5",
+    "next": "16.3.0-preview.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "swr": "^2.4.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^20.11.28",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "autoprefixer": "^10.4.18",
-    "dprint": "^0.45.0",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "^14.1.3",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.4.2"
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "autoprefixer": "^10.5.3",
+    "dprint": "^0.55.2",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.3.0-preview.6",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.3"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.17.1"
 }

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiUrl } from '@/api';
 
 export async function GET(request: NextRequest): Promise<Response> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const search = request.nextUrl.search;
 
   const resp = await fetch(apiUrl(`/api/google/callback${search}`), {

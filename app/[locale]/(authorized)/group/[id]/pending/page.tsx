@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 export default async function Pending(props: Props) {
-  const { id } = props.params;
+  const { id } = await props.params;
   let members;
   try {
     members = await listPendingGroupMembers(id);

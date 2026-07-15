@@ -11,7 +11,7 @@ const bodySchema = z.object({
 });
 
 export async function POST(request: Request): Promise<Response> {
-  const locale = getLocaleFromCookie();
+  const locale = await getLocaleFromCookie();
   const dict = await getDictionary(locale);
 
   let body;

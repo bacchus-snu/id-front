@@ -25,13 +25,23 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({
-  params: { locale },
-  children,
-}: {
-  params: { locale: Locale };
-  children: React.ReactNode;
-}) {
+export default async function RootLayout(
+  props: {
+    params: Promise<{ locale: string }>;
+    children: React.ReactNode;
+  },
+) {
+  const params = await props.params;
+
+  const {
+    locale: localeParam,
+  } = params;
+  const locale = localeParam as Locale;
+
+  const {
+    children,
+  } = props;
+
   const dict = await getDictionary(locale);
   return (
     <html lang={locale}>

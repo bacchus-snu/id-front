@@ -5,18 +5,18 @@ import { listGroups } from '@/api';
 import NavigationTab from './NavigationTab';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
   children: React.ReactNode;
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const id = props.params.id;
+  const id = (await props.params).id;
   let groups;
   try {
     groups = await listGroups();
-  } catch (e) {
+  } catch {
     return {};
   }
 
