@@ -35,6 +35,9 @@ export default async function SignIn({ locale }: Props) {
         <div>{signUpNodes}</div>
         <div>{findUsernameNodes}</div>
         <div>{changePasswordNodes}</div>
+        <div className="mt-2">
+          <Link className="text-link" href="/privacy">{dict.links.privacyPolicy}</Link>
+        </div>
       </section>
     </>
   );

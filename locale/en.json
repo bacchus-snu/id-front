@@ -7,7 +7,8 @@
     "changePassword": "Change password",
     "groups": "Manage groups",
     "consent": "Authorization Request",
-    "studentId": "Student IDs"
+    "studentId": "Student IDs",
+    "privacyPolicy": "Privacy Policy"
   },
   "welcome": "Welcome, {}.",
   "signIn": {
@@ -141,7 +142,30 @@
     "signUp": "Sign up",
     "signOut": "Sign out",
     "findUsername": "Find username",
-    "changePassword": "Change password"
+    "changePassword": "Change password",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "privacyPolicy": {
+    "heading": "Consent to the Collection, Use, and Processing of Personal Information",
+    "introduction": "In accordance with Article 15(1)1 of the Personal Information Protection Act, the Department of Computer Science and Engineering at Seoul National University collects, uses, and processes personal information as described below for registration and use of the department website. Please review the details carefully before deciding whether to consent.",
+    "detailsHeading": "Details of Collection, Use, and Processing",
+    "table": {
+      "items": "Items",
+      "purposes": "Purpose of collection and use",
+      "retentionPeriod": "Retention period",
+      "itemsValue": "Username, name, student number, and email address",
+      "purposesValues": [
+        "Registration and account management",
+        "Service provision, including facility reservations, notices, and other information"
+      ],
+      "retentionPeriodValue": "Until account withdrawal"
+    },
+    "destructionNotice": "Personal information is destroyed immediately upon account withdrawal. If school regulations or other laws require the information to be retained, it will be handled in accordance with those regulations or laws.",
+    "retentionBasisHeading": "Basis for retention",
+    "retentionBasis": "Account management",
+    "retentionPeriodHeading": "Retention period",
+    "retentionPeriod": "2 years",
+    "refusalNotice": "You have the right to refuse consent to the collection, use, and processing of the personal information above. Refusal may prevent the necessary administrative processing and may restrict registration and use of the website."
   },
   "validity": {
     "tokenRequired": "Token is required.",
