@@ -5,6 +5,25 @@ import { getSupportedLocales } from './locale';
 
 const locales = getSupportedLocales();
 
+function createContentSecurityPolicy(nonce: string) {
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const developmentScriptSource = isDevelopment ? " 'unsafe-eval'" : '';
+
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${developmentScriptSource}`,
+    `style-src 'self' 'nonce-${nonce}'`,
+    "font-src 'self'",
+    "img-src 'self' data:",
+    "connect-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    ...(isDevelopment ? [] : ['upgrade-insecure-requests']),
+  ].join('; ');
+}
+
 function getLocale(request: Request) {
   return new Negotiator({
     headers: Object.fromEntries(request.headers.entries()),
@@ -21,6 +40,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  const nonce = btoa(crypto.randomUUID());
+  const contentSecurityPolicy = createContentSecurityPolicy(nonce);
   let cookieLocale = request.cookies.get('locale')?.value;
   if (!locales.includes(cookieLocale ?? '')) {
     cookieLocale = undefined;
@@ -38,6 +59,8 @@ export function middleware(request: NextRequest) {
 
     const headers = new Headers(request.headers);
     headers.set('x-new-locale', matchingLocale);
+    headers.set('x-nonce', nonce);
+    headers.set('Content-Security-Policy', contentSecurityPolicy);
     resp = NextResponse.next({
       request: { headers },
     });
@@ -55,6 +78,8 @@ export function middleware(request: NextRequest) {
     } else {
       const headers = new Headers(request.headers);
       headers.set('x-new-locale', matchingLocale);
+      headers.set('x-nonce', nonce);
+      headers.set('Content-Security-Policy', contentSecurityPolicy);
       resp = NextResponse.next({
         request: { headers },
       });
@@ -64,6 +89,7 @@ export function middleware(request: NextRequest) {
   if (matchingLocale !== cookieLocale) {
     resp.cookies.set('locale', matchingLocale, { path: '/' });
   }
+  resp.headers.set('Content-Security-Policy', contentSecurityPolicy);
 
   return resp;
 }
