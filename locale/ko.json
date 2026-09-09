@@ -105,6 +105,9 @@
       ]
     }
   },
+  "announcements": {
+    "open": "바로 가기"
+  },
   "groups": {
     "joinedGroups": "현재 가입되어 있는 그룹: ",
     "groupLoading": "(불러오는 중)",
