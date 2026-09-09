@@ -1,9 +1,10 @@
-import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { checkSession } from '@/api';
 import { getDictionary, Locale } from '@/locale';
 
+import Announcements from './Announcements';
 import ChangePassword from './ChangePassword';
 import GoogleResult from './GoogleResult';
 import Groups from './Groups';
@@ -29,6 +30,7 @@ export default async function Home({
         <GoogleResult />
       </Suspense>
       <p className="text-center">{dict.welcome.replaceAll('{}', sessionInfo.name)}</p>
+      <Announcements dict={dict} />
       <section className="border rounded p-2">
         <h2 className="text-h2 mb-2">{dict.google.title}</h2>
         <p>{dict.google.description}</p>

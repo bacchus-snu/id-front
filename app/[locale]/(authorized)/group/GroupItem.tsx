@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import type { Group } from '@/api';
+import type { Announcement, Group } from '@/api';
 import Button from '@/components/Button';
 import useLocaleDict from '@/components/LocaleDict';
 import { useToast } from '@/components/NotificationContext';
@@ -27,11 +27,12 @@ function membershipStateFromGroup(group: Group): MembershipState {
 
 type Props = {
   group: Group;
+  promotion?: Announcement;
 };
 export default function GroupItem(props: Props) {
   const router = useRouter();
 
-  const { group } = props;
+  const { group, promotion } = props;
   const { dict } = useLocaleDict();
   const groupsDict = dict.groups;
   const showToast = useToast();
@@ -141,10 +142,27 @@ export default function GroupItem(props: Props) {
       break;
   }
 
+  const badge = promotion && (
+    <a
+      className="text-xs font-bold px-2 py-0.5 rounded-full bg-primary-600 text-white dark:bg-primary-300 dark:text-black"
+      href={promotion.url ?? undefined}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {promotion.title}
+    </a>
+  );
+
   return (
-    <div className="border rounded p-2">
+    <div
+      className={'rounded p-2 '
+        + (promotion ? 'border-2 border-primary-600 dark:border-primary-300' : 'border')}
+    >
       <div className="flex flex-row items-baseline justify-between">
-        <h3 className="text-h3">{group.name}</h3>
+        <div className="flex flex-row items-baseline gap-2">
+          <h3 className="text-h3">{group.name}</h3>
+          {badge}
+        </div>
         {joinState}
       </div>
       <p className="text-dimmed">

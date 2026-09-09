@@ -104,6 +104,9 @@
       ]
     }
   },
+  "announcements": {
+    "open": "Open"
+  },
   "groups": {
     "joinedGroups": "Current groups joined: ",
     "groupLoading": "(loading)",
