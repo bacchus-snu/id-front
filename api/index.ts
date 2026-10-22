@@ -37,8 +37,8 @@ export async function checkSession(): Promise<CheckSessionResult> {
 const listGroupsSchema = z.array(
   z.object({
     idx: z.number(),
-    name: z.record(z.string()),
-    description: z.record(z.string()),
+    name: z.record(z.string(), z.string()),
+    description: z.record(z.string(), z.string()),
     identifier: z.string(),
     isPending: z.boolean(),
     isMember: z.boolean(),
@@ -86,8 +86,8 @@ export async function listGroups(): Promise<Group[]> {
 const listAnnouncementsSchema = z.array(
   z.object({
     idx: z.number(),
-    title: z.record(z.string()),
-    body: z.record(z.string()),
+    title: z.record(z.string(), z.string()),
+    body: z.record(z.string(), z.string()),
     url: z.string().nullable(),
     groupIdx: z.number().nullable(),
   }),
@@ -100,7 +100,7 @@ export type Announcement = {
   groupIdx: number | null;
 };
 export async function listAnnouncements(): Promise<Announcement[]> {
-  let locale = getLocaleFromCookie();
+  let locale = await getLocaleFromCookie();
   if (locale !== 'ko' && locale !== 'en') {
     locale = 'en';
   }

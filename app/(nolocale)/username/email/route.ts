@@ -5,7 +5,7 @@ import { apiUrl } from '@/api';
 import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 const bodySchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
 });
 export async function POST(request: Request): Promise<Response> {
   let body;

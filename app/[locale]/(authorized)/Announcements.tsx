@@ -5,7 +5,7 @@ export default async function Announcements({ dict }: { dict: Dict }) {
   let announcements: Announcement[];
   try {
     announcements = await listAnnouncements();
-  } catch (e) {
+  } catch {
     return null;
   }
 

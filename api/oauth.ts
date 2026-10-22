@@ -5,7 +5,7 @@ import { apiUrl, ForbiddenError } from '.';
 const consentDetailsSchema = z.object({
   missingOIDCScope: z.optional(z.array(z.string())),
   missingOIDCClaims: z.optional(z.array(z.string())),
-  missingResourceScopes: z.optional(z.record(z.array(z.string()))),
+  missingResourceScopes: z.optional(z.record(z.string(), z.array(z.string()))),
 });
 export type ConsentDetails = z.infer<typeof consentDetailsSchema>;
 

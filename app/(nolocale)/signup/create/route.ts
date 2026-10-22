@@ -6,13 +6,13 @@ import mapError from '@/api/mapError';
 import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 const bodySchema = z.object({
-  token: z.string().nonempty('tokenRequired'),
+  token: z.string().min(1, 'tokenRequired'),
   username: z.string().regex(/^[a-z][a-z0-9]+$/, 'usernameInvalid'),
   password: z.string().min(8, 'passwordTooShort'),
-  name: z.string().nonempty('nameRequired'),
+  name: z.string().min(1, 'nameRequired'),
   studentNumbers: z.array(
     z.string().regex(/^\d{4}-\d{4,5}|\d{5}-\d{3}$/, 'studentNumberInvalid'),
-  ).nonempty('studentNumberRequired'),
+  ).min(1, 'studentNumberRequired'),
   preferredLanguage: z.union([z.literal('ko'), z.literal('en')]),
 });
 
@@ -25,7 +25,7 @@ export async function POST(req: Request): Promise<Response> {
     body = bodySchema.parse(await req.json());
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const errors = e.errors.map(error => mapError(error, dict));
+      const errors = e.issues.map(error => mapError(error, dict));
       return NextResponse.json(
         { message: e.message, errors },
         { status: 400 },

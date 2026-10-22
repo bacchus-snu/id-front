@@ -41,7 +41,7 @@ export default async function Group(props: Props) {
   let promotions: Announcement[] = [];
   try {
     promotions = (await listAnnouncements()).filter(a => a.groupIdx != null);
-  } catch (e) {
+  } catch {
     // the list is still usable without them
   }
   const promoted = new Map(promotions.map(a => [a.groupIdx, a]));
