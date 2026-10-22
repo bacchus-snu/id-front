@@ -39,8 +39,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --chown=nextjs:nodejs package.json yarn.lock .yarnrc.yml ./
-COPY --from=deps --chown=nextjs:nodejs /app/.yarn ./.yarn
+COPY --chown=nextjs:nodejs package.json ./
 COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 COPY --chown=nextjs:nodejs next.config.js .env* ./
@@ -52,4 +51,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["yarn", "start"]
+CMD ["node_modules/.bin/next", "start"]
