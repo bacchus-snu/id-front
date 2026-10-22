@@ -16,6 +16,7 @@ export default function MemberItem(props: Props) {
       <td className="h-full border-r">
         <label className="cursor-pointer h-full flex items-center justify-center px-2">
           <input
+            aria-label="선택"
             className="cursor-pointer"
             type="checkbox"
             checked={props.checked}

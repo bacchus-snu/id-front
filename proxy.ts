@@ -33,7 +33,7 @@ function getLocale(request: Request) {
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.search;
-  if (/^\/oauth\/[^\/]+\/action\//.test(pathname)) {
+  if (/^\/oauth\/[^/]+\/action\//.test(pathname)) {
     // /oauth/:uid/action/:rest*
     // 백엔드로 그대로 전달
     const url = new URL(request.nextUrl.pathname + request.nextUrl.search, process.env.API_BASE);
@@ -51,9 +51,9 @@ export function proxy(request: NextRequest) {
   let matchingLocale;
   if (
     ['/signup/email', '/signup/create', '/password/email', '/password/change', '/user/student-numbers', '/user/email', '/username/email'].includes(pathname) ||
-    /^\/group\/[^\/]+\/membership$/.test(pathname) ||
-    /^\/session\/[^\/]+$/.test(pathname) ||
-    /^\/oauth\/[^\/]+$/.test(pathname)
+    /^\/group\/[^/]+\/membership$/.test(pathname) ||
+    /^\/session\/[^/]+$/.test(pathname) ||
+    /^\/oauth\/[^/]+$/.test(pathname)
   ) {
     matchingLocale = cookieLocale ?? getLocale(request);
 

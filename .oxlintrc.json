@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "react",
+    "nextjs",
+    "import",
+    "jsx-a11y"
+  ],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
+    "typescript/consistent-type-definitions": [
+      "error",
+      "type"
+    ]
+  },
+  "env": {
+    "browser": true,
+    "builtin": true,
+    "node": true
+  },
+  "ignorePatterns": [
+    ".next/**",
+    ".yarn/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "proxy.ts"
+      ],
+      "rules": {
+        "no-useless-escape": "off"
+      }
+    }
+  ]
+}

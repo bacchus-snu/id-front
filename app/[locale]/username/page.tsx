@@ -23,6 +23,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-export default async function UsernamePage({}: Props) {
+export default async function UsernamePage() {
   return <EmailForm />;
 }
