@@ -83,6 +83,44 @@ export async function listGroups(): Promise<Group[]> {
   }));
 }
 
+const listAnnouncementsSchema = z.array(
+  z.object({
+    idx: z.number(),
+    title: z.record(z.string()),
+    body: z.record(z.string()),
+    url: z.string().nullable(),
+    groupIdx: z.number().nullable(),
+  }),
+);
+export type Announcement = {
+  idx: number;
+  title: string;
+  body: string;
+  url: string | null;
+  groupIdx: number | null;
+};
+export async function listAnnouncements(): Promise<Announcement[]> {
+  let locale = getLocaleFromCookie();
+  if (locale !== 'ko' && locale !== 'en') {
+    locale = 'en';
+  }
+
+  const resp = await fetch(apiUrl('/api/announcements'), { cache: 'no-store' });
+  if (!resp.ok) {
+    throw new Error('공지 목록을 가져오는 데 실패했습니다.');
+  }
+
+  const body = listAnnouncementsSchema.parse(await resp.json());
+  return body.map(value => ({
+    idx: value.idx,
+    title: value.title[locale] ?? '',
+    body: value.body[locale] ?? '',
+    // rendered as href: only web links
+    url: value.url != null && /^https?:\/\//i.test(value.url) ? value.url : null,
+    groupIdx: value.groupIdx,
+  }));
+}
+
 const emailSchema = z.object({
   local: z.string(),
   domain: z.string(),
