@@ -8,12 +8,18 @@ type Props = {
   signin: React.ReactNode;
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: Locale };
-  signin: React.ReactNode;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ locale: Locale }>;
+    signin: React.ReactNode;
+  },
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+  } = params;
+
   const sessionInfo = await checkSession();
   if (sessionInfo.signedIn) {
     return {};

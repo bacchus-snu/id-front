@@ -4,21 +4,25 @@ import { Metadata } from 'next';
 import EmailForm from './EmailForm';
 
 type Props = {
-  params: { locale: Locale };
-  searchParams: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{
     token?: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+  } = params;
+
   const dict = await getDictionary(locale);
   return {
     title: dict.title.findUsername,
   };
 }
 
-export default async function UsernamePage({}: Props) {
+export default async function UsernamePage() {
   return <EmailForm />;
 }

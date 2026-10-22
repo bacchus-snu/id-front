@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { apiUrl } from '@/api';
 
 export async function GET(): Promise<Response> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl('/api/google/auth'), {
     headers: { cookie },
     redirect: 'manual',

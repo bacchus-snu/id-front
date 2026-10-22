@@ -6,12 +6,12 @@ import mapError from '@/api/mapError';
 import { getDictionary, getLocaleFromCookie } from '@/locale';
 
 const bodySchema = z.object({
-  token: z.string().nonempty('tokenRequired'),
+  token: z.string().min(1, 'tokenRequired'),
   password: z.string().min(8, 'passwordTooShort'),
 });
 
 export async function POST(request: Request): Promise<Response> {
-  const locale = getLocaleFromCookie();
+  const locale = await getLocaleFromCookie();
   const dict = await getDictionary(locale);
 
   let body;
@@ -19,7 +19,7 @@ export async function POST(request: Request): Promise<Response> {
     body = bodySchema.parse(await request.json());
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const errors = e.errors.map(error => mapError(error, dict));
+      const errors = e.issues.map(error => mapError(error, dict));
       return NextResponse.json(
         { message: e.message, errors },
         { status: 400 },

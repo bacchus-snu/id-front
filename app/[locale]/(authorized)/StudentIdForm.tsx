@@ -100,63 +100,66 @@ export default function StudentIdForm({ studentNumbers }: { studentNumbers: stri
 
       {/* Current student numbers with delete */}
       <p className="mt-2">{d.currentStudentId}</p>
-      {studentNumbers.length === 0 ? (
-        <p className="text-dimmed">-</p>
-      ) : (
-        <ul className="mt-1 space-y-2">
-          {[...studentNumbers].sort().map(sn => (
-            <li key={sn}>
-              <div className="flex items-center gap-2">
-                <span className="font-mono">{sn}</span>
-                <Button
-                  color="accent"
-                  className="text-xs px-2 py-0.5"
-                  disabled={deleting !== null}
-                  onClick={() => openConfirm(sn)}
-                >
-                  {d.buttonDelete}
-                </Button>
-              </div>
-              {confirmTarget === sn && (
-                <div className="mt-1 ml-4 border border-red-400 rounded p-2 space-y-2">
-                  <p className="text-sm text-red-500">
-                    {d.deleteConfirmMessage.replace('{}', sn)}
-                  </p>
-                  <input
-                    type="text"
-                    className="w-full bg-transparent border rounded p-1 text-sm font-mono"
-                    placeholder={sn}
-                    value={confirmInput}
-                    onChange={e => setConfirmInput(e.target.value)}
-                    aria-label={d.deleteConfirmInput}
-                  />
-                  <p className="text-xs text-dimmed">{d.deleteConfirmInput}</p>
-                  <div className="flex gap-2">
-                    <Button
-                      color="accent"
-                      className="text-xs px-2 py-0.5"
-                      disabled={confirmInput !== sn || deleting === sn}
-                      onClick={() => handleDelete(sn)}
-                    >
-                      {deleting === sn ? '...' : d.deleteConfirmButton}
-                    </Button>
-                    <Button
-                      className="text-xs px-2 py-0.5"
-                      disabled={deleting === sn}
-                      onClick={closeConfirm}
-                    >
-                      {d.deleteCancel}
-                    </Button>
-                  </div>
+      {studentNumbers.length === 0
+        ? <p className="text-dimmed">-</p>
+        : (
+          <ul className="mt-1 space-y-2">
+            {[...studentNumbers].sort().map(sn => (
+              <li key={sn}>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono">{sn}</span>
+                  <Button
+                    color="accent"
+                    className="text-xs px-2 py-0.5"
+                    disabled={deleting !== null}
+                    onClick={() => openConfirm(sn)}
+                  >
+                    {d.buttonDelete}
+                  </Button>
                 </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+                {confirmTarget === sn && (
+                  <div className="mt-1 ml-4 border border-red-400 rounded p-2 space-y-2">
+                    <p className="text-sm text-red-500">
+                      {d.deleteConfirmMessage.replace('{}', sn)}
+                    </p>
+                    <input
+                      type="text"
+                      className="w-full bg-transparent border rounded p-1 text-sm font-mono"
+                      placeholder={sn}
+                      value={confirmInput}
+                      onChange={e => setConfirmInput(e.target.value)}
+                      aria-label={d.deleteConfirmInput}
+                    />
+                    <p className="text-xs text-dimmed">{d.deleteConfirmInput}</p>
+                    <div className="flex gap-2">
+                      <Button
+                        color="accent"
+                        className="text-xs px-2 py-0.5"
+                        disabled={confirmInput !== sn || deleting === sn}
+                        onClick={() => handleDelete(sn)}
+                      >
+                        {deleting === sn ? '...' : d.deleteConfirmButton}
+                      </Button>
+                      <Button
+                        className="text-xs px-2 py-0.5"
+                        disabled={deleting === sn}
+                        onClick={closeConfirm}
+                      >
+                        {d.deleteCancel}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
 
       {/* Add student number form */}
-      <form className="flex flex-row flex-wrap justify-end items-end gap-2 mt-4" onSubmit={handleAdd}>
+      <form
+        className="flex flex-row flex-wrap justify-end items-end gap-2 mt-4"
+        onSubmit={handleAdd}
+      >
         <div className="w-full flex-none md:flex-1">
           <InputField
             label={d.add}

@@ -18,7 +18,7 @@ export function getDictionary(locale: Locale): Promise<Dict> {
   return dict[locale]();
 }
 
-export function getLocaleFromCookie(): Locale {
-  const locale = headers().get('x-new-locale') ?? cookies().get('locale')?.value;
+export async function getLocaleFromCookie(): Promise<Locale> {
+  const locale = (await headers()).get('x-new-locale') ?? (await cookies()).get('locale')?.value;
   return (locale ?? 'ko') as Locale;
 }

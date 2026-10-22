@@ -5,7 +5,7 @@ import { apiUrl, ForbiddenError } from '.';
 const consentDetailsSchema = z.object({
   missingOIDCScope: z.optional(z.array(z.string())),
   missingOIDCClaims: z.optional(z.array(z.string())),
-  missingResourceScopes: z.optional(z.record(z.array(z.string()))),
+  missingResourceScopes: z.optional(z.record(z.string(), z.array(z.string()))),
 });
 export type ConsentDetails = z.infer<typeof consentDetailsSchema>;
 
@@ -36,7 +36,7 @@ const interactionDetailsSchema = z.object({
 export type InteractionDetails = z.infer<typeof interactionDetailsSchema>;
 
 export async function getInteractionDetails(uid: string): Promise<InteractionDetails> {
-  const cookie = headers().get('cookie') || '';
+  const cookie = (await headers()).get('cookie') || '';
   const resp = await fetch(apiUrl(`/oauth/${uid}/details`), {
     method: 'get',
     headers: { cookie },

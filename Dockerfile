@@ -1,6 +1,6 @@
 # From https://github.com/vercel/next.js/blob/18d112fb5ca62bdb7b1361a65c7e33615d16bdd1/examples/with-docker/Dockerfile
 
-FROM node:20-alpine AS base
+FROM node:24-alpine AS base
 # Use /app/.yarn/cache instead of global cache
 ENV YARN_ENABLE_GLOBAL_CACHE=false
 
@@ -40,8 +40,8 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --chown=nextjs:nodejs package.json yarn.lock .yarnrc.yml ./
-COPY --from=deps --chown=nextjs:nodejs /app/.pnp.* ./
 COPY --from=deps --chown=nextjs:nodejs /app/.yarn ./.yarn
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 COPY --chown=nextjs:nodejs next.config.js .env* ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next

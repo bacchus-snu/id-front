@@ -10,7 +10,7 @@
     "{api,app,components}/**/*.{ts,tsx,js,jsx,cjs,mjs}",
     "next.config.js",
     "postcss.config.js",
-    "tailwind.config.js"
+    "tailwind.config.mjs"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.87.1.wasm"

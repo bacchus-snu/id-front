@@ -30,7 +30,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = getLocaleFromCookie();
+  const locale = await getLocaleFromCookie();
   const dict = await getDictionary(locale);
   return (
     <html lang={locale}>
@@ -43,7 +43,7 @@ export default async function RootLayout({
           <LocaleDictProvider locale={locale} dict={dict}>
             <CheckSession />
             <Nav />
-            <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
+            <main className="w-full max-w-3xl self-center flex-1 flex flex-col items-stretch px-8 py-16">
               {children}
             </main>
           </LocaleDictProvider>

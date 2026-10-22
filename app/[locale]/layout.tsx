@@ -25,13 +25,23 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({
-  params: { locale },
-  children,
-}: {
-  params: { locale: Locale };
-  children: React.ReactNode;
-}) {
+export default async function RootLayout(
+  props: {
+    params: Promise<{ locale: string }>;
+    children: React.ReactNode;
+  },
+) {
+  const params = await props.params;
+
+  const {
+    locale: localeParam,
+  } = params;
+  const locale = localeParam as Locale;
+
+  const {
+    children,
+  } = props;
+
   const dict = await getDictionary(locale);
   return (
     <html lang={locale}>
@@ -44,7 +54,7 @@ export default async function RootLayout({
           <LocaleDictProvider locale={locale} dict={dict}>
             <CheckSession />
             <Nav />
-            <main className="w-full max-w-screen-md self-center flex-1 flex flex-col items-stretch px-8 py-16">
+            <main className="w-full max-w-3xl self-center flex-1 flex flex-col items-stretch px-8 py-16">
               {children}
             </main>
           </LocaleDictProvider>

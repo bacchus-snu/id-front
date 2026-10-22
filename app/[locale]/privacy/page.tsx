@@ -3,19 +3,19 @@ import { Metadata } from 'next';
 import { getDictionary, Locale } from '@/locale';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   const dict = await getDictionary(locale);
   return {
     title: dict.title.privacyPolicy,
   };
 }
 
-export default async function PrivacyPolicy({ params: { locale } }: Props) {
+export default async function PrivacyPolicy({ params }: Props) {
+  const { locale } = await params;
   const { privacyPolicy } = await getDictionary(locale);
 
   return (

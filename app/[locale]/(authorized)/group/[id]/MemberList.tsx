@@ -179,7 +179,9 @@ export default function MemberList(props: Props) {
       <table className="table-fixed border">
         <thead>
           <tr className="h-8">
-            <th className="border w-8"></th>
+            <th className="border w-8">
+              <span className="sr-only">선택</span>
+            </th>
             <th className="border w-1/4">유저명</th>
             <th className="border w-1/4">학번</th>
             <th className="border">이름</th>
