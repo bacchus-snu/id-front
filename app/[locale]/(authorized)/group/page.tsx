@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 
 import { Announcement, listAnnouncements, listGroups } from '@/api';
+import ClientRedirect from '@/components/ClientRedirect';
 import { getDictionary, Locale } from '@/locale';
 
 import GroupItem from './GroupItem';
@@ -34,7 +34,7 @@ export default async function Group(props: Props) {
   try {
     groups = await listGroups();
   } catch {
-    redirect('/signin');
+    return <ClientRedirect to={`/${locale}/signin`} />;
   }
 
   // groups promoted by a current announcement come first

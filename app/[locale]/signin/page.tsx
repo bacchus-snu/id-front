@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 
 import { checkSession } from '@/api';
+import ClientRedirect from '@/components/ClientRedirect';
 import SignIn from '@/components/SignIn';
 import { getDictionary, Locale } from '@/locale';
 
@@ -35,7 +35,7 @@ export default async function Login(
 
   const sessionInfo = await checkSession();
   if (sessionInfo.signedIn) {
-    redirect('/');
+    return <ClientRedirect to={`/${locale}/`} />;
   }
 
   return <SignIn locale={locale} />;
