@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 import { checkSession } from '@/api';
+import ClientRedirect from '@/components/ClientRedirect';
 import { getDictionary, Locale } from '@/locale';
 
 import Announcements from './Announcements';
@@ -23,7 +23,7 @@ export default async function Home(props: Props) {
 
   const sessionInfo = await checkSession();
   if (!sessionInfo.signedIn) {
-    redirect('/signin');
+    return <ClientRedirect to={`/${locale}/signin`} />;
   }
 
   const dict = await getDictionary(locale);

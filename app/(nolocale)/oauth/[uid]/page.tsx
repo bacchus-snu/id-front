@@ -1,7 +1,6 @@
-import { redirect, RedirectType } from 'next/navigation';
-
 import { getInteractionDetails } from '@/api/oauth';
 
+import ClientRedirect from '@/components/ClientRedirect';
 import OAuthConsent from './OAuthConsent';
 
 type Props = {
@@ -20,7 +19,7 @@ export default async function OAuthPage(props: Props) {
   const interactionDetails = await getInteractionDetails(uid);
 
   if (interactionDetails.prompt.name === 'login') {
-    redirect(`/signin?uid=${encodeURIComponent(uid)}`, RedirectType.replace);
+    return <ClientRedirect to={`/signin?uid=${encodeURIComponent(uid)}`} />;
   }
 
   if (interactionDetails.prompt.name === 'consent') {
